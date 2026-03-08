@@ -1,0 +1,1636 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WorkGuardAi — AI Monitoring for Smarter Site Management</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #0a0a12;
+    --white: #f5f4ef;
+    --accent: #5b4fff;
+    --accent2: #00d4aa;
+    --mid: #1a1a2e;
+    --muted: #6b6b80;
+    --border: rgba(91,79,255,0.18);
+    --glass: rgba(255,255,255,0.04);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--ink);
+    color: var(--white);
+    overflow-x: hidden;
+  }
+
+  /* ── NOISE OVERLAY ── */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.5;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.2rem 4rem;
+    backdrop-filter: blur(18px);
+    background: rgba(10,10,18,0.7);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .nav-logo {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: 1.1rem;
+    letter-spacing: -0.02em;
+    color: var(--white);
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .nav-logo .wg-tag {
+    background: var(--accent);
+    color: #fff;
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    padding: 0.15rem 0.45rem;
+    border-radius: 3px;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 2.5rem;
+    list-style: none;
+  }
+
+  .nav-links a {
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 0.88rem;
+    font-weight: 400;
+    letter-spacing: 0.01em;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--white); }
+
+  .nav-actions {
+    display: flex;
+    gap: 0.8rem;
+    align-items: center;
+  }
+
+  .btn-ghost {
+    background: transparent;
+    border: 1px solid var(--border);
+    color: var(--white);
+    padding: 0.55rem 1.2rem;
+    border-radius: 6px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: all 0.2s;
+    text-decoration: none;
+  }
+  .btn-ghost:hover { border-color: var(--accent); color: var(--accent); }
+
+  .btn-primary {
+    background: var(--accent);
+    border: none;
+    color: #fff;
+    padding: 0.55rem 1.3rem;
+    border-radius: 6px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+    text-decoration: none;
+  }
+  .btn-primary:hover { background: #4a3fee; transform: translateY(-1px); }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    padding: 8rem 4rem 4rem;
+    position: relative;
+    gap: 4rem;
+  }
+
+  /* Grid lines background */
+  .hero::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(91,79,255,0.06) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(91,79,255,0.06) 1px, transparent 1px);
+    background-size: 60px 60px;
+    pointer-events: none;
+  }
+
+  /* Glow blob */
+  .glow-blob {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(120px);
+    pointer-events: none;
+  }
+  .glow-blob-1 {
+    width: 500px; height: 500px;
+    background: rgba(91,79,255,0.18);
+    top: 10%; right: 10%;
+  }
+  .glow-blob-2 {
+    width: 300px; height: 300px;
+    background: rgba(0,212,170,0.1);
+    bottom: 20%; left: 30%;
+  }
+
+  .hero-left { position: relative; z-index: 2; }
+
+  .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: rgba(91,79,255,0.12);
+    border: 1px solid rgba(91,79,255,0.3);
+    border-radius: 100px;
+    padding: 0.35rem 0.9rem;
+    font-size: 0.78rem;
+    font-weight: 500;
+    color: #a89fff;
+    margin-bottom: 1.8rem;
+    animation: fadeUp 0.6s ease both;
+  }
+  .hero-badge::before {
+    content: '';
+    width: 6px; height: 6px;
+    background: var(--accent2);
+    border-radius: 50%;
+    animation: pulse 2s infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(1.5); }
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  h1 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(2.8rem, 4.5vw, 4.2rem);
+    font-weight: 800;
+    line-height: 1.05;
+    letter-spacing: -0.03em;
+    margin-bottom: 1.5rem;
+    animation: fadeUp 0.7s 0.1s ease both;
+  }
+
+  h1 .accent-text {
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .hero-sub {
+    font-size: 1.05rem;
+    line-height: 1.75;
+    color: var(--muted);
+    max-width: 480px;
+    margin-bottom: 2.5rem;
+    font-weight: 300;
+    animation: fadeUp 0.7s 0.2s ease both;
+  }
+
+  .hero-ctas {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 3rem;
+    animation: fadeUp 0.7s 0.3s ease both;
+  }
+
+  .btn-large {
+    padding: 0.85rem 2rem;
+    font-size: 0.95rem;
+    border-radius: 8px;
+  }
+
+  .hero-stats {
+    display: flex;
+    gap: 2.5rem;
+    animation: fadeUp 0.7s 0.4s ease both;
+  }
+
+  .stat-item { }
+  .stat-num {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.8rem;
+    font-weight: 800;
+    color: var(--white);
+    line-height: 1;
+  }
+  .stat-label {
+    font-size: 0.78rem;
+    color: var(--muted);
+    margin-top: 0.2rem;
+    font-weight: 400;
+  }
+
+  /* ── DASHBOARD MOCKUP ── */
+  .hero-right {
+    position: relative;
+    z-index: 2;
+    animation: fadeUp 0.8s 0.2s ease both;
+  }
+
+  .dashboard-mockup {
+    background: rgba(26,26,46,0.8);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    overflow: hidden;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 40px 80px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,255,255,0.05);
+  }
+
+  .mockup-topbar {
+    background: rgba(255,255,255,0.03);
+    border-bottom: 1px solid var(--border);
+    padding: 0.9rem 1.2rem;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+  }
+
+  .dot { width: 10px; height: 10px; border-radius: 50%; }
+  .dot-r { background: #ff5f57; }
+  .dot-y { background: #febc2e; }
+  .dot-g { background: #28c840; }
+
+  .mockup-title {
+    font-size: 0.75rem;
+    color: var(--muted);
+    margin-left: auto;
+    font-family: 'Syne', sans-serif;
+    letter-spacing: 0.08em;
+  }
+
+  .mockup-body {
+    padding: 1.5rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+  }
+
+  .mockup-card {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 1rem;
+  }
+
+  .mockup-card-label {
+    font-size: 0.65rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 0.6rem;
+  }
+
+  .progress-bar-wrap {
+    background: rgba(255,255,255,0.07);
+    border-radius: 4px;
+    height: 6px;
+    margin-bottom: 0.6rem;
+    overflow: hidden;
+  }
+
+  .progress-fill {
+    height: 100%;
+    border-radius: 4px;
+    background: linear-gradient(90deg, var(--accent), var(--accent2));
+    animation: growBar 1.5s 0.5s ease both;
+    transform-origin: left;
+  }
+
+  @keyframes growBar {
+    from { transform: scaleX(0); }
+    to { transform: scaleX(1); }
+  }
+
+  .prog-40 { width: 40%; }
+  .prog-67 { width: 67%; }
+  .prog-85 { width: 85%; }
+  .prog-23 { width: 23%; }
+
+  .mockup-stat-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.75rem;
+    color: var(--muted);
+  }
+  .mockup-stat-row span:first-child { color: var(--white); font-weight: 500; }
+
+  .badge-alert {
+    display: inline-block;
+    background: rgba(255,80,80,0.15);
+    border: 1px solid rgba(255,80,80,0.3);
+    color: #ff8080;
+    font-size: 0.65rem;
+    padding: 0.15rem 0.5rem;
+    border-radius: 4px;
+    margin-top: 0.4rem;
+  }
+
+  .badge-ok {
+    display: inline-block;
+    background: rgba(0,212,170,0.12);
+    border: 1px solid rgba(0,212,170,0.25);
+    color: var(--accent2);
+    font-size: 0.65rem;
+    padding: 0.15rem 0.5rem;
+    border-radius: 4px;
+    margin-top: 0.4rem;
+  }
+
+  .iot-card {
+    grid-column: span 2;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .iot-signal {
+    display: flex;
+    gap: 3px;
+    align-items: flex-end;
+  }
+  .signal-bar {
+    width: 5px;
+    border-radius: 2px;
+    background: var(--accent);
+    animation: signalPulse 1.5s ease infinite;
+  }
+  .signal-bar:nth-child(1) { height: 8px; animation-delay: 0s; }
+  .signal-bar:nth-child(2) { height: 14px; animation-delay: 0.2s; }
+  .signal-bar:nth-child(3) { height: 20px; animation-delay: 0.4s; }
+  .signal-bar:nth-child(4) { height: 26px; animation-delay: 0.6s; }
+
+  @keyframes signalPulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.4; }
+  }
+
+  /* ── SECTION SHARED ── */
+  section { position: relative; z-index: 1; }
+
+  .section-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 4rem;
+  }
+
+  .section-label {
+    font-size: 0.72rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--accent);
+    font-weight: 600;
+    margin-bottom: 1rem;
+  }
+
+  .section-title {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(2rem, 3vw, 2.8rem);
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    line-height: 1.1;
+    margin-bottom: 1.2rem;
+  }
+
+  .section-sub {
+    color: var(--muted);
+    font-size: 1rem;
+    line-height: 1.75;
+    max-width: 520px;
+    font-weight: 300;
+  }
+
+  /* ── LOGOS ── */
+  .logos-section {
+    padding: 3rem 0;
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    overflow: hidden;
+  }
+
+  .logos-track {
+    display: flex;
+    gap: 3rem;
+    align-items: center;
+    animation: scrollLogos 20s linear infinite;
+    white-space: nowrap;
+  }
+
+  @keyframes scrollLogos {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+
+  .logo-item {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    color: var(--muted);
+    text-transform: uppercase;
+    white-space: nowrap;
+    padding: 0 1rem;
+    opacity: 0.6;
+    transition: opacity 0.2s;
+  }
+  .logo-item:hover { opacity: 1; }
+
+  /* ── HOW IT WORKS ── */
+  .how-section {
+    padding: 7rem 0;
+  }
+
+  .how-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5rem;
+    align-items: center;
+    margin-top: 4rem;
+  }
+
+  .steps-list { display: flex; flex-direction: column; gap: 2rem; }
+
+  .step-item {
+    display: flex;
+    gap: 1.2rem;
+    align-items: flex-start;
+    cursor: pointer;
+    padding: 1.2rem;
+    border-radius: 12px;
+    border: 1px solid transparent;
+    transition: all 0.25s;
+  }
+  .step-item:hover, .step-item.active {
+    background: var(--glass);
+    border-color: var(--border);
+  }
+
+  .step-num {
+    flex-shrink: 0;
+    width: 36px; height: 36px;
+    border-radius: 8px;
+    background: rgba(91,79,255,0.15);
+    border: 1px solid rgba(91,79,255,0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Syne', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--accent);
+  }
+
+  .step-content h4 {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 700;
+    margin-bottom: 0.4rem;
+  }
+  .step-content p {
+    font-size: 0.85rem;
+    color: var(--muted);
+    line-height: 1.65;
+  }
+
+  /* Feature visual */
+  .feature-visual {
+    background: var(--mid);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 2rem;
+    min-height: 380px;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .viz-row {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 4px;
+  }
+
+  .viz-cell {
+    aspect-ratio: 1;
+    border-radius: 4px;
+    transition: opacity 0.3s;
+  }
+  .viz-cell.done { background: var(--accent2); opacity: 0.9; }
+  .viz-cell.active { background: var(--accent); opacity: 1; animation: cellPulse 1s ease infinite; }
+  .viz-cell.pending { background: rgba(255,255,255,0.08); }
+  .viz-cell.alert { background: #ff5050; opacity: 0.8; }
+
+  @keyframes cellPulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.6; }
+  }
+
+  .viz-legend {
+    display: flex;
+    gap: 1.2rem;
+    margin-top: auto;
+  }
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.72rem;
+    color: var(--muted);
+  }
+  .legend-dot {
+    width: 8px; height: 8px;
+    border-radius: 2px;
+  }
+
+  /* ── FEATURES ── */
+  .features-section {
+    padding: 7rem 0;
+    background: linear-gradient(180deg, transparent, rgba(26,26,46,0.4), transparent);
+  }
+
+  .features-header {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: end;
+    margin-bottom: 4rem;
+  }
+
+  .features-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+  }
+
+  .feature-card {
+    background: var(--glass);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 1.8rem;
+    transition: all 0.3s;
+    cursor: default;
+  }
+  .feature-card:hover {
+    border-color: rgba(91,79,255,0.4);
+    background: rgba(91,79,255,0.06);
+    transform: translateY(-3px);
+  }
+
+  .feature-icon {
+    width: 44px; height: 44px;
+    border-radius: 10px;
+    background: rgba(91,79,255,0.15);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.3rem;
+    margin-bottom: 1.2rem;
+  }
+
+  .feature-card h4 {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+  }
+  .feature-card p {
+    font-size: 0.83rem;
+    color: var(--muted);
+    line-height: 1.65;
+  }
+
+  .feature-tag {
+    display: inline-block;
+    margin-top: 0.8rem;
+    font-size: 0.68rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--accent2);
+    background: rgba(0,212,170,0.1);
+    border: 1px solid rgba(0,212,170,0.2);
+    padding: 0.18rem 0.55rem;
+    border-radius: 4px;
+  }
+
+  /* ── IoT SECTION ── */
+  .iot-section {
+    padding: 7rem 0;
+  }
+
+  .iot-inner {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5rem;
+    align-items: center;
+  }
+
+  .iot-visual {
+    position: relative;
+  }
+
+  .iot-diagram {
+    background: var(--mid);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 2.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .iot-diagram::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at center bottom, rgba(0,212,170,0.08), transparent 70%);
+    pointer-events: none;
+  }
+
+  .iot-node {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 0.8rem 1.5rem;
+    font-size: 0.8rem;
+    font-weight: 500;
+    text-align: center;
+    width: 100%;
+    position: relative;
+    transition: border-color 0.3s;
+  }
+  .iot-node:hover { border-color: var(--accent2); }
+
+  .iot-node.hub {
+    background: rgba(91,79,255,0.15);
+    border-color: rgba(91,79,255,0.4);
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+  }
+
+  .iot-connector {
+    width: 1px;
+    height: 24px;
+    background: linear-gradient(180deg, var(--accent), var(--accent2));
+    opacity: 0.4;
+    position: relative;
+  }
+  .iot-connector::after {
+    content: '';
+    position: absolute;
+    top: 0; left: 50%;
+    transform: translateX(-50%);
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--accent);
+    animation: flowDown 1.5s linear infinite;
+  }
+  @keyframes flowDown {
+    from { top: 0; opacity: 1; }
+    to { top: 100%; opacity: 0; }
+  }
+
+  .iot-nodes-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.8rem;
+    width: 100%;
+  }
+
+  .iot-content h3 {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.8rem;
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    margin-bottom: 1rem;
+  }
+
+  .iot-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.9rem;
+    margin-top: 1.5rem;
+  }
+
+  .iot-list-item {
+    display: flex;
+    gap: 0.8rem;
+    align-items: flex-start;
+    font-size: 0.88rem;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+  .iot-list-item::before {
+    content: '→';
+    color: var(--accent2);
+    flex-shrink: 0;
+    font-size: 0.9rem;
+    margin-top: 0.05rem;
+  }
+
+  /* ── PRICING ── */
+  .pricing-section {
+    padding: 7rem 0;
+  }
+
+  .pricing-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    margin-top: 4rem;
+  }
+
+  .pricing-card {
+    background: var(--glass);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 2.5rem;
+    transition: all 0.3s;
+    position: relative;
+    overflow: hidden;
+  }
+  .pricing-card:hover {
+    transform: translateY(-4px);
+    border-color: rgba(91,79,255,0.35);
+  }
+
+  .pricing-card.featured {
+    background: rgba(91,79,255,0.1);
+    border-color: rgba(91,79,255,0.4);
+  }
+  .pricing-card.featured::before {
+    content: 'Most Popular';
+    position: absolute;
+    top: 1.2rem; right: 1.2rem;
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--accent);
+    background: rgba(91,79,255,0.15);
+    border: 1px solid rgba(91,79,255,0.3);
+    padding: 0.2rem 0.6rem;
+    border-radius: 4px;
+  }
+
+  .pricing-tier {
+    font-size: 0.75rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 0.8rem;
+  }
+
+  .pricing-price {
+    font-family: 'Syne', sans-serif;
+    font-size: 2.8rem;
+    font-weight: 800;
+    line-height: 1;
+    margin-bottom: 0.3rem;
+  }
+  .pricing-price sup {
+    font-size: 1.2rem;
+    font-weight: 600;
+    vertical-align: super;
+  }
+  .pricing-cadence {
+    font-size: 0.8rem;
+    color: var(--muted);
+    margin-bottom: 2rem;
+  }
+
+  .pricing-features {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.7rem;
+    margin-bottom: 2rem;
+  }
+  .pricing-features li {
+    font-size: 0.85rem;
+    color: var(--muted);
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+  }
+  .pricing-features li::before {
+    content: '✓';
+    color: var(--accent2);
+    font-weight: 700;
+    font-size: 0.8rem;
+    flex-shrink: 0;
+  }
+
+  .btn-pricing {
+    width: 100%;
+    padding: 0.8rem;
+    border-radius: 8px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.88rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+    text-align: center;
+    display: block;
+    text-decoration: none;
+  }
+  .btn-pricing-outline {
+    background: transparent;
+    border: 1px solid var(--border);
+    color: var(--white);
+  }
+  .btn-pricing-outline:hover { border-color: var(--accent); color: var(--accent); }
+  .btn-pricing-solid {
+    background: var(--accent);
+    border: none;
+    color: #fff;
+  }
+  .btn-pricing-solid:hover { background: #4a3fee; }
+
+  /* ── CTA ── */
+  .cta-section {
+    padding: 8rem 0;
+  }
+
+  .cta-box {
+    background: linear-gradient(135deg, rgba(91,79,255,0.15), rgba(0,212,170,0.08));
+    border: 1px solid rgba(91,79,255,0.25);
+    border-radius: 24px;
+    padding: 5rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .cta-box::before {
+    content: '';
+    position: absolute;
+    top: -100px; left: 50%;
+    transform: translateX(-50%);
+    width: 400px; height: 400px;
+    background: radial-gradient(circle, rgba(91,79,255,0.2), transparent 70%);
+    pointer-events: none;
+  }
+
+  .cta-box h2 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(2rem, 3.5vw, 3rem);
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    margin-bottom: 1rem;
+    position: relative;
+  }
+
+  .cta-box p {
+    color: var(--muted);
+    font-size: 1rem;
+    max-width: 480px;
+    margin: 0 auto 2.5rem;
+    line-height: 1.75;
+    position: relative;
+  }
+
+  .cta-actions {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    position: relative;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 3rem 4rem;
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+    gap: 4rem;
+    position: relative;
+    z-index: 1;
+  }
+
+  .footer-brand p {
+    font-size: 0.83rem;
+    color: var(--muted);
+    line-height: 1.7;
+    margin-top: 1rem;
+    max-width: 240px;
+  }
+
+  .footer-col h5 {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+    color: var(--white);
+  }
+
+  .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 0.6rem; }
+  .footer-col ul li a {
+    font-size: 0.83rem;
+    color: var(--muted);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .footer-col ul li a:hover { color: var(--white); }
+
+  .footer-bottom {
+    padding: 1.5rem 4rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid var(--border);
+    position: relative;
+    z-index: 1;
+  }
+
+  .footer-bottom p {
+    font-size: 0.78rem;
+    color: var(--muted);
+  }
+
+  /* ── MODAL ── */
+  .modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.8);
+    backdrop-filter: blur(8px);
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s;
+  }
+  .modal-overlay.open { opacity: 1; pointer-events: all; }
+
+  .modal {
+    background: var(--mid);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 3rem;
+    width: 100%;
+    max-width: 480px;
+    transform: scale(0.95) translateY(20px);
+    transition: transform 0.3s;
+    position: relative;
+  }
+  .modal-overlay.open .modal { transform: scale(1) translateY(0); }
+
+  .modal-close {
+    position: absolute;
+    top: 1.2rem; right: 1.2rem;
+    background: var(--glass);
+    border: 1px solid var(--border);
+    color: var(--muted);
+    width: 32px; height: 32px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+  }
+  .modal-close:hover { color: var(--white); border-color: var(--white); }
+
+  .modal h3 {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.6rem;
+    font-weight: 800;
+    margin-bottom: 0.4rem;
+  }
+  .modal p { font-size: 0.85rem; color: var(--muted); margin-bottom: 2rem; }
+
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    margin-bottom: 1rem;
+  }
+  .form-group label {
+    font-size: 0.78rem;
+    font-weight: 500;
+    color: var(--muted);
+    letter-spacing: 0.04em;
+  }
+  .form-group input, .form-group select, .form-group textarea {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 0.7rem 1rem;
+    color: var(--white);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.88rem;
+    outline: none;
+    transition: border-color 0.2s;
+    width: 100%;
+  }
+  .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+    border-color: var(--accent);
+  }
+  .form-group select option { background: var(--mid); }
+  .form-group textarea { resize: vertical; min-height: 80px; }
+
+  .modal-submit {
+    width: 100%;
+    background: var(--accent);
+    border: none;
+    color: #fff;
+    padding: 0.9rem;
+    border-radius: 8px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.92rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+    margin-top: 0.5rem;
+  }
+  .modal-submit:hover { background: #4a3fee; }
+
+  /* ── LOGIN MODAL ── */
+  .login-modal {}
+  .login-divider {
+    text-align: center;
+    font-size: 0.78rem;
+    color: var(--muted);
+    margin: 1rem 0;
+    position: relative;
+  }
+  .login-divider::before, .login-divider::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    width: 42%;
+    height: 1px;
+    background: var(--border);
+  }
+  .login-divider::before { left: 0; }
+  .login-divider::after { right: 0; }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 900px) {
+    nav { padding: 1rem 1.5rem; }
+    .nav-links { display: none; }
+    .hero { grid-template-columns: 1fr; padding: 7rem 1.5rem 3rem; gap: 3rem; }
+    .hero-right { display: none; }
+    .section-inner { padding: 0 1.5rem; }
+    .how-grid, .iot-inner { grid-template-columns: 1fr; gap: 3rem; }
+    .features-header { grid-template-columns: 1fr; gap: 1.5rem; }
+    .features-grid { grid-template-columns: 1fr; }
+    .pricing-grid { grid-template-columns: 1fr; }
+    footer { grid-template-columns: 1fr 1fr; gap: 2rem; padding: 2rem 1.5rem; }
+    .footer-bottom { padding: 1rem 1.5rem; flex-direction: column; gap: 0.5rem; text-align: center; }
+    .cta-box { padding: 3rem 1.5rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="#">
+    <span class="wg-tag">WG</span>
+    WorkGuardAi
+  </a>
+  <ul class="nav-links">
+    <li><a href="#how">How It Works</a></li>
+    <li><a href="#features">Features</a></li>
+    <li><a href="#iot">IoT Connectivity</a></li>
+    <li><a href="#pricing">Pricing</a></li>
+  </ul>
+  <div class="nav-actions">
+    <a href="#" class="btn-ghost" onclick="openModal('login'); return false;">Log In</a>
+    <a href="#" class="btn-primary" onclick="openModal('contact'); return false;">Get Started</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="glow-blob glow-blob-1"></div>
+  <div class="glow-blob glow-blob-2"></div>
+
+  <div class="hero-left">
+    <div class="hero-badge">AI-Powered Site Intelligence</div>
+    <h1>From Groundwork<br>to <span class="accent-text">Dashboard</span></h1>
+    <p class="hero-sub">WorkGuardAi monitors your construction and infrastructure sites in real time — comparing live progress against your plans with zero manual effort.</p>
+    <div class="hero-ctas">
+      <a href="#" class="btn-primary btn-large" onclick="openModal('contact'); return false;">Book a Demo</a>
+      <a href="#how" class="btn-ghost btn-large">See How It Works</a>
+    </div>
+    <div class="hero-stats">
+      <div class="stat-item">
+        <div class="stat-num">80%</div>
+        <div class="stat-label">of sites are inefficient</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">77%</div>
+        <div class="stat-label">face costly delays</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">€3.3M</div>
+        <div class="stat-label">lost globally per day</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-right">
+    <div class="dashboard-mockup">
+      <div class="mockup-topbar">
+        <span class="dot dot-r"></span>
+        <span class="dot dot-y"></span>
+        <span class="dot dot-g"></span>
+        <span class="mockup-title">WORKGUARDAI DASHBOARD</span>
+      </div>
+      <div class="mockup-body">
+        <div class="mockup-card">
+          <div class="mockup-card-label">Site Alpha — Excavation</div>
+          <div class="progress-bar-wrap"><div class="progress-fill prog-67"></div></div>
+          <div class="mockup-stat-row"><span>67% complete</span><span>On track</span></div>
+          <span class="badge-ok">✓ Milestone met</span>
+        </div>
+        <div class="mockup-card">
+          <div class="mockup-card-label">Site Beta — Foundation</div>
+          <div class="progress-bar-wrap"><div class="progress-fill prog-40"></div></div>
+          <div class="mockup-stat-row"><span>40% complete</span><span>3d delay</span></div>
+          <span class="badge-alert">⚠ Off-track</span>
+        </div>
+        <div class="mockup-card">
+          <div class="mockup-card-label">Site Gamma — Framing</div>
+          <div class="progress-bar-wrap"><div class="progress-fill prog-85"></div></div>
+          <div class="mockup-stat-row"><span>85% complete</span><span>Ahead</span></div>
+          <span class="badge-ok">↑ +2d ahead</span>
+        </div>
+        <div class="mockup-card iot-card">
+          <div class="iot-signal">
+            <div class="signal-bar"></div>
+            <div class="signal-bar"></div>
+            <div class="signal-bar"></div>
+            <div class="signal-bar"></div>
+          </div>
+          <div>
+            <div class="mockup-card-label">IoT Connectivity</div>
+            <div style="font-size:0.8rem; font-weight:500;">4 devices live · LTE-M</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- LOGOS -->
+<div class="logos-section">
+  <div class="logos-track">
+    <span class="logo-item">LUT University</span>
+    <span class="logo-item">Helsinki Incubators</span>
+    <span class="logo-item">Lambda Factor</span>
+    <span class="logo-item">Advascale</span>
+    <span class="logo-item">ANK Construction</span>
+    <span class="logo-item">University of Helsinki</span>
+    <span class="logo-item">Interreg · EU</span>
+    <span class="logo-item">LUT University</span>
+    <span class="logo-item">Helsinki Incubators</span>
+    <span class="logo-item">Lambda Factor</span>
+    <span class="logo-item">Advascale</span>
+    <span class="logo-item">ANK Construction</span>
+    <span class="logo-item">University of Helsinki</span>
+    <span class="logo-item">Interreg · EU</span>
+  </div>
+</div>
+
+<!-- HOW IT WORKS -->
+<section class="how-section" id="how">
+  <div class="section-inner">
+    <div class="section-label">How It Works</div>
+    <div class="how-grid">
+      <div>
+        <h2 class="section-title">From DWG file<br>to live insight</h2>
+        <p class="section-sub" style="margin-bottom:2.5rem;">Upload your construction plan once — our AI reads it, maps the site, and tracks real progress automatically.</p>
+        <div class="steps-list">
+          <div class="step-item active">
+            <div class="step-num">01</div>
+            <div class="step-content">
+              <h4>Upload your DWG plan</h4>
+              <p>Drop your architectural or civil engineering file. WorkGuardAi parses and digitally maps your full site layout automatically.</p>
+            </div>
+          </div>
+          <div class="step-item">
+            <div class="step-num">02</div>
+            <div class="step-content">
+              <h4>AI compares plan vs. reality</h4>
+              <p>Our model continuously compares live site data against your uploaded plan — no manual input from site managers needed.</p>
+            </div>
+          </div>
+          <div class="step-item">
+            <div class="step-num">03</div>
+            <div class="step-content">
+              <h4>Instant smart notifications</h4>
+              <p>When milestones are hit or something goes off-track, architects and managers are alerted instantly across all sites.</p>
+            </div>
+          </div>
+          <div class="step-item">
+            <div class="step-num">04</div>
+            <div class="step-content">
+              <h4>Monitor multiple sites at once</h4>
+              <p>One dashboard. All your sites. Real-time progress. No spreadsheets, no phone calls, no delays.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="feature-visual">
+        <div style="font-family:'Syne',sans-serif;font-size:0.75rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);margin-bottom:0.5rem;">Site Alpha — Live Grid View</div>
+        <div class="viz-row">
+          <div class="viz-cell done"></div><div class="viz-cell done"></div><div class="viz-cell done"></div><div class="viz-cell done"></div><div class="viz-cell done"></div><div class="viz-cell done"></div><div class="viz-cell done"></div>
+        </div>
+        <div class="viz-row">
+          <div class="viz-cell done"></div><div class="viz-cell done"></div><div class="viz-cell done"></div><div class="viz-cell done"></div><div class="viz-cell done"></div><div class="viz-cell done"></div><div class="viz-cell active"></div>
+        </div>
+        <div class="viz-row">
+          <div class="viz-cell done"></div><div class="viz-cell done"></div><div class="viz-cell active"></div><div class="viz-cell pending"></div><div class="viz-cell pending"></div><div class="viz-cell pending"></div><div class="viz-cell pending"></div>
+        </div>
+        <div class="viz-row">
+          <div class="viz-cell alert"></div><div class="viz-cell pending"></div><div class="viz-cell pending"></div><div class="viz-cell pending"></div><div class="viz-cell pending"></div><div class="viz-cell pending"></div><div class="viz-cell pending"></div>
+        </div>
+        <div class="viz-row">
+          <div class="viz-cell pending"></div><div class="viz-cell pending"></div><div class="viz-cell pending"></div><div class="viz-cell pending"></div><div class="viz-cell pending"></div><div class="viz-cell pending"></div><div class="viz-cell pending"></div>
+        </div>
+        <div class="viz-legend">
+          <div class="legend-item"><div class="legend-dot" style="background:var(--accent2)"></div>Complete</div>
+          <div class="legend-item"><div class="legend-dot" style="background:var(--accent)"></div>In Progress</div>
+          <div class="legend-item"><div class="legend-dot" style="background:rgba(255,255,255,0.08)"></div>Pending</div>
+          <div class="legend-item"><div class="legend-dot" style="background:#ff5050"></div>Alert</div>
+        </div>
+        <div style="margin-top:auto;padding-top:1rem;border-top:1px solid var(--border)">
+          <div style="font-size:0.75rem;color:var(--muted)">Overall progress</div>
+          <div style="font-family:'Syne',sans-serif;font-size:1.4rem;font-weight:800;margin-top:0.2rem;">40% <span style="font-size:0.75rem;font-weight:400;color:var(--muted)">of plan completed</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section class="features-section" id="features">
+  <div class="section-inner">
+    <div class="features-header">
+      <div>
+        <div class="section-label">Platform Features</div>
+        <h2 class="section-title">Everything your team<br>needs to stay ahead</h2>
+      </div>
+      <p class="section-sub">Built for infrastructure and construction companies managing complex multi-site operations with tight deadlines and compliance requirements.</p>
+    </div>
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="feature-icon">📐</div>
+        <h4>DWG Plan Parsing</h4>
+        <p>Upload any architectural or civil DWG file. Our AI mathematically reads and digitally renders your excavation and construction plan.</p>
+        <span class="feature-tag">Core</span>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">📡</div>
+        <h4>Real-Time Progress Tracking</h4>
+        <p>Live comparison of actual site progress vs. your uploaded plan — no manual data entry, ever.</p>
+        <span class="feature-tag">Core</span>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🔔</div>
+        <h4>AI-Powered Notifications</h4>
+        <p>Smart alerts fire the moment a milestone is hit or something falls behind. Architects notified instantly.</p>
+        <span class="feature-tag">Core</span>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🏗️</div>
+        <h4>Multi-Site Dashboard</h4>
+        <p>Manage dozens of sites simultaneously from a single pane of glass. No more phone-chasing or status meetings.</p>
+        <span class="feature-tag">Core</span>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">📶</div>
+        <h4>IoT Connectivity Layer</h4>
+        <p>Connect sensors, cameras, and devices on-site via LTE-M or NB-IoT — no complex setup required.</p>
+        <span class="feature-tag">Coming Soon</span>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🔗</div>
+        <h4>Third-Party Integrations</h4>
+        <p>Connect to your existing project management and ERP platforms. WorkGuardAi fits your workflow.</p>
+        <span class="feature-tag">Roadmap</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- IoT SECTION -->
+<section class="iot-section" id="iot">
+  <div class="section-inner">
+    <div class="iot-inner">
+      <div class="iot-visual">
+        <div class="iot-diagram">
+          <div class="iot-node hub">🌐 WorkGuardAi Platform</div>
+          <div class="iot-connector"></div>
+          <div class="iot-node" style="background:rgba(0,212,170,0.08);border-color:rgba(0,212,170,0.25);">IoT Connectivity Layer (LTE-M / NB-IoT)</div>
+          <div class="iot-connector"></div>
+          <div class="iot-nodes-row">
+            <div class="iot-node">📷 Site Camera</div>
+            <div class="iot-node">📏 Progress Sensor</div>
+            <div class="iot-node">🌡️ Environmental</div>
+            <div class="iot-node">🏥 Medical Device</div>
+          </div>
+          <div style="font-size:0.72rem;color:var(--muted);text-align:center;margin-top:0.5rem;">Any industry · Any device · Any location</div>
+        </div>
+      </div>
+      <div class="iot-content">
+        <div class="section-label">IoT Connectivity</div>
+        <h3>Your sites,<br>always <span style="color:var(--accent2)">connected</span></h3>
+        <p style="color:var(--muted);font-size:0.9rem;line-height:1.75;margin-top:0.8rem;">
+          Expanding beyond construction — WorkGuardAi is building an IoT connectivity layer that lets any business remotely monitor and control field devices, from construction sensors to medical equipment.
+        </p>
+        <div class="iot-list">
+          <div class="iot-list-item">Pre-configured SIM connectivity for instant device onboarding — no IT setup needed</div>
+          <div class="iot-list-item">Works for construction, utilities, medical remote monitoring, and logistics fleets</div>
+          <div class="iot-list-item">All device data feeds directly into your WorkGuardAi dashboard</div>
+          <div class="iot-list-item">Partner-backed connectivity at competitive rates — you own the relationship</div>
+          <div class="iot-list-item">Expand monitoring beyond the site to anywhere your assets operate</div>
+        </div>
+        <a href="#" onclick="openModal('contact'); return false;" class="btn-primary" style="display:inline-block;margin-top:2rem;padding:0.8rem 1.8rem;">
+          Explore IoT Options →
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section class="pricing-section" id="pricing">
+  <div class="section-inner">
+    <div class="section-label">Pricing</div>
+    <h2 class="section-title">Simple, transparent pricing</h2>
+    <div class="pricing-grid">
+      <div class="pricing-card">
+        <div class="pricing-tier">Pilot</div>
+        <div class="pricing-price">Free</div>
+        <div class="pricing-cadence">To explore</div>
+        <ul class="pricing-features">
+          <li>1 site, limited plan uploads</li>
+          <li>Dashboard access</li>
+          <li>Basic AI notifications</li>
+          <li>Email support</li>
+        </ul>
+        <a href="#" onclick="openModal('contact'); return false;" class="btn-pricing btn-pricing-outline">Start Pilot</a>
+      </div>
+      <div class="pricing-card featured">
+        <div class="pricing-tier">Basic–Pro</div>
+        <div class="pricing-price"><sup>€</sup>550</div>
+        <div class="pricing-cadence">per month</div>
+        <ul class="pricing-features">
+          <li>Unlimited sites</li>
+          <li>Full DWG plan parsing</li>
+          <li>Real-time AI monitoring</li>
+          <li>Smart milestone alerts</li>
+          <li>Multi-user access</li>
+          <li>Priority support</li>
+        </ul>
+        <a href="#" onclick="openModal('contact'); return false;" class="btn-pricing btn-pricing-solid">Get Started</a>
+      </div>
+      <div class="pricing-card">
+        <div class="pricing-tier">Enterprise</div>
+        <div class="pricing-price" style="font-size:2rem;">Custom</div>
+        <div class="pricing-cadence">negotiable</div>
+        <ul class="pricing-features">
+          <li>Everything in Pro</li>
+          <li>IoT connectivity bundle</li>
+          <li>Custom integrations</li>
+          <li>Dedicated account manager</li>
+          <li>On-site onboarding</li>
+          <li>SLA guarantee</li>
+        </ul>
+        <a href="#" onclick="openModal('contact'); return false;" class="btn-pricing btn-pricing-outline">Contact Sales</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+  <div class="section-inner">
+    <div class="cta-box">
+      <h2>Ready to monitor smarter?</h2>
+      <p>Join the construction and infrastructure companies already using WorkGuardAi to save time, reduce delays, and stay ahead of every milestone.</p>
+      <div class="cta-actions">
+        <a href="#" onclick="openModal('contact'); return false;" class="btn-primary btn-large">Book a Demo</a>
+        <a href="#" onclick="openModal('contact'); return false;" class="btn-ghost btn-large">Talk to Sales</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-brand">
+    <a class="nav-logo" href="#" style="text-decoration:none;">
+      <span class="wg-tag">WG</span> WorkGuardAi
+    </a>
+    <p>AI monitoring for smarter site management. Dream, Innovate, Thrive.</p>
+  </div>
+  <div class="footer-col">
+    <h5>Product</h5>
+    <ul>
+      <li><a href="#how">How It Works</a></li>
+      <li><a href="#features">Features</a></li>
+      <li><a href="#iot">IoT Connectivity</a></li>
+      <li><a href="#pricing">Pricing</a></li>
+    </ul>
+  </div>
+  <div class="footer-col">
+    <h5>Company</h5>
+    <ul>
+      <li><a href="#">About</a></li>
+      <li><a href="#">Partners</a></li>
+      <li><a href="#">Careers</a></li>
+      <li><a href="#" onclick="openModal('contact'); return false;">Contact</a></li>
+    </ul>
+  </div>
+  <div class="footer-col">
+    <h5>Platform</h5>
+    <ul>
+      <li><a href="#" onclick="openModal('login'); return false;">Log In</a></li>
+      <li><a href="#" onclick="openModal('contact'); return false;">Request Access</a></li>
+      <li><a href="#">Documentation</a></li>
+      <li><a href="#">Privacy Policy</a></li>
+    </ul>
+  </div>
+</footer>
+<div class="footer-bottom">
+  <p>© 2026 WorkGuardAi. All rights reserved. | Endrit Kola, Founder & CEO</p>
+  <p>ek@workguardai.com · www.workguardai.com</p>
+</div>
+
+<!-- LOGIN MODAL -->
+<div class="modal-overlay" id="modal-login">
+  <div class="modal login-modal">
+    <button class="modal-close" onclick="closeModal('login')">✕</button>
+    <h3>Welcome back</h3>
+    <p>Log in to your WorkGuardAi dashboard</p>
+    <div class="form-group">
+      <label>Email address</label>
+      <input type="email" placeholder="you@company.com">
+    </div>
+    <div class="form-group">
+      <label>Password</label>
+      <input type="password" placeholder="••••••••">
+    </div>
+    <button class="modal-submit">Log In</button>
+    <div class="login-divider">or</div>
+    <button class="btn-ghost" style="width:100%;padding:0.8rem;border-radius:8px;font-size:0.88rem;cursor:pointer;" onclick="closeModal('login'); openModal('contact');">Request access</button>
+    <p style="text-align:center;margin-top:1rem;font-size:0.78rem;color:var(--muted);">Forgot password? <a href="#" style="color:var(--accent);">Reset here</a></p>
+  </div>
+</div>
+
+<!-- CONTACT MODAL -->
+<div class="modal-overlay" id="modal-contact">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal('contact')">✕</button>
+    <h3>Get in touch</h3>
+    <p>Tell us about your project and we'll get back to you within 24 hours.</p>
+    <div class="form-group">
+      <label>Full name</label>
+      <input type="text" placeholder="Your name">
+    </div>
+    <div class="form-group">
+      <label>Work email</label>
+      <input type="email" placeholder="you@company.com">
+    </div>
+    <div class="form-group">
+      <label>Company / Organisation</label>
+      <input type="text" placeholder="Company name">
+    </div>
+    <div class="form-group">
+      <label>Industry</label>
+      <select>
+        <option value="">Select your sector</option>
+        <option>Construction</option>
+        <option>Infrastructure / Civil Engineering</option>
+        <option>Medical / Healthcare Devices</option>
+        <option>Utilities / Energy</option>
+        <option>Logistics / Fleet</option>
+        <option>Other</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label>What are you interested in?</label>
+      <select>
+        <option>Site Monitoring Platform</option>
+        <option>IoT Connectivity Bundle</option>
+        <option>Partnership / Pilot Project</option>
+        <option>Investor Inquiry</option>
+        <option>General Information</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label>Message (optional)</label>
+      <textarea placeholder="Tell us more about your needs..."></textarea>
+    </div>
+    <button class="modal-submit" onclick="handleSubmit()">Send Message</button>
+  </div>
+</div>
+
+<script>
+  function openModal(type) {
+    document.getElementById('modal-' + type).classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeModal(type) {
+    document.getElementById('modal-' + type).classList.remove('open');
+    document.body.style.overflow = '';
+  }
+  // Close on overlay click
+  document.querySelectorAll('.modal-overlay').forEach(overlay => {
+    overlay.addEventListener('click', e => {
+      if (e.target === overlay) {
+        overlay.classList.remove('open');
+        document.body.style.overflow = '';
+      }
+    });
+  });
+
+  function handleSubmit() {
+    const btn = document.querySelector('.modal-submit');
+    btn.textContent = '✓ Sent! We\'ll be in touch soon.';
+    btn.style.background = 'var(--accent2)';
+    setTimeout(() => { closeModal('contact'); btn.textContent = 'Send Message'; btn.style.background = ''; }, 2500);
+  }
+
+  // Step interactions
+  document.querySelectorAll('.step-item').forEach(item => {
+    item.addEventListener('click', () => {
+      document.querySelectorAll('.step-item').forEach(i => i.classList.remove('active'));
+      item.classList.add('active');
+    });
+  });
+
+  // Scroll reveal
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.style.opacity = '1';
+        e.target.style.transform = 'translateY(0)';
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.feature-card, .pricing-card, .step-item').forEach(el => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(20px)';
+    el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+    observer.observe(el);
+  });
+</script>
+</body>
+</html>
