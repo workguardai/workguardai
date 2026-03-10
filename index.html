@@ -275,6 +275,87 @@ footer{border-top:1px solid var(--border);padding:3rem 4rem;display:grid;grid-te
 .ldiv::before,.ldiv::after{content:'';position:absolute;top:50%;width:43%;height:1px;background:var(--border);}
 .ldiv::before{left:0;}.ldiv::after{right:0;}
 
+/* URGENCY BAR */
+.urgency-bar{background:linear-gradient(90deg,var(--accent),#7c6bff,var(--accent2));padding:0.6rem 2rem;text-align:center;font-size:0.75rem;font-weight:600;color:#fff;letter-spacing:0.02em;position:relative;z-index:199;display:flex;align-items:center;justify-content:center;gap:1rem;flex-wrap:wrap;}
+.urgency-bar a{color:#fff;text-decoration:underline;text-underline-offset:2px;cursor:pointer;font-weight:700;}
+.urgency-bar a:hover{opacity:0.85;}
+.spots-pill{background:rgba(255,255,255,0.2);border:1px solid rgba(255,255,255,0.35);border-radius:100px;padding:0.18rem 0.65rem;font-size:0.7rem;font-weight:700;letter-spacing:0.04em;white-space:nowrap;}
+.spots-pulse{display:inline-block;width:7px;height:7px;background:#fff;border-radius:50%;margin-right:0.35rem;animation:pulse 1.5s infinite;}
+
+/* ROI CALCULATOR */
+.roi-section{padding:7rem 0;background:var(--bg);}
+.roi-inner{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:start;}
+.roi-form{background:var(--bg2);border:1.5px solid var(--border);border-radius:18px;padding:2.5rem;box-shadow:var(--shadow-md);}
+.roi-form h3{font-size:1.1rem;font-weight:800;margin-bottom:0.3rem;color:var(--ink);}
+.roi-form p{font-size:0.82rem;color:var(--muted);margin-bottom:2rem;line-height:1.65;}
+.roi-field{margin-bottom:1.3rem;}
+.roi-field label{display:block;font-size:0.75rem;font-weight:600;color:var(--ink2);margin-bottom:0.5rem;letter-spacing:0.02em;}
+.roi-field-row{display:flex;align-items:center;gap:0.75rem;}
+.roi-prefix{font-size:0.85rem;font-weight:700;color:var(--muted2);min-width:16px;}
+.roi-slider{width:100%;-webkit-appearance:none;appearance:none;height:5px;border-radius:3px;background:var(--border2);outline:none;cursor:pointer;}
+.roi-slider::-webkit-slider-thumb{-webkit-appearance:none;width:18px;height:18px;border-radius:50%;background:var(--accent);cursor:pointer;border:2.5px solid #fff;box-shadow:var(--shadow-sm);}
+.roi-slider::-moz-range-thumb{width:18px;height:18px;border-radius:50%;background:var(--accent);cursor:pointer;border:2.5px solid #fff;}
+.roi-val{font-size:0.85rem;font-weight:700;color:var(--accent);min-width:48px;text-align:right;}
+.roi-results{display:flex;flex-direction:column;gap:1.2rem;}
+.roi-result-card{background:var(--bg);border:1.5px solid var(--border);border-radius:14px;padding:1.5rem 1.8rem;box-shadow:var(--shadow-sm);transition:all 0.3s;}
+.roi-result-card.highlight{background:var(--accent);border-color:var(--accent);}
+.roi-result-card.highlight .rrc-label{color:rgba(255,255,255,0.75);}
+.roi-result-card.highlight .rrc-val{color:#fff;}
+.roi-result-card.highlight .rrc-sub{color:rgba(255,255,255,0.65);}
+.rrc-label{font-size:0.7rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted2);margin-bottom:0.4rem;}
+.rrc-val{font-size:2rem;font-weight:800;color:var(--ink);line-height:1;margin-bottom:0.2rem;}
+.rrc-sub{font-size:0.75rem;color:var(--muted);line-height:1.5;}
+.roi-disclaimer{font-size:0.7rem;color:var(--muted2);margin-top:1.2rem;line-height:1.6;font-style:italic;}
+
+/* EXIT INTENT POPUP */
+.exit-overlay{position:fixed;inset:0;background:rgba(15,15,26,0.55);backdrop-filter:blur(8px);z-index:2000;display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity 0.35s;}
+.exit-overlay.open{opacity:1;pointer-events:all;}
+.exit-popup{background:var(--bg);border:1.5px solid var(--border);border-radius:22px;padding:0;width:100%;max-width:520px;transform:scale(0.93) translateY(20px);transition:transform 0.35s;position:relative;overflow:hidden;box-shadow:0 30px 80px rgba(15,15,26,0.18);}
+.exit-overlay.open .exit-popup{transform:scale(1) translateY(0);}
+.exit-popup-top{background:linear-gradient(135deg,var(--accent),var(--accent2));padding:2.5rem 2.5rem 2rem;text-align:center;position:relative;}
+.exit-popup-top::before{content:'';position:absolute;top:-60px;left:50%;transform:translateX(-50%);width:200px;height:200px;background:radial-gradient(circle,rgba(255,255,255,0.15),transparent 70%);pointer-events:none;}
+.exit-icon{font-size:2.8rem;margin-bottom:0.8rem;display:block;}
+.exit-popup-top h3{font-size:1.4rem;font-weight:800;color:#fff;margin-bottom:0.4rem;position:relative;}
+.exit-popup-top p{font-size:0.85rem;color:rgba(255,255,255,0.82);line-height:1.65;position:relative;}
+.exit-popup-body{padding:2rem 2.5rem 2.5rem;}
+.exit-spots{display:flex;align-items:center;justify-content:center;gap:0.5rem;background:var(--accent3-light);border:1px solid rgba(255,107,53,0.2);border-radius:10px;padding:0.75rem 1rem;margin-bottom:1.5rem;}
+.exit-spots-text{font-size:0.82rem;font-weight:600;color:var(--accent3);}
+.exit-spots-num{font-size:1.1rem;font-weight:800;color:var(--accent3);}
+.exit-popup-body .fg{margin-bottom:0.85rem;}
+.exit-submit{width:100%;background:var(--accent);border:none;color:#fff;padding:0.85rem;border-radius:9px;font-family:'Poppins',sans-serif;font-size:0.9rem;font-weight:600;cursor:pointer;transition:all 0.2s;box-shadow:0 4px 14px rgba(91,79,255,0.28);}
+.exit-submit:hover{background:#4a3fee;}
+.exit-close{position:absolute;top:1rem;right:1rem;background:rgba(255,255,255,0.2);border:none;color:#fff;width:28px;height:28px;border-radius:7px;cursor:pointer;font-size:0.85rem;display:flex;align-items:center;justify-content:center;transition:all 0.2s;}
+.exit-close:hover{background:rgba(255,255,255,0.35);}
+.exit-skip{text-align:center;margin-top:1rem;font-size:0.75rem;color:var(--muted2);cursor:pointer;transition:color 0.2s;}
+.exit-skip:hover{color:var(--ink);}
+
+/* SOCIAL PROOF BAR */
+.sp-bar{background:var(--bg);border-bottom:1px solid var(--border);padding:1.2rem 4rem;display:flex;align-items:center;justify-content:center;gap:2rem;flex-wrap:wrap;}
+.sp-bar-label{font-size:0.65rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted2);white-space:nowrap;}
+.sp-divider{width:1px;height:18px;background:var(--border2);}
+.sp-badge{display:inline-flex;align-items:center;gap:0.4rem;font-size:0.73rem;font-weight:600;color:var(--muted);text-decoration:none;padding:0.28rem 0.65rem;border-radius:6px;transition:all 0.2s;white-space:nowrap;}
+.sp-badge:hover{color:var(--accent);background:var(--accent-light);}
+
+/* RECOGNITION SECTION */
+.recog{padding:5rem 0;background:var(--bg2);}
+.recog-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.2rem;margin-top:2.5rem;}
+.recog-card{background:var(--bg);border:1.5px solid var(--border);border-radius:14px;padding:1.8rem;transition:all 0.3s;box-shadow:var(--shadow-sm);display:flex;flex-direction:column;gap:0.9rem;text-decoration:none;color:inherit;}
+.recog-card:hover{border-color:rgba(91,79,255,0.3);box-shadow:var(--shadow-md);transform:translateY(-3px);}
+.recog-source{display:inline-flex;align-items:center;gap:0.35rem;font-size:0.62rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--accent);background:var(--accent-light);border:1px solid rgba(91,79,255,0.15);padding:0.15rem 0.5rem;border-radius:4px;width:fit-content;}
+.recog-icon{font-size:1.8rem;line-height:1;}
+.recog-card h4{font-size:0.9rem;font-weight:700;color:var(--ink);line-height:1.4;}
+.recog-card p{font-size:0.78rem;color:var(--muted);line-height:1.7;flex:1;}
+.recog-link{font-size:0.73rem;font-weight:600;color:var(--accent);display:inline-flex;align-items:center;gap:0.3rem;margin-top:auto;}
+
+/* HERO PROOF BADGES */
+.hero-proof{display:flex;align-items:center;gap:0.5rem;flex-wrap:wrap;margin-bottom:1.6rem;animation:fadeUp 0.6s 0.05s ease both;}
+.proof-badge{display:inline-flex;align-items:center;gap:0.3rem;font-size:0.68rem;font-weight:600;color:var(--muted);background:var(--bg2);border:1.5px solid var(--border);padding:0.25rem 0.6rem;border-radius:6px;white-space:nowrap;}
+
+/* SOCIAL LINKS */
+.social-links{display:flex;gap:0.55rem;margin-top:0.9rem;flex-wrap:wrap;}
+.soc-btn{display:inline-flex;align-items:center;gap:0.35rem;font-size:0.72rem;font-weight:600;color:var(--muted);background:var(--bg);border:1.5px solid var(--border);padding:0.28rem 0.65rem;border-radius:7px;text-decoration:none;transition:all 0.2s;}
+.soc-btn:hover{color:var(--accent);border-color:rgba(91,79,255,0.3);}
+
 /* RESPONSIVE */
 @media(max-width:960px){
   nav{padding:1rem 1.5rem;}
@@ -284,25 +365,36 @@ footer{border-top:1px solid var(--border);padding:3rem 4rem;display:grid;grid-te
   .si{padding:0 1.5rem;}
   .how-grid,.iot-inner,.demo-inner,.about-story{grid-template-columns:1fr;gap:3rem;}
   .feat-header{grid-template-columns:1fr;gap:1.5rem;}
-  .feat-grid,.price-grid{grid-template-columns:1fr;}
+  .feat-grid,.price-grid,.recog-grid{grid-template-columns:1fr;}
   .team-grid{grid-template-columns:1fr 1fr;}
   .partners-grid{grid-template-columns:1fr 1fr;}
   footer{grid-template-columns:1fr 1fr;gap:2rem;padding:2rem 1.5rem;}
   .foot-bot{padding:1rem 1.5rem;flex-direction:column;gap:0.4rem;text-align:center;}
   .cta-box{padding:3rem 1.5rem;}
   .ea-banner{flex-direction:column;}
+  .roi-inner{grid-template-columns:1fr;gap:3rem;}
+  .urgency-bar{font-size:0.7rem;padding:0.5rem 1rem;}
+  .sp-bar{padding:1rem 1.5rem;gap:1rem;}
 }
 </style>
 </head>
 <body>
 
+<!-- URGENCY BAR -->
+<div class="urgency-bar">
+  <span><span class="spots-pulse"></span>🔒 Only <strong id="spots-count">5</strong> pilot spots remaining this quarter</span>
+  <span class="spots-pill">🇫🇮 Finland · Early Adopter Programme</span>
+  <a onclick="openM('access');return false;">Secure your spot →</a>
+</div>
+
 <!-- NAV -->
-<nav>
+<nav style="top:38px;">
   <a class="nav-logo" href="#"><span class="wg-tag">WG</span>WorkGuardAi</a>
   <ul class="nav-links">
     <li><a href="#how">How It Works</a></li>
     <li><a href="#demo">Demo</a></li>
     <li><a href="#features">Features</a></li>
+    <li><a href="#recognition">Recognition</a></li>
     <li><a href="#about">About</a></li>
     <li><a href="#pricing">Pricing</a></li>
   </ul>
@@ -320,6 +412,11 @@ footer{border-top:1px solid var(--border);padding:3rem 4rem;display:grid;grid-te
     <div class="hero-badge">AI-Powered Construction Intelligence</div>
     <h1>From Groundwork<br>to <span class="grad">Dashboard</span></h1>
     <p class="hero-sub">WorkGuardAi monitors your construction and infrastructure sites in real time — comparing live progress against your plans with zero manual effort from site managers.</p>
+    <div class="hero-proof">
+      <span class="proof-badge">🏆 Sisu Factory Pitch Winner</span>
+      <span class="proof-badge">🏙️ Selected by Cities of Helsinki, Espoo & Vantaa</span>
+      <span class="proof-badge">📰 Featured on PitchBob.io</span>
+    </div>
     <div class="hero-ctas">
       <a href="#" class="btn-primary btn-large" onclick="openM('access');return false;">Request Early Access</a>
       <a href="#demo" class="btn-ghost btn-large">Watch Demo →</a>
@@ -354,6 +451,21 @@ footer{border-top:1px solid var(--border);padding:3rem 4rem;display:grid;grid-te
   </div>
 </div>
 
+<!-- SOCIAL PROOF BAR -->
+<div class="sp-bar">
+  <span class="sp-bar-label">Recognised by</span>
+  <div class="sp-divider"></div>
+  <a href="https://www.linkedin.com/posts/sisu-factory_sisufactory-startup-pitching-activity-7300066903111135233-Zzur" target="_blank" class="sp-badge">🏆 Sisu Factory — Pitch Winner</a>
+  <div class="sp-divider"></div>
+  <a href="https://pitchbob.io/secretseeds/revolutionizing-the-construction-industry-how-workguardai-is-leading-the-ai-driven-transformation" target="_blank" class="sp-badge">📰 Featured on PitchBob.io</a>
+  <div class="sp-divider"></div>
+  <a href="https://www.linkedin.com/posts/workguardai_circulareconomy-innovation-sustainablecities-activity-7368658654012669952-Crxp" target="_blank" class="sp-badge">🏙️ Selected by Cities of Helsinki, Espoo & Vantaa</a>
+  <div class="sp-divider"></div>
+  <a href="https://www.linkedin.com/company/workguardai" target="_blank" class="sp-badge">💼 Follow on LinkedIn</a>
+  <div class="sp-divider"></div>
+  <a href="https://www.instagram.com/workguardai/" target="_blank" class="sp-badge">📸 @workguardai</a>
+</div>
+
 <!-- EARLY ACCESS BANNER -->
 <div class="ea-wrap si">
   <div class="ea-banner">
@@ -368,6 +480,41 @@ footer{border-top:1px solid var(--border);padding:3rem 4rem;display:grid;grid-te
     </div>
   </div>
 </div>
+
+<!-- RECOGNITION -->
+<section class="recog" id="recognition">
+  <div class="si">
+    <div class="slabel">Recognition & Traction</div>
+    <h2 class="stitle">Validated by the people<br>who <span class="grad">build the future</span></h2>
+    <div class="recog-grid">
+
+      <a class="recog-card" href="https://www.linkedin.com/posts/sisu-factory_sisufactory-startup-pitching-activity-7300066903111135233-Zzur" target="_blank">
+        <div class="recog-source">🏆 Sisu Factory</div>
+        <div class="recog-icon">🎤</div>
+        <h4>Winner — Sauna Pitching Event</h4>
+        <p>WorkGuardAi was selected as one of the two best pitches at the Sauna Pitching event hosted by Sisu Factory — competing against a field of early-stage Finnish startups.</p>
+        <span class="recog-link">View announcement on LinkedIn →</span>
+      </a>
+
+      <a class="recog-card" href="https://www.linkedin.com/posts/workguardai_circulareconomy-innovation-sustainablecities-activity-7368658654012669952-Crxp" target="_blank">
+        <div class="recog-source">🏙️ City Selection</div>
+        <div class="recog-icon">🌆</div>
+        <h4>Selected by Cities of Helsinki, Espoo & Vantaa</h4>
+        <p>WorkGuardAi was chosen among competing bidders for innovative ideas by the Cities of Helsinki, Espoo and Vantaa — recognising its potential for sustainable urban infrastructure monitoring.</p>
+        <span class="recog-link">View post on LinkedIn →</span>
+      </a>
+
+      <a class="recog-card" href="https://pitchbob.io/secretseeds/revolutionizing-the-construction-industry-how-workguardai-is-leading-the-ai-driven-transformation" target="_blank">
+        <div class="recog-source">📰 PitchBob.io</div>
+        <div class="recog-icon">📡</div>
+        <h4>Featured: "Leading the AI-Driven Transformation"</h4>
+        <p>PitchBob.io featured WorkGuardAi in their Secret Seeds startup spotlight, highlighting how the platform is transforming construction with AI-driven insights, efficiency, and sustainability.</p>
+        <span class="recog-link">Read the full article →</span>
+      </a>
+
+    </div>
+  </div>
+</section>
 
 <!-- HOW IT WORKS -->
 <section class="how" id="how">
@@ -447,6 +594,84 @@ footer{border-top:1px solid var(--border);padding:3rem 4rem;display:grid;grid-te
   </div>
 </section>
 
+<!-- ROI CALCULATOR -->
+<section class="roi-section" id="roi">
+  <div class="si">
+    <div style="text-align:center;margin-bottom:3.5rem;">
+      <div class="slabel" style="justify-content:center;display:flex;">ROI Calculator</div>
+      <h2 class="stitle" style="max-width:520px;margin:0 auto 1rem;">How much are delays<br>costing <span class="grad">your business?</span></h2>
+      <p class="ssub" style="margin:0 auto;text-align:center;">Enter your project details and see your estimated annual loss from construction delays — and how much WorkGuardAi could save you.</p>
+    </div>
+    <div class="roi-inner">
+      <div class="roi-form">
+        <h3>Your project profile</h3>
+        <p>Adjust the sliders to match your operation. Results update instantly.</p>
+        <div class="roi-field">
+          <label>Number of active construction sites</label>
+          <div class="roi-field-row">
+            <span class="roi-prefix">#</span>
+            <input type="range" class="roi-slider" id="r-sites" min="1" max="50" value="5" oninput="calcROI()">
+            <span class="roi-val" id="v-sites">5</span>
+          </div>
+        </div>
+        <div class="roi-field">
+          <label>Average project value per site (€)</label>
+          <div class="roi-field-row">
+            <span class="roi-prefix">€</span>
+            <input type="range" class="roi-slider" id="r-value" min="100000" max="10000000" step="100000" value="1000000" oninput="calcROI()">
+            <span class="roi-val" id="v-value">€1M</span>
+          </div>
+        </div>
+        <div class="roi-field">
+          <label>Average project duration (months)</label>
+          <div class="roi-field-row">
+            <span class="roi-prefix">mo</span>
+            <input type="range" class="roi-slider" id="r-duration" min="1" max="36" value="12" oninput="calcROI()">
+            <span class="roi-val" id="v-duration">12</span>
+          </div>
+        </div>
+        <div class="roi-field">
+          <label>Estimated delay rate at your company (%)</label>
+          <div class="roi-field-row">
+            <span class="roi-prefix">%</span>
+            <input type="range" class="roi-slider" id="r-delay" min="5" max="90" value="40" oninput="calcROI()">
+            <span class="roi-val" id="v-delay">40%</span>
+          </div>
+        </div>
+        <p class="roi-disclaimer">* Industry average: 77% of construction projects face delays. Delay costs typically represent 5–15% of total project value. Calculator uses conservative 8% estimate.</p>
+      </div>
+      <div>
+        <div class="roi-results">
+          <div class="roi-result-card">
+            <div class="rrc-label">Estimated Annual Loss from Delays</div>
+            <div class="rrc-val" id="res-loss">€320,000</div>
+            <div class="rrc-sub">Based on your delay rate and project values across all sites</div>
+          </div>
+          <div class="roi-result-card">
+            <div class="rrc-label">Manual Monitoring Hours Wasted</div>
+            <div class="rrc-val" id="res-hours">1,200 hrs</div>
+            <div class="rrc-sub">Estimated annual hours spent on manual site reporting and status updates</div>
+          </div>
+          <div class="roi-result-card highlight">
+            <div class="rrc-label">Potential Annual Saving with WorkGuardAi</div>
+            <div class="rrc-val" id="res-saving">€192,000</div>
+            <div class="rrc-sub">Conservative 60% reduction in delay-related costs through real-time AI monitoring</div>
+          </div>
+          <div class="roi-result-card">
+            <div class="rrc-label">WorkGuardAi Annual Cost (Pro Plan)</div>
+            <div class="rrc-val">€6,600</div>
+            <div class="rrc-sub">€550/month · Full platform access · Unlimited sites</div>
+          </div>
+        </div>
+        <div style="margin-top:1.5rem;">
+          <a href="#" onclick="openM('access');return false;" class="btn-primary btn-large" style="display:inline-block;width:100%;text-align:center;">Get Started — Recover Your Losses →</a>
+          <p style="text-align:center;font-size:0.72rem;color:var(--muted2);margin-top:0.75rem;">Start with a free pilot. No commitment required.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- ABOUT -->
 <section class="about" id="about">
   <div class="si">
@@ -468,7 +693,7 @@ footer{border-top:1px solid var(--border);padding:3rem 4rem;display:grid;grid-te
 
     <div class="section-heading">The Team</div>
     <div class="team-grid">
-      <div class="team-card"><div class="team-avatar">EK</div><div class="team-name">Endrit Kola</div><div class="team-role">Founder & CEO</div><div class="team-bio">Commercial, international startups, digital products and sales. Deep EMEA telecoms background.</div><span class="team-location">🇵🇹 Portugal · Spain · Finland</span></div>
+      <div class="team-card"><div class="team-avatar">EK</div><div class="team-name">Endrit Kola</div><div class="team-role">Founder & CEO</div><div class="team-bio">Commercial, international startups, digital products and sales. Deep EMEA telecoms background.</div><span class="team-location">🇵🇹 Portugal · Spain · Finland</span><a href="https://www.linkedin.com/in/endritkola/" target="_blank" style="display:inline-flex;align-items:center;gap:0.3rem;margin-top:0.7rem;font-size:0.7rem;font-weight:600;color:var(--accent);text-decoration:none;background:var(--accent-light);border:1px solid rgba(91,79,255,0.18);padding:0.22rem 0.6rem;border-radius:5px;transition:all 0.2s;" onmouseover="this.style.background='var(--accent)';this.style.color='#fff'" onmouseout="this.style.background='var(--accent-light)';this.style.color='var(--accent)'">💼 Connect on LinkedIn</a></div>
       <div class="team-card"><div class="team-avatar" style="background:linear-gradient(135deg,#ff6b35,#ffaa80);">LC</div><div class="team-name">Larissa Chaves</div><div class="team-role">CTO</div><div class="team-bio">AI, technology design, and product architecture. Building the intelligence layer of WorkGuardAi.</div><span class="team-location">🇧🇷 Brazil</span></div>
       <div class="team-card"><div class="team-avatar" style="background:linear-gradient(135deg,#00c49a,#00a882);">PS</div><div class="team-name">Pratham Srivastava</div><div class="team-role">Full Stack Developer</div><div class="team-bio">Full stack product development. Turning the platform vision into production-ready software.</div><span class="team-location">🇮🇳 India</span></div>
       <div class="team-card"><div class="team-avatar" style="background:linear-gradient(135deg,#888,#bbb);">AK</div><div class="team-name">Altin Kola</div><div class="team-role">Field & Infrastructure Advisor</div><div class="team-bio">Surveyor and field expert. Ensures WorkGuardAi reflects real-world construction site complexity.</div><span class="team-location">🏗️ Field Expert</span></div>
@@ -583,7 +808,11 @@ footer{border-top:1px solid var(--border);padding:3rem 4rem;display:grid;grid-te
   <div class="fb">
     <a class="nav-logo" href="#"><span class="wg-tag">WG</span>WorkGuardAi</a>
     <p>AI monitoring for smarter site management.<br>Dream, Innovate, Thrive.</p>
-    <p style="margin-top:0.5rem;font-size:0.72rem;color:var(--muted2);">ek@workguardai.com<br>www.workguardai.com</p>
+    <p style="margin-top:0.5rem;font-size:0.72rem;color:var(--muted2);"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="9efbf5dee9f1ecf5f9ebffecfafff7b0fdf1f3">[email&#160;protected]</a><br>www.workguardai.com</p>
+    <div class="social-links">
+      <a href="https://www.linkedin.com/company/workguardai" target="_blank" class="soc-btn">💼 LinkedIn</a>
+      <a href="https://www.instagram.com/workguardai/" target="_blank" class="soc-btn">📸 Instagram</a>
+    </div>
   </div>
   <div class="fc-col">
     <h5>Product</h5>
@@ -595,7 +824,7 @@ footer{border-top:1px solid var(--border);padding:3rem 4rem;display:grid;grid-te
   </div>
   <div class="fc-col">
     <h5>Access</h5>
-    <ul><li><a href="https://epmg.lambda-factor.pl/login" target="_blank">Log In to Platform</a></li><li><a href="#" onclick="openM('access');return false;">Request Early Access</a></li><li><a href="mailto:ek@workguardai.com">Contact Endrit</a></li><li><a href="#demo">Watch Demo</a></li></ul>
+    <ul><li><a href="https://epmg.lambda-factor.pl/login" target="_blank">Log In to Platform</a></li><li><a href="#" onclick="openM('access');return false;">Request Early Access</a></li><li><a href="/cdn-cgi/l/email-protection#51343a11263e233a362430233530387f323e3c">Contact Endrit</a></li><li><a href="#demo">Watch Demo</a></li></ul>
   </div>
 </footer>
 <div class="foot-bot">
@@ -617,7 +846,7 @@ footer{border-top:1px solid var(--border);padding:3rem 4rem;display:grid;grid-te
       <select><option value="">Select your sector</option><option>Construction</option><option>Infrastructure / Civil Engineering</option><option>Medical / Healthcare Devices</option><option>Utilities / Energy</option><option>Logistics / Fleet</option><option>Other</option></select>
     </div>
     <div class="fg"><label>Tell us about your project</label><textarea placeholder="How many sites do you manage? What's your biggest challenge with site monitoring?"></textarea></div>
-    <button class="msub" onclick="handleSubmit('access')">Send Application → ek@workguardai.com</button>
+    <button class="msub" onclick="handleSubmit('access')">Send Application → <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="30555b70475f425b574551425451591e535f5d">[email&#160;protected]</a></button>
   </div>
 </div>
 
@@ -635,7 +864,7 @@ footer{border-top:1px solid var(--border);padding:3rem 4rem;display:grid;grid-te
   </div>
 </div>
 
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 function openM(id){document.getElementById('mo-'+id).classList.add('open');document.body.style.overflow='hidden';}
 function closeM(id){document.getElementById('mo-'+id).classList.remove('open');document.body.style.overflow='';}
 document.querySelectorAll('.mo').forEach(o=>o.addEventListener('click',e=>{if(e.target===o){o.classList.remove('open');document.body.style.overflow=''}}));
@@ -649,13 +878,87 @@ function setStep(el){
   document.querySelectorAll('.step').forEach(s=>s.classList.remove('active'));
   el.classList.add('active');
 }
+// ── SPOTS COUNTER ──
+const SPOTS_REMAINING = 5;
+document.getElementById('spots-count').textContent = SPOTS_REMAINING;
+document.getElementById('exit-spots-num').textContent = SPOTS_REMAINING;
+
+// ── ROI CALCULATOR ──
+function fmt(n){
+  if(n>=1000000) return '€'+(n/1000000).toFixed(1)+'M';
+  if(n>=1000) return '€'+(n/1000).toFixed(0)+'K';
+  return '€'+n.toLocaleString();
+}
+function calcROI(){
+  const sites = parseInt(document.getElementById('r-sites').value);
+  const value = parseInt(document.getElementById('r-value').value);
+  const duration = parseInt(document.getElementById('r-duration').value);
+  const delayRate = parseInt(document.getElementById('r-delay').value) / 100;
+  document.getElementById('v-sites').textContent = sites;
+  document.getElementById('v-value').textContent = value >= 1000000 ? '€'+(value/1000000).toFixed(1)+'M' : '€'+(value/1000).toFixed(0)+'K';
+  document.getElementById('v-duration').textContent = duration;
+  document.getElementById('v-delay').textContent = Math.round(delayRate*100)+'%';
+  const totalPortfolioValue = sites * value;
+  const annualLoss = Math.round(totalPortfolioValue * delayRate * 0.08);
+  const annualHours = sites * 20 * 12;
+  const saving = Math.round(annualLoss * 0.6);
+  document.getElementById('res-loss').textContent = fmt(annualLoss);
+  document.getElementById('res-hours').textContent = annualHours.toLocaleString()+' hrs';
+  document.getElementById('res-saving').textContent = fmt(saving);
+}
+calcROI();
+
+// ── EXIT INTENT ──
+let exitShown = false;
+let exitTimer = setTimeout(()=>{ if(!exitShown) showExit(); }, 45000);
+document.addEventListener('mouseleave', e=>{ if(e.clientY < 50 && !exitShown) showExit(); });
+function showExit(){
+  exitShown = true;
+  clearTimeout(exitTimer);
+  document.getElementById('exit-overlay').classList.add('open');
+  document.body.style.overflow='hidden';
+}
+function closeExit(){
+  document.getElementById('exit-overlay').classList.remove('open');
+  document.body.style.overflow='';
+}
+document.getElementById('exit-overlay').addEventListener('click', e=>{ if(e.target===document.getElementById('exit-overlay')) closeExit(); });
+function handleExitSubmit(){
+  const btn=document.querySelector('.exit-submit');
+  btn.textContent='✓ Spot reserved! Endrit will reach out within 24h.';
+  btn.style.background='var(--accent2)';
+  setTimeout(()=>{ closeExit(); },2800);
+}
+
+// ── SCROLL REVEAL ──
 const obs=new IntersectionObserver(entries=>{
   entries.forEach(e=>{if(e.isIntersecting){e.target.style.opacity='1';e.target.style.transform='translateY(0)';}});
 },{threshold:0.08});
-document.querySelectorAll('.fc,.pc,.team-card,.partner-card,.tl-item,.sv-stat').forEach(el=>{
+document.querySelectorAll('.fc,.pc,.team-card,.partner-card,.tl-item,.sv-stat,.roi-result-card').forEach(el=>{
   el.style.opacity='0';el.style.transform='translateY(16px)';el.style.transition='opacity 0.5s ease, transform 0.5s ease';
   obs.observe(el);
 });
 </script>
+
+<!-- EXIT INTENT POPUP -->
+<div class="exit-overlay" id="exit-overlay">
+  <div class="exit-popup">
+    <div class="exit-popup-top">
+      <button class="exit-close" onclick="closeExit()">✕</button>
+      <span class="exit-icon">🏗️</span>
+      <h3>Wait — before you go</h3>
+      <p>We're offering <strong>free pilot access</strong> to 5 construction and infrastructure companies this quarter. Zero cost, personal onboarding from Endrit.</p>
+    </div>
+    <div class="exit-popup-body">
+      <div class="exit-spots">
+        <span class="exit-spots-num" id="exit-spots-num">5</span>
+        <span class="exit-spots-text">pilot spots remaining this quarter · First come, first served</span>
+      </div>
+      <div class="fg"><label>Your work email</label><input type="email" id="exit-email" placeholder="you@company.com"></div>
+      <div class="fg"><label>Your company</label><input type="text" id="exit-company" placeholder="Company name"></div>
+      <button class="exit-submit" onclick="handleExitSubmit()">Claim My Free Pilot Spot →</button>
+      <p class="exit-skip" onclick="closeExit()">No thanks, I'll figure it out manually</p>
+    </div>
+  </div>
+</div>
 </body>
-</html>
