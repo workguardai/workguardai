@@ -5,271 +5,281 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>WorkGuardAi — AI Monitoring for Smarter Site Management</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400&display=swap" rel="stylesheet">
 <style>
 :root {
-  --ink: #08080f;
-  --white: #f0efe8;
+  --bg: #ffffff;
+  --bg2: #f7f7fb;
+  --bg3: #f0f0f8;
+  --ink: #0f0f1a;
+  --ink2: #2a2a3d;
+  --muted: #6b6b85;
+  --muted2: #9494aa;
   --accent: #5b4fff;
-  --accent2: #00d4aa;
+  --accent-light: #eeecff;
+  --accent-mid: rgba(91,79,255,0.12);
+  --accent2: #00c49a;
+  --accent2-light: #e6faf6;
   --accent3: #ff6b35;
-  --mid: #12121e;
-  --mid2: #1a1a2e;
-  --muted: #666680;
-  --muted2: #9999b0;
-  --border: rgba(91,79,255,0.15);
-  --border2: rgba(255,255,255,0.06);
-  --glass: rgba(255,255,255,0.03);
+  --accent3-light: #fff0eb;
+  --border: #e8e8f0;
+  --border2: #d8d8ea;
+  --shadow-sm: 0 2px 8px rgba(15,15,26,0.06);
+  --shadow-md: 0 8px 28px rgba(15,15,26,0.09);
+  --shadow-lg: 0 20px 60px rgba(15,15,26,0.12);
 }
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
 html{scroll-behavior:smooth;}
-body{font-family:'DM Sans',sans-serif;background:var(--ink);color:var(--white);overflow-x:hidden;line-height:1.6;}
-
-/* NOISE */
-body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");pointer-events:none;z-index:0;opacity:0.6;}
+body{font-family:'Poppins',sans-serif;background:var(--bg);color:var(--ink);overflow-x:hidden;line-height:1.6;font-size:15px;}
 
 /* NAV */
-nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:center;justify-content:space-between;padding:1.1rem 4rem;backdrop-filter:blur(20px);background:rgba(8,8,15,0.75);border-bottom:1px solid var(--border2);}
-.nav-logo{font-family:'Syne',sans-serif;font-weight:800;font-size:1.05rem;letter-spacing:-0.02em;color:var(--white);text-decoration:none;display:flex;align-items:center;gap:0.5rem;}
-.wg-tag{background:var(--accent);color:#fff;font-size:0.62rem;font-weight:700;letter-spacing:0.08em;padding:0.15rem 0.45rem;border-radius:3px;}
+nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:center;justify-content:space-between;padding:1rem 4rem;background:rgba(255,255,255,0.92);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);box-shadow:var(--shadow-sm);}
+.nav-logo{font-weight:800;font-size:1.05rem;letter-spacing:-0.02em;color:var(--ink);text-decoration:none;display:flex;align-items:center;gap:0.5rem;}
+.wg-tag{background:var(--accent);color:#fff;font-size:0.6rem;font-weight:700;letter-spacing:0.08em;padding:0.15rem 0.45rem;border-radius:4px;}
 .nav-links{display:flex;gap:2rem;list-style:none;}
-.nav-links a{color:var(--muted);text-decoration:none;font-size:0.85rem;transition:color 0.2s;}
-.nav-links a:hover{color:var(--white);}
+.nav-links a{color:var(--muted);text-decoration:none;font-size:0.83rem;font-weight:500;transition:color 0.2s;}
+.nav-links a:hover{color:var(--ink);}
 .nav-actions{display:flex;gap:0.7rem;align-items:center;}
-.btn-ghost{background:transparent;border:1px solid var(--border2);color:var(--white);padding:0.5rem 1.1rem;border-radius:6px;font-family:'DM Sans',sans-serif;font-size:0.83rem;cursor:pointer;transition:all 0.2s;text-decoration:none;display:inline-block;}
+.btn-ghost{background:transparent;border:1.5px solid var(--border2);color:var(--ink2);padding:0.5rem 1.1rem;border-radius:8px;font-family:'Poppins',sans-serif;font-size:0.8rem;font-weight:500;cursor:pointer;transition:all 0.2s;text-decoration:none;display:inline-block;}
 .btn-ghost:hover{border-color:var(--accent);color:var(--accent);}
-.btn-primary{background:var(--accent);border:none;color:#fff;padding:0.5rem 1.2rem;border-radius:6px;font-family:'DM Sans',sans-serif;font-size:0.83rem;font-weight:500;cursor:pointer;transition:all 0.2s;text-decoration:none;display:inline-block;}
-.btn-primary:hover{background:#4a3fee;transform:translateY(-1px);}
-.btn-accent2{background:var(--accent2);border:none;color:var(--ink);padding:0.5rem 1.2rem;border-radius:6px;font-family:'DM Sans',sans-serif;font-size:0.83rem;font-weight:600;cursor:pointer;transition:all 0.2s;text-decoration:none;display:inline-block;}
-.btn-accent2:hover{background:#00bfa0;transform:translateY(-1px);}
+.btn-primary{background:var(--accent);border:none;color:#fff;padding:0.5rem 1.2rem;border-radius:8px;font-family:'Poppins',sans-serif;font-size:0.8rem;font-weight:600;cursor:pointer;transition:all 0.2s;text-decoration:none;display:inline-block;box-shadow:0 4px 14px rgba(91,79,255,0.3);}
+.btn-primary:hover{background:#4a3fee;transform:translateY(-1px);box-shadow:0 6px 20px rgba(91,79,255,0.38);}
+.btn-teal{background:var(--accent2);border:none;color:#fff;padding:0.5rem 1.2rem;border-radius:8px;font-family:'Poppins',sans-serif;font-size:0.8rem;font-weight:600;cursor:pointer;transition:all 0.2s;text-decoration:none;display:inline-block;box-shadow:0 4px 14px rgba(0,196,154,0.28);}
+.btn-teal:hover{background:#00b38a;transform:translateY(-1px);}
 
 /* HERO */
-.hero{min-height:100vh;display:grid;grid-template-columns:1fr 1fr;align-items:center;padding:8rem 4rem 5rem;position:relative;gap:4rem;}
-.hero::after{content:'';position:absolute;inset:0;background-image:linear-gradient(rgba(91,79,255,0.05) 1px,transparent 1px),linear-gradient(90deg,rgba(91,79,255,0.05) 1px,transparent 1px);background-size:64px 64px;pointer-events:none;}
-.glow{position:absolute;border-radius:50%;filter:blur(130px);pointer-events:none;}
-.glow-1{width:550px;height:550px;background:rgba(91,79,255,0.15);top:5%;right:5%;}
-.glow-2{width:320px;height:320px;background:rgba(0,212,170,0.09);bottom:15%;left:25%;}
+.hero{min-height:100vh;display:grid;grid-template-columns:1fr 1fr;align-items:center;padding:8rem 4rem 5rem;position:relative;gap:4rem;background:linear-gradient(160deg,#ffffff 55%,#f4f2ff 100%);}
+.hero::before{content:'';position:absolute;inset:0;background-image:linear-gradient(rgba(91,79,255,0.04) 1px,transparent 1px),linear-gradient(90deg,rgba(91,79,255,0.04) 1px,transparent 1px);background-size:56px 56px;pointer-events:none;}
+.hero-glow{position:absolute;border-radius:50%;filter:blur(110px);pointer-events:none;}
+.hg1{width:480px;height:480px;background:rgba(91,79,255,0.1);top:5%;right:5%;}
+.hg2{width:280px;height:280px;background:rgba(0,196,154,0.08);bottom:15%;left:20%;}
 .hero-left{position:relative;z-index:2;}
-.hero-badge{display:inline-flex;align-items:center;gap:0.5rem;background:rgba(91,79,255,0.1);border:1px solid rgba(91,79,255,0.28);border-radius:100px;padding:0.3rem 0.85rem;font-size:0.75rem;font-weight:500;color:#a89fff;margin-bottom:1.8rem;animation:fadeUp 0.6s ease both;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:translateY(0);}}
+.hero-badge{display:inline-flex;align-items:center;gap:0.45rem;background:var(--accent-light);border:1px solid rgba(91,79,255,0.2);border-radius:100px;padding:0.3rem 0.85rem;font-size:0.72rem;font-weight:600;color:var(--accent);margin-bottom:1.6rem;animation:fadeUp 0.6s ease both;}
 .hero-badge::before{content:'';width:6px;height:6px;background:var(--accent2);border-radius:50%;animation:pulse 2s infinite;}
-@keyframes pulse{0%,100%{opacity:1;transform:scale(1);}50%{opacity:0.4;transform:scale(1.6);}}
-@keyframes fadeUp{from{opacity:0;transform:translateY(22px);}to{opacity:1;transform:translateY(0);}}
-h1{font-family:'Syne',sans-serif;font-size:clamp(2.6rem,4vw,4rem);font-weight:800;line-height:1.04;letter-spacing:-0.03em;margin-bottom:1.4rem;animation:fadeUp 0.7s 0.1s ease both;}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1);}50%{opacity:0.4;transform:scale(1.7);}}
+h1{font-size:clamp(2.4rem,3.8vw,3.8rem);font-weight:800;line-height:1.06;letter-spacing:-0.03em;margin-bottom:1.3rem;color:var(--ink);animation:fadeUp 0.7s 0.1s ease both;}
 .grad{background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
-.hero-sub{font-size:1rem;line-height:1.8;color:var(--muted2);max-width:460px;margin-bottom:2.2rem;font-weight:300;animation:fadeUp 0.7s 0.2s ease both;}
-.hero-ctas{display:flex;gap:0.9rem;margin-bottom:2.8rem;flex-wrap:wrap;animation:fadeUp 0.7s 0.3s ease both;}
-.btn-large{padding:0.8rem 1.9rem;font-size:0.92rem;border-radius:8px;}
+.hero-sub{font-size:0.97rem;line-height:1.8;color:var(--muted);max-width:450px;margin-bottom:2.2rem;font-weight:400;animation:fadeUp 0.7s 0.2s ease both;}
+.hero-ctas{display:flex;gap:0.85rem;margin-bottom:2.8rem;flex-wrap:wrap;animation:fadeUp 0.7s 0.3s ease both;}
+.btn-large{padding:0.75rem 1.8rem;font-size:0.88rem;border-radius:9px;}
 .hero-stats{display:flex;gap:2.5rem;animation:fadeUp 0.7s 0.4s ease both;}
-.stat-num{font-family:'Syne',sans-serif;font-size:1.75rem;font-weight:800;line-height:1;}
-.stat-label{font-size:0.75rem;color:var(--muted);margin-top:0.2rem;}
+.stat-num{font-size:1.7rem;font-weight:800;color:var(--ink);line-height:1;}
+.stat-label{font-size:0.72rem;color:var(--muted);margin-top:0.15rem;font-weight:400;}
 
 /* DASHBOARD MOCKUP */
 .hero-right{position:relative;z-index:2;animation:fadeUp 0.8s 0.25s ease both;}
-.dashboard-mockup{background:rgba(18,18,30,0.9);border:1px solid var(--border);border-radius:16px;overflow:hidden;box-shadow:0 40px 80px rgba(0,0,0,0.6),0 0 0 1px rgba(255,255,255,0.04);}
-.mockup-bar{background:rgba(255,255,255,0.025);border-bottom:1px solid var(--border2);padding:0.85rem 1.2rem;display:flex;align-items:center;gap:0.5rem;}
+.dash{background:#fff;border:1.5px solid var(--border);border-radius:18px;overflow:hidden;box-shadow:var(--shadow-lg);}
+.dash-bar{background:var(--bg2);border-bottom:1px solid var(--border);padding:0.8rem 1.2rem;display:flex;align-items:center;gap:0.45rem;}
 .dot{width:10px;height:10px;border-radius:50%;}
 .dot-r{background:#ff5f57;}.dot-y{background:#febc2e;}.dot-g{background:#28c840;}
-.mockup-url{font-size:0.68rem;color:var(--muted);margin-left:auto;font-family:'Syne',sans-serif;letter-spacing:0.06em;}
-.mockup-body{padding:1.3rem;display:grid;grid-template-columns:1fr 1fr;gap:0.9rem;}
-.m-card{background:rgba(255,255,255,0.025);border:1px solid var(--border2);border-radius:10px;padding:1rem;}
-.m-label{font-size:0.62rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);margin-bottom:0.55rem;}
-.pbar{background:rgba(255,255,255,0.06);border-radius:4px;height:5px;margin-bottom:0.55rem;overflow:hidden;}
+.dash-url{font-size:0.65rem;color:var(--muted2);margin-left:auto;font-weight:500;letter-spacing:0.04em;}
+.dash-body{padding:1.2rem;display:grid;grid-template-columns:1fr 1fr;gap:0.85rem;}
+.mc{background:var(--bg2);border:1.5px solid var(--border);border-radius:10px;padding:0.95rem;}
+.mc-label{font-size:0.6rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted2);margin-bottom:0.5rem;font-weight:600;}
+.pbar{background:var(--bg3);border-radius:4px;height:5px;margin-bottom:0.5rem;overflow:hidden;}
 .pfill{height:100%;border-radius:4px;background:linear-gradient(90deg,var(--accent),var(--accent2));animation:grow 1.6s 0.5s ease both;transform-origin:left;transform:scaleX(0);}
 @keyframes grow{to{transform:scaleX(1);}}
 .p67{width:67%;}.p40{width:40%;}.p85{width:85%;}
-.mrow{display:flex;justify-content:space-between;font-size:0.72rem;color:var(--muted);}
-.mrow span:first-child{color:var(--white);font-weight:500;}
-.badge-ok{display:inline-block;background:rgba(0,212,170,0.1);border:1px solid rgba(0,212,170,0.22);color:var(--accent2);font-size:0.62rem;padding:0.12rem 0.45rem;border-radius:4px;margin-top:0.35rem;}
-.badge-warn{display:inline-block;background:rgba(255,80,80,0.1);border:1px solid rgba(255,80,80,0.22);color:#ff8080;font-size:0.62rem;padding:0.12rem 0.45rem;border-radius:4px;margin-top:0.35rem;}
-.m-card.wide{grid-column:span 2;display:flex;align-items:center;gap:1rem;}
+.mrow{display:flex;justify-content:space-between;font-size:0.7rem;color:var(--muted);}
+.mrow span:first-child{color:var(--ink2);font-weight:600;}
+.badge-ok{display:inline-block;background:var(--accent2-light);border:1px solid rgba(0,196,154,0.25);color:var(--accent2);font-size:0.6rem;padding:0.1rem 0.4rem;border-radius:4px;margin-top:0.3rem;font-weight:600;}
+.badge-warn{display:inline-block;background:#fff3f3;border:1px solid rgba(255,80,80,0.2);color:#e05050;font-size:0.6rem;padding:0.1rem 0.4rem;border-radius:4px;margin-top:0.3rem;font-weight:600;}
+.mc.wide{grid-column:span 2;display:flex;align-items:center;gap:1rem;}
 .sig{display:flex;gap:3px;align-items:flex-end;}
 .sb{width:5px;border-radius:2px;background:var(--accent);animation:sigp 1.5s ease infinite;}
 .sb:nth-child(1){height:7px;animation-delay:0s;}
 .sb:nth-child(2){height:13px;animation-delay:0.2s;}
 .sb:nth-child(3){height:19px;animation-delay:0.4s;}
 .sb:nth-child(4){height:25px;animation-delay:0.6s;}
-@keyframes sigp{0%,100%{opacity:1;}50%{opacity:0.35;}}
+@keyframes sigp{0%,100%{opacity:1;}50%{opacity:0.3;}}
 
-/* SHARED SECTION */
+/* SHARED */
 section{position:relative;z-index:1;}
-.si{max-width:1180px;margin:0 auto;padding:0 4rem;}
-.slabel{font-size:0.7rem;letter-spacing:0.16em;text-transform:uppercase;color:var(--accent);font-weight:600;margin-bottom:0.9rem;}
-.stitle{font-family:'Syne',sans-serif;font-size:clamp(1.9rem,2.8vw,2.7rem);font-weight:800;letter-spacing:-0.03em;line-height:1.1;margin-bottom:1.1rem;}
-.ssub{color:var(--muted2);font-size:0.95rem;line-height:1.8;max-width:500px;font-weight:300;}
+.si{max-width:1160px;margin:0 auto;padding:0 4rem;}
+.slabel{font-size:0.68rem;letter-spacing:0.16em;text-transform:uppercase;color:var(--accent);font-weight:700;margin-bottom:0.8rem;}
+.stitle{font-size:clamp(1.8rem,2.6vw,2.5rem);font-weight:800;letter-spacing:-0.03em;line-height:1.12;margin-bottom:1rem;color:var(--ink);}
+.ssub{color:var(--muted);font-size:0.92rem;line-height:1.85;max-width:490px;font-weight:400;}
 
-/* LOGOS TICKER */
-.ticker{padding:2.5rem 0;border-top:1px solid var(--border2);border-bottom:1px solid var(--border2);overflow:hidden;}
-.ticker-track{display:flex;gap:2.5rem;align-items:center;animation:tick 22s linear infinite;white-space:nowrap;}
+/* TICKER */
+.ticker{padding:2.2rem 0;border-top:1px solid var(--border);border-bottom:1px solid var(--border);overflow:hidden;background:var(--bg2);}
+.ticker-track{display:flex;gap:2rem;align-items:center;animation:tick 24s linear infinite;white-space:nowrap;}
 @keyframes tick{from{transform:translateX(0);}to{transform:translateX(-50%);}}
-.titem{font-family:'Syne',sans-serif;font-size:0.75rem;font-weight:700;letter-spacing:0.14em;color:var(--muted);text-transform:uppercase;white-space:nowrap;padding:0 0.8rem;opacity:0.55;transition:opacity 0.2s;}
-.titem:hover{opacity:1;}
+.titem{font-size:0.72rem;font-weight:700;letter-spacing:0.12em;color:var(--muted2);text-transform:uppercase;white-space:nowrap;padding:0 0.7rem;opacity:0.7;}
+.titem:hover{opacity:1;color:var(--accent);}
 
 /* EARLY ACCESS BANNER */
-.ea-banner{background:linear-gradient(135deg,rgba(91,79,255,0.18),rgba(0,212,170,0.1));border:1px solid rgba(91,79,255,0.3);border-radius:16px;padding:2.5rem 3rem;display:flex;align-items:center;justify-content:space-between;gap:2rem;margin:4rem 0 0;flex-wrap:wrap;}
-.ea-left h3{font-family:'Syne',sans-serif;font-size:1.3rem;font-weight:800;margin-bottom:0.4rem;}
-.ea-left p{font-size:0.88rem;color:var(--muted2);max-width:480px;line-height:1.7;}
-.ea-tag{display:inline-flex;align-items:center;gap:0.4rem;background:rgba(255,107,53,0.15);border:1px solid rgba(255,107,53,0.3);border-radius:100px;padding:0.25rem 0.7rem;font-size:0.7rem;font-weight:600;color:#ff9a70;margin-bottom:0.7rem;letter-spacing:0.04em;}
+.ea-wrap{padding:3.5rem 0 0;}
+.ea-banner{background:linear-gradient(135deg,var(--accent-light),var(--accent2-light));border:1.5px solid rgba(91,79,255,0.18);border-radius:18px;padding:2.5rem 3rem;display:flex;align-items:center;justify-content:space-between;gap:2rem;flex-wrap:wrap;}
+.ea-tag{display:inline-flex;align-items:center;gap:0.4rem;background:var(--accent3-light);border:1px solid rgba(255,107,53,0.22);border-radius:100px;padding:0.22rem 0.7rem;font-size:0.68rem;font-weight:700;color:var(--accent3);margin-bottom:0.6rem;letter-spacing:0.04em;}
+.ea-left h3{font-size:1.2rem;font-weight:800;margin-bottom:0.35rem;color:var(--ink);}
+.ea-left p{font-size:0.85rem;color:var(--muted);max-width:460px;line-height:1.75;}
+.ea-btns{display:flex;flex-direction:column;gap:0.7rem;align-items:flex-start;flex-shrink:0;}
 
 /* HOW IT WORKS */
-.how{padding:7rem 0;}
-.how-grid{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center;margin-top:4rem;}
-.steps{display:flex;flex-direction:column;gap:1.5rem;}
-.step{display:flex;gap:1.1rem;align-items:flex-start;padding:1.1rem;border-radius:12px;border:1px solid transparent;transition:all 0.25s;cursor:pointer;}
-.step:hover,.step.active{background:var(--glass);border-color:var(--border);}
-.snum{flex-shrink:0;width:34px;height:34px;border-radius:8px;background:rgba(91,79,255,0.12);border:1px solid rgba(91,79,255,0.28);display:flex;align-items:center;justify-content:center;font-family:'Syne',sans-serif;font-size:0.72rem;font-weight:700;color:var(--accent);}
-.step h4{font-family:'Syne',sans-serif;font-size:0.92rem;font-weight:700;margin-bottom:0.35rem;}
-.step p{font-size:0.82rem;color:var(--muted2);line-height:1.65;}
-.fvis{background:var(--mid2);border:1px solid var(--border);border-radius:16px;padding:2rem;min-height:360px;display:flex;flex-direction:column;gap:0.8rem;}
+.how{padding:7rem 0;background:var(--bg);}
+.how-grid{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center;margin-top:3.5rem;}
+.steps{display:flex;flex-direction:column;gap:1.2rem;}
+.step{display:flex;gap:1rem;align-items:flex-start;padding:1.1rem;border-radius:12px;border:1.5px solid transparent;transition:all 0.25s;cursor:pointer;}
+.step:hover{background:var(--bg2);border-color:var(--border2);}
+.step.active{background:var(--accent-light);border-color:rgba(91,79,255,0.2);}
+.snum{flex-shrink:0;width:32px;height:32px;border-radius:8px;background:var(--accent-mid);border:1.5px solid rgba(91,79,255,0.2);display:flex;align-items:center;justify-content:center;font-size:0.7rem;font-weight:700;color:var(--accent);}
+.step.active .snum{background:var(--accent);color:#fff;border-color:var(--accent);}
+.step h4{font-size:0.88rem;font-weight:700;margin-bottom:0.3rem;color:var(--ink);}
+.step p{font-size:0.8rem;color:var(--muted);line-height:1.65;}
+.fvis{background:var(--bg2);border:1.5px solid var(--border);border-radius:16px;padding:1.8rem;min-height:350px;display:flex;flex-direction:column;gap:0.75rem;box-shadow:var(--shadow-md);}
 .vrow{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;}
 .vc{aspect-ratio:1;border-radius:4px;}
-.vc.done{background:var(--accent2);opacity:0.85;}
+.vc.done{background:var(--accent2);opacity:0.75;}
 .vc.act{background:var(--accent);animation:cp 1s ease infinite;}
-.vc.pend{background:rgba(255,255,255,0.07);}
-.vc.alert{background:#ff5050;opacity:0.8;}
+.vc.pend{background:var(--border);}
+.vc.alert{background:#f55050;opacity:0.85;}
 @keyframes cp{0%,100%{opacity:1;}50%{opacity:0.5;}}
-.vleg{display:flex;gap:1.2rem;margin-top:auto;padding-top:1rem;border-top:1px solid var(--border2);}
-.li{display:flex;align-items:center;gap:0.35rem;font-size:0.7rem;color:var(--muted);}
+.vleg{display:flex;gap:1rem;margin-top:auto;padding-top:1rem;border-top:1px solid var(--border);}
+.li{display:flex;align-items:center;gap:0.3rem;font-size:0.68rem;color:var(--muted);font-weight:500;}
 .ld{width:8px;height:8px;border-radius:2px;}
 
 /* DEMO VIDEO */
-.demo-section{padding:7rem 0;background:linear-gradient(180deg,transparent,rgba(18,18,30,0.5),transparent);}
-.demo-inner{display:grid;grid-template-columns:1fr 1.6fr;gap:4rem;align-items:center;}
-.demo-video-wrap{position:relative;border-radius:16px;overflow:hidden;border:1px solid var(--border);box-shadow:0 30px 70px rgba(0,0,0,0.5);}
+.demo-sec{padding:7rem 0;background:var(--bg2);}
+.demo-inner{display:grid;grid-template-columns:1fr 1.55fr;gap:4rem;align-items:center;}
+.demo-video-wrap{border-radius:16px;overflow:hidden;border:1.5px solid var(--border);box-shadow:var(--shadow-lg);}
 .demo-video-wrap iframe{display:block;width:100%;aspect-ratio:16/9;border:none;}
-.demo-badge{display:inline-flex;align-items:center;gap:0.5rem;background:rgba(255,107,53,0.12);border:1px solid rgba(255,107,53,0.25);border-radius:100px;padding:0.28rem 0.75rem;font-size:0.72rem;font-weight:600;color:#ff9a70;margin-bottom:1rem;}
+.demo-badge{display:inline-flex;align-items:center;gap:0.45rem;background:var(--accent3-light);border:1px solid rgba(255,107,53,0.2);border-radius:100px;padding:0.25rem 0.75rem;font-size:0.7rem;font-weight:700;color:var(--accent3);margin-bottom:1rem;}
+.demo-ctas{display:flex;flex-direction:column;gap:0.75rem;align-items:flex-start;margin-top:1.8rem;}
 
 /* FEATURES */
-.features{padding:7rem 0;}
-.feat-header{display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:end;margin-bottom:3.5rem;}
-.feat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.3rem;}
-.fc{background:var(--glass);border:1px solid var(--border2);border-radius:14px;padding:1.7rem;transition:all 0.3s;}
-.fc:hover{border-color:rgba(91,79,255,0.35);background:rgba(91,79,255,0.05);transform:translateY(-3px);}
-.ficon{width:42px;height:42px;border-radius:10px;background:rgba(91,79,255,0.12);display:flex;align-items:center;justify-content:center;font-size:1.2rem;margin-bottom:1.1rem;}
-.fc h4{font-family:'Syne',sans-serif;font-size:0.92rem;font-weight:700;margin-bottom:0.45rem;}
-.fc p{font-size:0.8rem;color:var(--muted2);line-height:1.65;}
-.ftag{display:inline-block;margin-top:0.75rem;font-size:0.65rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:var(--accent2);background:rgba(0,212,170,0.09);border:1px solid rgba(0,212,170,0.18);padding:0.15rem 0.5rem;border-radius:4px;}
-.ftag.orange{color:#ff9a70;background:rgba(255,107,53,0.09);border-color:rgba(255,107,53,0.2);}
+.features{padding:7rem 0;background:var(--bg);}
+.feat-header{display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:end;margin-bottom:3rem;}
+.feat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.2rem;}
+.fc{background:var(--bg);border:1.5px solid var(--border);border-radius:14px;padding:1.6rem;transition:all 0.3s;box-shadow:var(--shadow-sm);}
+.fc:hover{border-color:rgba(91,79,255,0.3);box-shadow:var(--shadow-md);transform:translateY(-3px);}
+.ficon{width:42px;height:42px;border-radius:10px;background:var(--accent-light);display:flex;align-items:center;justify-content:center;font-size:1.2rem;margin-bottom:1rem;}
+.fc h4{font-size:0.88rem;font-weight:700;margin-bottom:0.4rem;color:var(--ink);}
+.fc p{font-size:0.78rem;color:var(--muted);line-height:1.7;}
+.ftag{display:inline-block;margin-top:0.7rem;font-size:0.62rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--accent2);background:var(--accent2-light);border:1px solid rgba(0,196,154,0.2);padding:0.12rem 0.48rem;border-radius:4px;}
+.ftag.orange{color:var(--accent3);background:var(--accent3-light);border-color:rgba(255,107,53,0.2);}
 
 /* ABOUT */
-.about{padding:7rem 0;}
-.about-story{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center;margin-bottom:6rem;}
-.story-text h2{font-family:'Syne',sans-serif;font-size:clamp(1.8rem,2.5vw,2.4rem);font-weight:800;letter-spacing:-0.03em;line-height:1.1;margin-bottom:1.3rem;}
-.story-text p{font-size:0.9rem;color:var(--muted2);line-height:1.85;margin-bottom:1rem;font-weight:300;}
-.story-visual{background:var(--mid2);border:1px solid var(--border);border-radius:16px;padding:2.5rem;display:flex;flex-direction:column;gap:1.5rem;}
-.sv-stat{display:flex;align-items:center;gap:1.2rem;padding:1rem;background:var(--glass);border:1px solid var(--border2);border-radius:10px;}
-.sv-num{font-family:'Syne',sans-serif;font-size:1.6rem;font-weight:800;min-width:80px;}
-.sv-desc{font-size:0.82rem;color:var(--muted2);line-height:1.5;}
-
-/* TEAM */
-.team-title{font-family:'Syne',sans-serif;font-size:1.6rem;font-weight:800;letter-spacing:-0.02em;margin-bottom:2.5rem;}
-.team-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.5rem;margin-bottom:6rem;}
-.team-card{background:var(--glass);border:1px solid var(--border2);border-radius:14px;padding:1.8rem;text-align:center;transition:all 0.3s;}
-.team-card:hover{border-color:rgba(91,79,255,0.3);transform:translateY(-3px);}
-.team-avatar{width:72px;height:72px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--accent2));display:flex;align-items:center;justify-content:center;font-family:'Syne',sans-serif;font-size:1.3rem;font-weight:800;margin:0 auto 1.1rem;border:2px solid var(--border);}
-.team-name{font-family:'Syne',sans-serif;font-size:0.92rem;font-weight:700;margin-bottom:0.25rem;}
-.team-role{font-size:0.75rem;color:var(--accent);font-weight:600;margin-bottom:0.5rem;}
-.team-bio{font-size:0.78rem;color:var(--muted2);line-height:1.6;}
-.team-location{display:inline-block;margin-top:0.7rem;font-size:0.68rem;color:var(--muted);background:var(--glass);border:1px solid var(--border2);padding:0.15rem 0.5rem;border-radius:4px;}
-
-/* MILESTONES */
-.milestones-title{font-family:'Syne',sans-serif;font-size:1.6rem;font-weight:800;letter-spacing:-0.02em;margin-bottom:2.5rem;}
-.timeline{position:relative;padding-left:2rem;margin-bottom:6rem;}
-.timeline::before{content:'';position:absolute;left:0;top:0;bottom:0;width:1px;background:linear-gradient(180deg,var(--accent),var(--accent2),transparent);}
-.tl-item{position:relative;padding:0 0 2.5rem 2rem;}
-.tl-dot{position:absolute;left:-2rem;top:0.3rem;width:12px;height:12px;border-radius:50%;background:var(--accent);border:2px solid var(--ink);transform:translateX(-5.5px);}
-.tl-dot.current{background:var(--accent2);box-shadow:0 0 0 4px rgba(0,212,170,0.2);}
-.tl-date{font-size:0.7rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--accent);margin-bottom:0.3rem;}
-.tl-title{font-family:'Syne',sans-serif;font-size:0.95rem;font-weight:700;margin-bottom:0.3rem;}
-.tl-desc{font-size:0.82rem;color:var(--muted2);line-height:1.6;}
-.tl-badge{display:inline-block;margin-top:0.5rem;font-size:0.65rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:#ff9a70;background:rgba(255,107,53,0.1);border:1px solid rgba(255,107,53,0.22);padding:0.15rem 0.5rem;border-radius:4px;}
-
-/* PARTNERS */
-.partners-title{font-family:'Syne',sans-serif;font-size:1.6rem;font-weight:800;letter-spacing:-0.02em;margin-bottom:2rem;}
+.about{padding:7rem 0;background:var(--bg2);}
+.about-story{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:start;margin-bottom:5rem;}
+.story-text h2{font-size:clamp(1.7rem,2.4vw,2.3rem);font-weight:800;letter-spacing:-0.03em;line-height:1.12;margin-bottom:1.2rem;color:var(--ink);}
+.story-text p{font-size:0.85rem;color:var(--muted);line-height:1.9;margin-bottom:0.9rem;}
+.story-visual{display:flex;flex-direction:column;gap:1rem;}
+.sv-stat{display:flex;align-items:center;gap:1.2rem;padding:1.1rem 1.3rem;background:var(--bg);border:1.5px solid var(--border);border-radius:12px;box-shadow:var(--shadow-sm);}
+.sv-num{font-size:1.5rem;font-weight:800;min-width:72px;line-height:1;}
+.sv-desc{font-size:0.8rem;color:var(--muted);line-height:1.55;}
+.section-heading{font-size:1.4rem;font-weight:800;letter-spacing:-0.02em;margin-bottom:2rem;color:var(--ink);}
+.team-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.2rem;margin-bottom:5rem;}
+.team-card{background:var(--bg);border:1.5px solid var(--border);border-radius:14px;padding:1.7rem;text-align:center;transition:all 0.3s;box-shadow:var(--shadow-sm);}
+.team-card:hover{border-color:rgba(91,79,255,0.25);box-shadow:var(--shadow-md);transform:translateY(-3px);}
+.team-avatar{width:68px;height:68px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--accent2));display:flex;align-items:center;justify-content:center;font-size:1.2rem;font-weight:800;color:#fff;margin:0 auto 1rem;border:3px solid var(--bg);}
+.team-name{font-size:0.88rem;font-weight:700;margin-bottom:0.2rem;color:var(--ink);}
+.team-role{font-size:0.72rem;color:var(--accent);font-weight:600;margin-bottom:0.45rem;}
+.team-bio{font-size:0.75rem;color:var(--muted);line-height:1.65;}
+.team-location{display:inline-block;margin-top:0.65rem;font-size:0.65rem;color:var(--muted2);background:var(--bg2);border:1px solid var(--border);padding:0.12rem 0.45rem;border-radius:4px;font-weight:500;}
+.timeline{position:relative;padding-left:1.8rem;margin-bottom:5rem;}
+.timeline::before{content:'';position:absolute;left:0;top:0;bottom:0;width:2px;background:linear-gradient(180deg,var(--accent),var(--accent2),var(--border));}
+.tl-item{position:relative;padding:0 0 2.2rem 2rem;}
+.tl-dot{position:absolute;left:-1.8rem;top:0.35rem;width:12px;height:12px;border-radius:50%;background:var(--accent);border:2.5px solid var(--bg2);transform:translateX(-5px);}
+.tl-dot.current{background:var(--accent2);box-shadow:0 0 0 4px rgba(0,196,154,0.18);}
+.tl-dot.future{background:var(--border2);}
+.tl-date{font-size:0.67rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--accent);margin-bottom:0.25rem;}
+.tl-title{font-size:0.9rem;font-weight:700;margin-bottom:0.25rem;color:var(--ink);}
+.tl-desc{font-size:0.8rem;color:var(--muted);line-height:1.65;}
+.tl-badge{display:inline-block;margin-top:0.4rem;font-size:0.62rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--accent2);background:var(--accent2-light);border:1px solid rgba(0,196,154,0.22);padding:0.12rem 0.48rem;border-radius:4px;}
 .partners-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;}
-.partner-card{background:var(--glass);border:1px solid var(--border2);border-radius:12px;padding:1.5rem 2rem;display:flex;align-items:center;justify-content:center;transition:all 0.3s;}
-.partner-card:hover{border-color:rgba(91,79,255,0.3);background:rgba(91,79,255,0.04);}
-.partner-name{font-family:'Syne',sans-serif;font-size:0.88rem;font-weight:700;color:var(--muted2);letter-spacing:0.04em;text-align:center;}
+.partner-card{background:var(--bg);border:1.5px solid var(--border);border-radius:12px;padding:1.4rem 2rem;display:flex;align-items:center;justify-content:center;transition:all 0.3s;box-shadow:var(--shadow-sm);}
+.partner-card:hover{border-color:rgba(91,79,255,0.25);box-shadow:var(--shadow-md);}
+.partner-name{font-size:0.82rem;font-weight:700;color:var(--muted);letter-spacing:0.03em;text-align:center;}
 
 /* IoT */
-.iot{padding:7rem 0;}
+.iot{padding:7rem 0;background:var(--bg);}
 .iot-inner{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center;}
-.iot-diag{background:var(--mid2);border:1px solid var(--border);border-radius:16px;padding:2.5rem;display:flex;flex-direction:column;align-items:center;gap:1.3rem;position:relative;overflow:hidden;}
-.iot-diag::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at center bottom,rgba(0,212,170,0.07),transparent 70%);pointer-events:none;}
-.inode{background:rgba(255,255,255,0.03);border:1px solid var(--border2);border-radius:10px;padding:0.75rem 1.3rem;font-size:0.78rem;font-weight:500;text-align:center;width:100%;transition:border-color 0.3s;}
-.inode:hover{border-color:var(--accent2);}
-.inode.hub{background:rgba(91,79,255,0.12);border-color:rgba(91,79,255,0.35);font-family:'Syne',sans-serif;font-weight:700;}
-.icon{width:1px;height:22px;background:linear-gradient(180deg,var(--accent),var(--accent2));opacity:0.4;position:relative;}
-.icon::after{content:'';position:absolute;top:0;left:50%;transform:translateX(-50%);width:5px;height:5px;border-radius:50%;background:var(--accent);animation:fd 1.5s linear infinite;}
+.iot-diag{background:var(--bg2);border:1.5px solid var(--border);border-radius:16px;padding:2.3rem;display:flex;flex-direction:column;align-items:center;gap:1.2rem;position:relative;overflow:hidden;box-shadow:var(--shadow-md);}
+.iot-diag::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at center bottom,rgba(0,196,154,0.05),transparent 70%);pointer-events:none;}
+.inode{background:var(--bg);border:1.5px solid var(--border);border-radius:10px;padding:0.7rem 1.2rem;font-size:0.75rem;font-weight:600;text-align:center;width:100%;transition:all 0.3s;color:var(--ink2);}
+.inode:hover{border-color:var(--accent2);color:var(--accent2);}
+.inode.hub{background:var(--accent);color:#fff;border-color:var(--accent);font-weight:700;}
+.icon{width:2px;height:22px;background:linear-gradient(180deg,var(--accent),var(--accent2));opacity:0.35;position:relative;border-radius:2px;}
+.icon::after{content:'';position:absolute;top:0;left:50%;transform:translateX(-50%);width:6px;height:6px;border-radius:50%;background:var(--accent);animation:fd 1.5s linear infinite;}
 @keyframes fd{from{top:0;opacity:1;}to{top:100%;opacity:0;}}
-.inodes-row{display:grid;grid-template-columns:1fr 1fr;gap:0.7rem;width:100%;}
+.inodes-row{display:grid;grid-template-columns:1fr 1fr;gap:0.65rem;width:100%;}
 .iot-list{display:flex;flex-direction:column;gap:0.85rem;margin-top:1.5rem;}
-.ili{display:flex;gap:0.75rem;align-items:flex-start;font-size:0.85rem;color:var(--muted2);line-height:1.65;}
-.ili::before{content:'→';color:var(--accent2);flex-shrink:0;margin-top:0.05rem;}
+.ili{display:flex;gap:0.7rem;align-items:flex-start;font-size:0.83rem;color:var(--muted);line-height:1.65;}
+.ili::before{content:'→';color:var(--accent2);flex-shrink:0;font-weight:700;margin-top:0.05rem;}
 
 /* PRICING */
-.pricing{padding:7rem 0;}
-.price-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.3rem;margin-top:3.5rem;}
-.pc{background:var(--glass);border:1px solid var(--border2);border-radius:16px;padding:2.3rem;transition:all 0.3s;position:relative;overflow:hidden;}
-.pc:hover{transform:translateY(-4px);border-color:rgba(91,79,255,0.3);}
-.pc.feat{background:rgba(91,79,255,0.09);border-color:rgba(91,79,255,0.35);}
-.pc.feat::before{content:'Most Popular';position:absolute;top:1.1rem;right:1.1rem;font-size:0.62rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--accent);background:rgba(91,79,255,0.15);border:1px solid rgba(91,79,255,0.28);padding:0.18rem 0.55rem;border-radius:4px;}
-.pt{font-size:0.72rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted);margin-bottom:0.7rem;}
-.pp{font-family:'Syne',sans-serif;font-size:2.6rem;font-weight:800;line-height:1;margin-bottom:0.25rem;}
-.pp sup{font-size:1.1rem;vertical-align:super;}
-.pc-cad{font-size:0.78rem;color:var(--muted);margin-bottom:1.8rem;}
-.pfl{list-style:none;display:flex;flex-direction:column;gap:0.65rem;margin-bottom:1.8rem;}
-.pfl li{font-size:0.82rem;color:var(--muted2);display:flex;gap:0.45rem;align-items:flex-start;}
+.pricing{padding:7rem 0;background:var(--bg2);}
+.price-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.2rem;margin-top:3.5rem;}
+.pc{background:var(--bg);border:1.5px solid var(--border);border-radius:16px;padding:2.2rem;transition:all 0.3s;position:relative;overflow:hidden;box-shadow:var(--shadow-sm);}
+.pc:hover{transform:translateY(-4px);box-shadow:var(--shadow-lg);}
+.pc.feat{background:var(--accent);border-color:var(--accent);}
+.pc.feat .pt{color:rgba(255,255,255,0.75);}
+.pc.feat .pp{color:#fff;}
+.pc.feat .pc-cad{color:rgba(255,255,255,0.7);}
+.pc.feat .pfl li{color:rgba(255,255,255,0.85);}
+.pc.feat .pfl li::before{color:rgba(255,255,255,0.75);}
+.pc.feat::before{content:'Most Popular';position:absolute;top:1.1rem;right:1.1rem;font-size:0.6rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--accent);background:#fff;border-radius:4px;padding:0.18rem 0.55rem;}
+.pt{font-size:0.7rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted2);margin-bottom:0.65rem;font-weight:600;}
+.pp{font-size:2.5rem;font-weight:800;line-height:1;margin-bottom:0.2rem;color:var(--ink);}
+.pp sup{font-size:1rem;vertical-align:super;}
+.pc-cad{font-size:0.75rem;color:var(--muted);margin-bottom:1.7rem;}
+.pfl{list-style:none;display:flex;flex-direction:column;gap:0.6rem;margin-bottom:1.7rem;}
+.pfl li{font-size:0.8rem;color:var(--muted);display:flex;gap:0.4rem;align-items:flex-start;}
 .pfl li::before{content:'✓';color:var(--accent2);font-weight:700;font-size:0.78rem;flex-shrink:0;margin-top:0.1rem;}
-.pbtn{width:100%;padding:0.75rem;border-radius:8px;font-family:'DM Sans',sans-serif;font-size:0.85rem;font-weight:500;cursor:pointer;transition:all 0.2s;text-align:center;display:block;text-decoration:none;}
-.pbtn-out{background:transparent;border:1px solid var(--border2);color:var(--white);}
+.pbtn{width:100%;padding:0.72rem;border-radius:9px;font-family:'Poppins',sans-serif;font-size:0.82rem;font-weight:600;cursor:pointer;transition:all 0.2s;text-align:center;display:block;text-decoration:none;}
+.pbtn-out{background:transparent;border:1.5px solid var(--border2);color:var(--ink2);}
 .pbtn-out:hover{border-color:var(--accent);color:var(--accent);}
-.pbtn-solid{background:var(--accent);border:none;color:#fff;}
-.pbtn-solid:hover{background:#4a3fee;}
+.pbtn-white{background:#fff;border:none;color:var(--accent);}
+.pbtn-white:hover{background:rgba(255,255,255,0.9);}
 
 /* CTA */
-.cta{padding:8rem 0;}
-.cta-box{background:linear-gradient(135deg,rgba(91,79,255,0.14),rgba(0,212,170,0.07));border:1px solid rgba(91,79,255,0.22);border-radius:24px;padding:5rem;text-align:center;position:relative;overflow:hidden;}
-.cta-box::before{content:'';position:absolute;top:-100px;left:50%;transform:translateX(-50%);width:420px;height:420px;background:radial-gradient(circle,rgba(91,79,255,0.18),transparent 70%);pointer-events:none;}
-.cta-box h2{font-family:'Syne',sans-serif;font-size:clamp(1.9rem,3vw,2.8rem);font-weight:800;letter-spacing:-0.03em;margin-bottom:1rem;position:relative;}
-.cta-box p{color:var(--muted2);font-size:0.95rem;max-width:460px;margin:0 auto 2.3rem;line-height:1.8;position:relative;}
+.cta{padding:7rem 0;background:var(--bg);}
+.cta-box{background:linear-gradient(135deg,var(--accent) 0%,#7c6bff 50%,var(--accent2) 100%);border-radius:24px;padding:5rem;text-align:center;position:relative;overflow:hidden;box-shadow:0 30px 80px rgba(91,79,255,0.22);}
+.cta-box::before{content:'';position:absolute;top:-80px;left:50%;transform:translateX(-50%);width:400px;height:400px;background:radial-gradient(circle,rgba(255,255,255,0.12),transparent 70%);pointer-events:none;}
+.cta-box h2{font-size:clamp(1.8rem,2.8vw,2.6rem);font-weight:800;letter-spacing:-0.03em;margin-bottom:1rem;color:#fff;position:relative;}
+.cta-box p{color:rgba(255,255,255,0.82);font-size:0.92rem;max-width:440px;margin:0 auto 2.2rem;line-height:1.8;position:relative;}
 .cta-acts{display:flex;gap:1rem;justify-content:center;position:relative;flex-wrap:wrap;}
+.btn-white{background:#fff;border:none;color:var(--accent);padding:0.75rem 1.8rem;border-radius:9px;font-family:'Poppins',sans-serif;font-size:0.88rem;font-weight:700;cursor:pointer;transition:all 0.2s;text-decoration:none;display:inline-block;box-shadow:0 4px 14px rgba(0,0,0,0.12);}
+.btn-white:hover{background:rgba(255,255,255,0.92);transform:translateY(-1px);}
+.btn-outline-white{background:transparent;border:2px solid rgba(255,255,255,0.5);color:#fff;padding:0.75rem 1.8rem;border-radius:9px;font-family:'Poppins',sans-serif;font-size:0.88rem;font-weight:600;cursor:pointer;transition:all 0.2s;text-decoration:none;display:inline-block;}
+.btn-outline-white:hover{border-color:#fff;background:rgba(255,255,255,0.08);}
 
 /* FOOTER */
-footer{border-top:1px solid var(--border2);padding:3rem 4rem;display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:3.5rem;position:relative;z-index:1;}
-.fb p{font-size:0.8rem;color:var(--muted);line-height:1.7;margin-top:0.9rem;max-width:220px;}
-.fc-col h5{font-family:'Syne',sans-serif;font-size:0.76rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:1rem;color:var(--white);}
-.fc-col ul{list-style:none;display:flex;flex-direction:column;gap:0.55rem;}
-.fc-col ul li a{font-size:0.8rem;color:var(--muted);text-decoration:none;transition:color 0.2s;}
-.fc-col ul li a:hover{color:var(--white);}
-.foot-bot{padding:1.4rem 4rem;display:flex;justify-content:space-between;align-items:center;border-top:1px solid var(--border2);position:relative;z-index:1;}
-.foot-bot p{font-size:0.75rem;color:var(--muted);}
+footer{border-top:1px solid var(--border);padding:3rem 4rem;display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:3.5rem;background:var(--bg2);}
+.fb p{font-size:0.78rem;color:var(--muted);line-height:1.75;margin-top:0.85rem;max-width:210px;}
+.fc-col h5{font-size:0.72rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:1rem;color:var(--ink2);}
+.fc-col ul{list-style:none;display:flex;flex-direction:column;gap:0.5rem;}
+.fc-col ul li a{font-size:0.78rem;color:var(--muted);text-decoration:none;transition:color 0.2s;}
+.fc-col ul li a:hover{color:var(--accent);}
+.foot-bot{padding:1.3rem 4rem;display:flex;justify-content:space-between;align-items:center;border-top:1px solid var(--border);background:var(--bg2);}
+.foot-bot p{font-size:0.72rem;color:var(--muted2);}
 
 /* MODAL */
-.mo{position:fixed;inset:0;background:rgba(0,0,0,0.82);backdrop-filter:blur(10px);z-index:1000;display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity 0.3s;}
+.mo{position:fixed;inset:0;background:rgba(15,15,26,0.5);backdrop-filter:blur(8px);z-index:1000;display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity 0.3s;}
 .mo.open{opacity:1;pointer-events:all;}
-.modal{background:var(--mid2);border:1px solid var(--border);border-radius:20px;padding:2.8rem;width:100%;max-width:460px;transform:scale(0.94) translateY(18px);transition:transform 0.3s;position:relative;}
+.modal{background:var(--bg);border:1.5px solid var(--border);border-radius:20px;padding:2.6rem;width:100%;max-width:460px;transform:scale(0.94) translateY(16px);transition:transform 0.3s;position:relative;box-shadow:var(--shadow-lg);}
 .mo.open .modal{transform:scale(1) translateY(0);}
-.mc{position:absolute;top:1.1rem;right:1.1rem;background:var(--glass);border:1px solid var(--border2);color:var(--muted);width:30px;height:30px;border-radius:7px;cursor:pointer;font-size:0.95rem;display:flex;align-items:center;justify-content:center;transition:all 0.2s;}
-.mc:hover{color:var(--white);border-color:var(--white);}
-.modal h3{font-family:'Syne',sans-serif;font-size:1.5rem;font-weight:800;margin-bottom:0.35rem;}
-.modal > p{font-size:0.83rem;color:var(--muted2);margin-bottom:1.8rem;line-height:1.6;}
-.fg{display:flex;flex-direction:column;gap:0.35rem;margin-bottom:0.9rem;}
-.fg label{font-size:0.75rem;font-weight:500;color:var(--muted);letter-spacing:0.04em;}
-.fg input,.fg select,.fg textarea{background:rgba(255,255,255,0.04);border:1px solid var(--border2);border-radius:8px;padding:0.65rem 0.95rem;color:var(--white);font-family:'DM Sans',sans-serif;font-size:0.85rem;outline:none;transition:border-color 0.2s;width:100%;}
-.fg input:focus,.fg select:focus,.fg textarea:focus{border-color:var(--accent);}
-.fg select option{background:var(--mid2);}
-.fg textarea{resize:vertical;min-height:75px;}
-.msub{width:100%;background:var(--accent);border:none;color:#fff;padding:0.85rem;border-radius:8px;font-family:'DM Sans',sans-serif;font-size:0.9rem;font-weight:500;cursor:pointer;transition:all 0.2s;margin-top:0.4rem;}
+.mclose{position:absolute;top:1.1rem;right:1.1rem;background:var(--bg2);border:1.5px solid var(--border);color:var(--muted);width:30px;height:30px;border-radius:8px;cursor:pointer;font-size:0.9rem;display:flex;align-items:center;justify-content:center;transition:all 0.2s;}
+.mclose:hover{color:var(--ink);border-color:var(--ink2);}
+.modal h3{font-size:1.45rem;font-weight:800;margin-bottom:0.3rem;color:var(--ink);}
+.modal > p{font-size:0.82rem;color:var(--muted);margin-bottom:1.7rem;line-height:1.65;}
+.fg{display:flex;flex-direction:column;gap:0.3rem;margin-bottom:0.85rem;}
+.fg label{font-size:0.72rem;font-weight:600;color:var(--ink2);letter-spacing:0.03em;}
+.fg input,.fg select,.fg textarea{background:var(--bg2);border:1.5px solid var(--border);border-radius:9px;padding:0.62rem 0.9rem;color:var(--ink);font-family:'Poppins',sans-serif;font-size:0.82rem;outline:none;transition:border-color 0.2s;width:100%;}
+.fg input:focus,.fg select:focus,.fg textarea:focus{border-color:var(--accent);background:var(--bg);}
+.fg textarea{resize:vertical;min-height:72px;}
+.msub{width:100%;background:var(--accent);border:none;color:#fff;padding:0.82rem;border-radius:9px;font-family:'Poppins',sans-serif;font-size:0.88rem;font-weight:600;cursor:pointer;transition:all 0.2s;margin-top:0.4rem;box-shadow:0 4px 14px rgba(91,79,255,0.25);}
 .msub:hover{background:#4a3fee;}
-.ldiv{text-align:center;font-size:0.75rem;color:var(--muted);margin:0.9rem 0;position:relative;}
-.ldiv::before,.ldiv::after{content:'';position:absolute;top:50%;width:43%;height:1px;background:var(--border2);}
+.ldiv{text-align:center;font-size:0.72rem;color:var(--muted2);margin:0.85rem 0;position:relative;}
+.ldiv::before,.ldiv::after{content:'';position:absolute;top:50%;width:43%;height:1px;background:var(--border);}
 .ldiv::before{left:0;}.ldiv::after{right:0;}
 
 /* RESPONSIVE */
 @media(max-width:960px){
   nav{padding:1rem 1.5rem;}
   .nav-links{display:none;}
-  .hero{grid-template-columns:1fr;padding:7rem 1.5rem 3rem;gap:2.5rem;}
+  .hero{grid-template-columns:1fr;padding:7rem 1.5rem 3rem;gap:2rem;}
   .hero-right{display:none;}
   .si{padding:0 1.5rem;}
   .how-grid,.iot-inner,.demo-inner,.about-story{grid-template-columns:1fr;gap:3rem;}
@@ -288,9 +298,7 @@ footer{border-top:1px solid var(--border2);padding:3rem 4rem;display:grid;grid-t
 
 <!-- NAV -->
 <nav>
-  <a class="nav-logo" href="#">
-    <span class="wg-tag">WG</span>WorkGuardAi
-  </a>
+  <a class="nav-logo" href="#"><span class="wg-tag">WG</span>WorkGuardAi</a>
   <ul class="nav-links">
     <li><a href="#how">How It Works</a></li>
     <li><a href="#demo">Demo</a></li>
@@ -300,14 +308,14 @@ footer{border-top:1px solid var(--border2);padding:3rem 4rem;display:grid;grid-t
   </ul>
   <div class="nav-actions">
     <a href="https://epmg.lambda-factor.pl/login" target="_blank" class="btn-ghost">Log In</a>
-    <a href="#" class="btn-accent2" onclick="openM('access');return false;">Request Access</a>
+    <a href="#" class="btn-primary" onclick="openM('access');return false;">Request Access</a>
   </div>
 </nav>
 
 <!-- HERO -->
 <section class="hero">
-  <div class="glow glow-1"></div>
-  <div class="glow glow-2"></div>
+  <div class="hero-glow hg1"></div>
+  <div class="hero-glow hg2"></div>
   <div class="hero-left">
     <div class="hero-badge">AI-Powered Construction Intelligence</div>
     <h1>From Groundwork<br>to <span class="grad">Dashboard</span></h1>
@@ -323,34 +331,16 @@ footer{border-top:1px solid var(--border2);padding:3rem 4rem;display:grid;grid-t
     </div>
   </div>
   <div class="hero-right">
-    <div class="dashboard-mockup">
-      <div class="mockup-bar">
+    <div class="dash">
+      <div class="dash-bar">
         <span class="dot dot-r"></span><span class="dot dot-y"></span><span class="dot dot-g"></span>
-        <span class="mockup-url">epmg.lambda-factor.pl — WorkGuardAi</span>
+        <span class="dash-url">WorkGuardAi — Live Dashboard</span>
       </div>
-      <div class="mockup-body">
-        <div class="m-card">
-          <div class="m-label">Site Alpha · Excavation</div>
-          <div class="pbar"><div class="pfill p67"></div></div>
-          <div class="mrow"><span>67% done</span><span>On track</span></div>
-          <span class="badge-ok">✓ Milestone met</span>
-        </div>
-        <div class="m-card">
-          <div class="m-label">Site Beta · Foundation</div>
-          <div class="pbar"><div class="pfill p40"></div></div>
-          <div class="mrow"><span>40% done</span><span>3d delay</span></div>
-          <span class="badge-warn">⚠ Off-track</span>
-        </div>
-        <div class="m-card">
-          <div class="m-label">Site Gamma · Framing</div>
-          <div class="pbar"><div class="pfill p85"></div></div>
-          <div class="mrow"><span>85% done</span><span>+2d ahead</span></div>
-          <span class="badge-ok">↑ Ahead of plan</span>
-        </div>
-        <div class="m-card wide">
-          <div class="sig"><div class="sb"></div><div class="sb"></div><div class="sb"></div><div class="sb"></div></div>
-          <div><div class="m-label">IoT Connectivity</div><div style="font-size:0.78rem;font-weight:500;">4 devices live · LTE-M</div></div>
-        </div>
+      <div class="dash-body">
+        <div class="mc"><div class="mc-label">Site Alpha · Excavation</div><div class="pbar"><div class="pfill p67"></div></div><div class="mrow"><span>67% done</span><span>On track</span></div><span class="badge-ok">✓ Milestone met</span></div>
+        <div class="mc"><div class="mc-label">Site Beta · Foundation</div><div class="pbar"><div class="pfill p40"></div></div><div class="mrow"><span>40% done</span><span>3d delay</span></div><span class="badge-warn">⚠ Off-track</span></div>
+        <div class="mc"><div class="mc-label">Site Gamma · Framing</div><div class="pbar"><div class="pfill p85"></div></div><div class="mrow"><span>85% done</span><span>+2d ahead</span></div><span class="badge-ok">↑ Ahead of plan</span></div>
+        <div class="mc wide"><div class="sig"><div class="sb"></div><div class="sb"></div><div class="sb"></div><div class="sb"></div></div><div><div class="mc-label">IoT Connectivity</div><div style="font-size:0.75rem;font-weight:600;color:var(--ink2);">4 devices live · LTE-M</div></div></div>
       </div>
     </div>
   </div>
@@ -365,16 +355,16 @@ footer{border-top:1px solid var(--border2);padding:3rem 4rem;display:grid;grid-t
 </div>
 
 <!-- EARLY ACCESS BANNER -->
-<div class="si" style="padding-top:4rem;">
+<div class="ea-wrap si">
   <div class="ea-banner">
     <div class="ea-left">
       <div class="ea-tag">🔒 Limited Early Access</div>
       <h3>We're onboarding our first pilot customers personally</h3>
       <p>WorkGuardAi is at demo stage and we're selectively working with a small number of construction and infrastructure companies. You'll get hands-on support from Endrit directly — no automated setup, no friction.</p>
     </div>
-    <div style="flex-shrink:0;display:flex;flex-direction:column;gap:0.8rem;align-items:flex-start;">
-      <a href="#" class="btn-accent2 btn-large" onclick="openM('access');return false;">Apply for Early Access</a>
-      <a href="#demo" class="btn-ghost btn-large" style="text-align:center;">See the platform first →</a>
+    <div class="ea-btns">
+      <a href="#" class="btn-teal btn-large" onclick="openM('access');return false;">Apply for Early Access</a>
+      <a href="#demo" class="btn-ghost btn-large">See the platform first →</a>
     </div>
   </div>
 </div>
@@ -386,28 +376,16 @@ footer{border-top:1px solid var(--border2);padding:3rem 4rem;display:grid;grid-t
     <div class="how-grid">
       <div>
         <h2 class="stitle">From DWG file<br>to live insight</h2>
-        <p class="ssub" style="margin-bottom:2.5rem;">Upload your construction plan once — WorkGuardAi reads it mathematically, maps your site, and tracks real progress automatically.</p>
+        <p class="ssub" style="margin-bottom:2.3rem;">Upload your construction plan once — WorkGuardAi reads it mathematically, maps your site, and tracks real progress automatically.</p>
         <div class="steps">
-          <div class="step active" onclick="setStep(this)">
-            <div class="snum">01</div>
-            <div><h4>Upload your DWG plan</h4><p>Drop your architectural or civil engineering file. WorkGuardAi parses and digitally renders your full excavation and site layout.</p></div>
-          </div>
-          <div class="step" onclick="setStep(this)">
-            <div class="snum">02</div>
-            <div><h4>AI maps plan vs. reality</h4><p>Our model continuously compares live site progress against your uploaded plan — zero manual data entry required from managers.</p></div>
-          </div>
-          <div class="step" onclick="setStep(this)">
-            <div class="snum">03</div>
-            <div><h4>Smart AI notifications fire</h4><p>When milestones are reached or something goes off-track, architects and managers are alerted instantly — across all sites simultaneously.</p></div>
-          </div>
-          <div class="step" onclick="setStep(this)">
-            <div class="snum">04</div>
-            <div><h4>Monitor multiple sites at once</h4><p>One dashboard, all your sites, real-time progress. No spreadsheets, no status calls, no guesswork.</p></div>
-          </div>
+          <div class="step active" onclick="setStep(this)"><div class="snum">01</div><div><h4>Upload your DWG plan</h4><p>Drop your architectural or civil engineering file. WorkGuardAi parses and digitally renders your full excavation and site layout.</p></div></div>
+          <div class="step" onclick="setStep(this)"><div class="snum">02</div><div><h4>AI maps plan vs. reality</h4><p>Our model continuously compares live site progress against your uploaded plan — zero manual data entry from managers.</p></div></div>
+          <div class="step" onclick="setStep(this)"><div class="snum">03</div><div><h4>Smart AI notifications fire</h4><p>When milestones are reached or something falls off-track, architects and managers are alerted instantly across all sites.</p></div></div>
+          <div class="step" onclick="setStep(this)"><div class="snum">04</div><div><h4>Monitor multiple sites at once</h4><p>One dashboard, all your sites, real-time progress. No spreadsheets, no status calls, no guesswork.</p></div></div>
         </div>
       </div>
       <div class="fvis">
-        <div style="font-family:'Syne',sans-serif;font-size:0.68rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);">Site Alpha · Live Grid View</div>
+        <div style="font-size:0.65rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted2);">Site Alpha · Live Grid View</div>
         <div class="vrow"><div class="vc done"></div><div class="vc done"></div><div class="vc done"></div><div class="vc done"></div><div class="vc done"></div><div class="vc done"></div><div class="vc done"></div></div>
         <div class="vrow"><div class="vc done"></div><div class="vc done"></div><div class="vc done"></div><div class="vc done"></div><div class="vc done"></div><div class="vc done"></div><div class="vc act"></div></div>
         <div class="vrow"><div class="vc done"></div><div class="vc done"></div><div class="vc act"></div><div class="vc pend"></div><div class="vc pend"></div><div class="vc pend"></div><div class="vc pend"></div></div>
@@ -416,12 +394,12 @@ footer{border-top:1px solid var(--border2);padding:3rem 4rem;display:grid;grid-t
         <div class="vleg">
           <div class="li"><div class="ld" style="background:var(--accent2)"></div>Done</div>
           <div class="li"><div class="ld" style="background:var(--accent)"></div>Active</div>
-          <div class="li"><div class="ld" style="background:rgba(255,255,255,0.07)"></div>Pending</div>
-          <div class="li"><div class="ld" style="background:#ff5050"></div>Alert</div>
+          <div class="li"><div class="ld" style="background:var(--border)"></div>Pending</div>
+          <div class="li"><div class="ld" style="background:#f55050"></div>Alert</div>
         </div>
-        <div style="padding-top:1rem;border-top:1px solid var(--border2)">
-          <div style="font-size:0.72rem;color:var(--muted)">Overall progress</div>
-          <div style="font-family:'Syne',sans-serif;font-size:1.35rem;font-weight:800;margin-top:0.15rem;">40% <span style="font-size:0.72rem;font-weight:400;color:var(--muted)">of plan completed</span></div>
+        <div style="padding-top:1rem;border-top:1px solid var(--border);">
+          <div style="font-size:0.7rem;color:var(--muted2);font-weight:500;">Overall progress</div>
+          <div style="font-size:1.3rem;font-weight:800;margin-top:0.12rem;color:var(--ink);">40% <span style="font-size:0.7rem;font-weight:400;color:var(--muted);">of plan completed</span></div>
         </div>
       </div>
     </div>
@@ -429,20 +407,20 @@ footer{border-top:1px solid var(--border2);padding:3rem 4rem;display:grid;grid-t
 </section>
 
 <!-- DEMO VIDEO -->
-<section class="demo-section" id="demo">
+<section class="demo-sec" id="demo">
   <div class="si">
     <div class="demo-inner">
       <div>
         <div class="demo-badge">▶ Live Demo</div>
         <h2 class="stitle">See WorkGuardAi<br>in action</h2>
         <p class="ssub">Watch our platform parse a real DWG file, visualise the site plan, and track excavation progress in real time — exactly as your team would use it day to day.</p>
-        <div style="margin-top:2rem;display:flex;flex-direction:column;gap:0.9rem;">
-          <a href="#" class="btn-primary btn-large" style="display:inline-block;width:fit-content;" onclick="openM('access');return false;">Apply for Early Access</a>
-          <a href="https://epmg.lambda-factor.pl/login" target="_blank" class="btn-ghost btn-large" style="display:inline-block;width:fit-content;">Already have access? Log In →</a>
+        <div class="demo-ctas">
+          <a href="#" class="btn-primary btn-large" onclick="openM('access');return false;">Apply for Early Access</a>
+          <a href="https://epmg.lambda-factor.pl/login" target="_blank" class="btn-ghost btn-large">Already have access? Log In →</a>
         </div>
       </div>
       <div class="demo-video-wrap">
-        <iframe src="https://www.youtube.com/embed/e-T5i-jd7U" title="WorkGuardAi Demo" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        <iframe src="https://www.youtube.com/embed/e-T5i-jd-7U?si=uLkVJYYWN7D-RZt5" title="WorkGuardAi Platform Demo" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
       </div>
     </div>
   </div>
@@ -472,131 +450,44 @@ footer{border-top:1px solid var(--border2);padding:3rem 4rem;display:grid;grid-t
 <!-- ABOUT -->
 <section class="about" id="about">
   <div class="si">
-
-    <!-- Story -->
     <div class="about-story">
       <div class="story-text">
         <div class="slabel">Our Story</div>
-        <h2>Built from the groundwork up</h2>
+        <h2>Built from the<br>groundwork up</h2>
         <p>WorkGuardAi was founded in October 2023 by Endrit Kola with a simple observation: the construction industry — one of the world's largest — was still managing multi-million euro projects with spreadsheets, phone calls, and manual site visits.</p>
         <p>With a background spanning commercial sales, international startups, digital products, and the EMEA telecoms region, Endrit set out to build an AI monitoring platform that removes the manual burden from site managers entirely — giving infrastructure businesses real-time visibility from a single dashboard.</p>
         <p>Supported by LUT University, Helsinki Incubators, the University of Helsinki, and Interreg EU funding, WorkGuardAi has grown from an idea into a working MVP with its first pilot project underway with ANK Construction Company.</p>
       </div>
       <div class="story-visual">
-        <div class="sv-stat">
-          <div class="sv-num" style="color:var(--accent);">2023</div>
-          <div class="sv-desc">Founded in October 2023 in Finland. Started with a problem worth solving.</div>
-        </div>
-        <div class="sv-stat">
-          <div class="sv-num" style="color:var(--accent2);">€8K</div>
-          <div class="sv-desc">First funding secured from LUT University and EU Fund in June 2025.</div>
-        </div>
-        <div class="sv-stat">
-          <div class="sv-num" style="color:#ff9a70;">€9B</div>
-          <div class="sv-desc">Total addressable market in European construction AI monitoring.</div>
-        </div>
-        <div class="sv-stat">
-          <div class="sv-num" style="color:var(--accent);">€500K</div>
-          <div class="sv-desc">Current fundraising target to launch MVP and expand across Finland.</div>
-        </div>
+        <div class="sv-stat"><div class="sv-num" style="color:var(--accent);">2023</div><div class="sv-desc">Founded in October 2023 in Finland. Started with a problem worth solving.</div></div>
+        <div class="sv-stat"><div class="sv-num" style="color:var(--accent2);">€8K</div><div class="sv-desc">First funding secured from LUT University and EU Fund in June 2025.</div></div>
+        <div class="sv-stat"><div class="sv-num" style="color:var(--accent3);">€9B</div><div class="sv-desc">Total addressable market in European construction AI monitoring.</div></div>
+        <div class="sv-stat"><div class="sv-num" style="color:var(--accent);">€500K</div><div class="sv-desc">Current fundraising target to launch MVP and expand across Finland.</div></div>
       </div>
     </div>
 
-    <!-- Team -->
-    <div class="team-title">The Team</div>
+    <div class="section-heading">The Team</div>
     <div class="team-grid">
-      <div class="team-card">
-        <div class="team-avatar">EK</div>
-        <div class="team-name">Endrit Kola</div>
-        <div class="team-role">Founder & CEO</div>
-        <div class="team-bio">Commercial, international startups, digital products and sales. Deep EMEA telecoms background.</div>
-        <span class="team-location">🇵🇹 Portugal · Spain · Finland</span>
-      </div>
-      <div class="team-card">
-        <div class="team-avatar" style="background:linear-gradient(135deg,#ff6b35,#ff9a70);">LC</div>
-        <div class="team-name">Larissa Chaves</div>
-        <div class="team-role">CTO</div>
-        <div class="team-bio">AI, technology design, and product architecture. Building the intelligence layer of WorkGuardAi.</div>
-        <span class="team-location">🇧🇷 Brazil</span>
-      </div>
-      <div class="team-card">
-        <div class="team-avatar" style="background:linear-gradient(135deg,#00d4aa,#00a882);">PS</div>
-        <div class="team-name">Pratham Srivastava</div>
-        <div class="team-role">Full Stack Developer</div>
-        <div class="team-bio">Full stack product development. Turning the platform vision into production-ready software.</div>
-        <span class="team-location">🇮🇳 India</span>
-      </div>
-      <div class="team-card">
-        <div class="team-avatar" style="background:linear-gradient(135deg,#888,#555);">AK</div>
-        <div class="team-name">Altin Kola</div>
-        <div class="team-role">Field & Infrastructure Advisor</div>
-        <div class="team-bio">Surveyor and field expert. Ensures WorkGuardAi reflects the real-world complexity of construction sites.</div>
-        <span class="team-location">🏗️ Field Expert</span>
-      </div>
+      <div class="team-card"><div class="team-avatar">EK</div><div class="team-name">Endrit Kola</div><div class="team-role">Founder & CEO</div><div class="team-bio">Commercial, international startups, digital products and sales. Deep EMEA telecoms background.</div><span class="team-location">🇵🇹 Portugal · Spain · Finland</span></div>
+      <div class="team-card"><div class="team-avatar" style="background:linear-gradient(135deg,#ff6b35,#ffaa80);">LC</div><div class="team-name">Larissa Chaves</div><div class="team-role">CTO</div><div class="team-bio">AI, technology design, and product architecture. Building the intelligence layer of WorkGuardAi.</div><span class="team-location">🇧🇷 Brazil</span></div>
+      <div class="team-card"><div class="team-avatar" style="background:linear-gradient(135deg,#00c49a,#00a882);">PS</div><div class="team-name">Pratham Srivastava</div><div class="team-role">Full Stack Developer</div><div class="team-bio">Full stack product development. Turning the platform vision into production-ready software.</div><span class="team-location">🇮🇳 India</span></div>
+      <div class="team-card"><div class="team-avatar" style="background:linear-gradient(135deg,#888,#bbb);">AK</div><div class="team-name">Altin Kola</div><div class="team-role">Field & Infrastructure Advisor</div><div class="team-bio">Surveyor and field expert. Ensures WorkGuardAi reflects real-world construction site complexity.</div><span class="team-location">🏗️ Field Expert</span></div>
     </div>
 
-    <!-- Milestones -->
-    <div class="milestones-title">Our Journey</div>
+    <div class="section-heading">Our Journey</div>
     <div class="timeline">
-      <div class="tl-item">
-        <div class="tl-dot"></div>
-        <div class="tl-date">October 2023</div>
-        <div class="tl-title">WorkGuardAi Founded</div>
-        <div class="tl-desc">Company started with the core idea of eliminating manual site monitoring for construction businesses.</div>
-      </div>
-      <div class="tl-item">
-        <div class="tl-dot"></div>
-        <div class="tl-date">December 2023</div>
-        <div class="tl-title">First Learnings & Product Iteration</div>
-        <div class="tl-desc">Early customer research shaped the product direction. DWG parsing identified as the core technical differentiator.</div>
-      </div>
-      <div class="tl-item">
-        <div class="tl-dot"></div>
-        <div class="tl-date">January 2024</div>
-        <div class="tl-title">Team Growth</div>
-        <div class="tl-desc">Larissa Chaves joined as CTO and Pratham Srivastava as Full Stack Developer, accelerating product development.</div>
-      </div>
-      <div class="tl-item">
-        <div class="tl-dot"></div>
-        <div class="tl-date">April 2024</div>
-        <div class="tl-title">Joined NEXUS Programme</div>
-        <div class="tl-desc">Accepted into the NEXUS incubator, gaining mentorship, network access, and strategic support.</div>
-      </div>
-      <div class="tl-item">
-        <div class="tl-dot"></div>
-        <div class="tl-date">August 2024</div>
-        <div class="tl-title">Rebranded to WorkGuardAi</div>
-        <div class="tl-desc">Name changed to better reflect the AI-driven monitoring and site intelligence positioning of the platform.</div>
-      </div>
-      <div class="tl-item">
-        <div class="tl-dot current"></div>
-        <div class="tl-date">June 2025 · Now</div>
-        <div class="tl-title">First Funding & MVP Launch</div>
-        <div class="tl-desc">€8,000 secured from LUT University and EU Fund. MVP live with ANK Construction as pilot partner. Expanding across Finland.</div>
-        <span class="tl-badge">📍 We are here</span>
-      </div>
-      <div class="tl-item">
-        <div class="tl-dot" style="background:var(--muted);"></div>
-        <div class="tl-date">2025–2026</div>
-        <div class="tl-title">Finland Expansion & €500K Raise</div>
-        <div class="tl-desc">Launching MVP commercially across Finnish construction market. Raising €500K in seed funding. Adding IoT connectivity layer.</div>
-      </div>
-      <div class="tl-item">
-        <div class="tl-dot" style="background:var(--muted);"></div>
-        <div class="tl-date">2027–2028</div>
-        <div class="tl-title">EU Expansion</div>
-        <div class="tl-desc">Scaling to other European markets, expanding beyond construction into infrastructure, medical, and utilities sectors.</div>
-      </div>
-      <div class="tl-item" style="padding-bottom:0;">
-        <div class="tl-dot" style="background:var(--muted);"></div>
-        <div class="tl-date">2030</div>
-        <div class="tl-title">Market Leader</div>
-        <div class="tl-desc">Global presence. Leading AI monitoring platform for infrastructure-heavy industries worldwide.</div>
-      </div>
+      <div class="tl-item"><div class="tl-dot"></div><div class="tl-date">October 2023</div><div class="tl-title">WorkGuardAi Founded</div><div class="tl-desc">Company started with the core idea of eliminating manual site monitoring for construction businesses.</div></div>
+      <div class="tl-item"><div class="tl-dot"></div><div class="tl-date">December 2023</div><div class="tl-title">First Learnings & Product Iteration</div><div class="tl-desc">Early customer research shaped the product direction. DWG parsing identified as the core technical differentiator.</div></div>
+      <div class="tl-item"><div class="tl-dot"></div><div class="tl-date">January 2024</div><div class="tl-title">Team Growth</div><div class="tl-desc">Larissa Chaves joined as CTO and Pratham Srivastava as Full Stack Developer, accelerating product development.</div></div>
+      <div class="tl-item"><div class="tl-dot"></div><div class="tl-date">April 2024</div><div class="tl-title">Joined NEXUS Programme</div><div class="tl-desc">Accepted into the NEXUS incubator, gaining mentorship, network access, and strategic support.</div></div>
+      <div class="tl-item"><div class="tl-dot"></div><div class="tl-date">August 2024</div><div class="tl-title">Rebranded to WorkGuardAi</div><div class="tl-desc">Name changed to better reflect the AI-driven monitoring and site intelligence positioning of the platform.</div></div>
+      <div class="tl-item"><div class="tl-dot current"></div><div class="tl-date">June 2025 · Now</div><div class="tl-title">First Funding & MVP Launch</div><div class="tl-desc">€8,000 secured from LUT University and EU Fund. MVP live with ANK Construction as pilot partner. Expanding across Finland.</div><span class="tl-badge">📍 We are here</span></div>
+      <div class="tl-item"><div class="tl-dot future"></div><div class="tl-date">2025–2026</div><div class="tl-title">Finland Expansion & €500K Raise</div><div class="tl-desc">Launching MVP commercially across Finnish construction market. Raising €500K in seed funding. Adding IoT connectivity layer.</div></div>
+      <div class="tl-item"><div class="tl-dot future"></div><div class="tl-date">2027–2028</div><div class="tl-title">EU Expansion</div><div class="tl-desc">Scaling to other European markets — construction, infrastructure, medical, and utilities sectors.</div></div>
+      <div class="tl-item" style="padding-bottom:0;"><div class="tl-dot future"></div><div class="tl-date">2030</div><div class="tl-title">Market Leader</div><div class="tl-desc">Global presence. Leading AI monitoring platform for infrastructure-heavy industries worldwide.</div></div>
     </div>
 
-    <!-- Partners -->
-    <div class="partners-title">Our Partners & Supporters</div>
+    <div class="section-heading">Our Partners & Supporters</div>
     <div class="partners-grid">
       <div class="partner-card"><div class="partner-name">LUT University</div></div>
       <div class="partner-card"><div class="partner-name">Helsinki Incubators</div></div>
@@ -605,7 +496,6 @@ footer{border-top:1px solid var(--border2);padding:3rem 4rem;display:grid;grid-t
       <div class="partner-card"><div class="partner-name">Advascale</div></div>
       <div class="partner-card"><div class="partner-name">Interreg · EU Co-funded</div></div>
     </div>
-
   </div>
 </section>
 
@@ -616,7 +506,7 @@ footer{border-top:1px solid var(--border2);padding:3rem 4rem;display:grid;grid-t
       <div class="iot-diag">
         <div class="inode hub">🌐 WorkGuardAi Platform</div>
         <div class="icon"></div>
-        <div class="inode" style="background:rgba(0,212,170,0.07);border-color:rgba(0,212,170,0.22);">IoT Connectivity Layer (LTE-M / NB-IoT)</div>
+        <div class="inode" style="background:var(--accent2-light);border-color:rgba(0,196,154,0.25);color:var(--accent2);font-weight:600;">IoT Connectivity Layer (LTE-M / NB-IoT)</div>
         <div class="icon"></div>
         <div class="inodes-row">
           <div class="inode">📷 Site Camera</div>
@@ -624,7 +514,7 @@ footer{border-top:1px solid var(--border2);padding:3rem 4rem;display:grid;grid-t
           <div class="inode">🌡️ Environmental</div>
           <div class="inode">🏥 Medical Device</div>
         </div>
-        <div style="font-size:0.7rem;color:var(--muted);text-align:center;margin-top:0.4rem;">Any industry · Any device · Any location</div>
+        <div style="font-size:0.68rem;color:var(--muted2);text-align:center;margin-top:0.3rem;font-weight:500;">Any industry · Any device · Any location</div>
       </div>
       <div>
         <div class="slabel">IoT Connectivity — Coming Soon</div>
@@ -637,7 +527,7 @@ footer{border-top:1px solid var(--border2);padding:3rem 4rem;display:grid;grid-t
           <div class="ili">Partner-backed connectivity at competitive rates — you own the customer relationship</div>
           <div class="ili">Expand monitoring beyond the site to wherever your assets operate</div>
         </div>
-        <a href="#" onclick="openM('access');return false;" class="btn-primary" style="display:inline-block;margin-top:2rem;padding:0.8rem 1.8rem;">Express Interest in IoT →</a>
+        <a href="#" onclick="openM('access');return false;" class="btn-primary" style="display:inline-block;margin-top:2rem;padding:0.78rem 1.7rem;">Express Interest in IoT →</a>
       </div>
     </div>
   </div>
@@ -653,41 +543,21 @@ footer{border-top:1px solid var(--border2);padding:3rem 4rem;display:grid;grid-t
         <div class="pt">Pilot</div>
         <div class="pp">Free</div>
         <div class="pc-cad">Explore the platform</div>
-        <ul class="pfl">
-          <li>1 site, limited plan uploads</li>
-          <li>Dashboard access</li>
-          <li>Basic AI notifications</li>
-          <li>Onboarded personally by Endrit</li>
-          <li>Direct feedback loop with the team</li>
-        </ul>
+        <ul class="pfl"><li>1 site, limited plan uploads</li><li>Dashboard access</li><li>Basic AI notifications</li><li>Onboarded personally by Endrit</li><li>Direct feedback loop with the team</li></ul>
         <a href="#" onclick="openM('access');return false;" class="pbtn pbtn-out">Apply for Pilot Access</a>
       </div>
       <div class="pc feat">
         <div class="pt">Basic–Pro</div>
         <div class="pp"><sup>€</sup>550</div>
         <div class="pc-cad">per month</div>
-        <ul class="pfl">
-          <li>Unlimited sites</li>
-          <li>Full DWG plan parsing</li>
-          <li>Real-time AI monitoring</li>
-          <li>Smart milestone notifications</li>
-          <li>Multi-user access</li>
-          <li>Priority support</li>
-        </ul>
-        <a href="#" onclick="openM('access');return false;" class="pbtn pbtn-solid">Get Started</a>
+        <ul class="pfl"><li>Unlimited sites</li><li>Full DWG plan parsing</li><li>Real-time AI monitoring</li><li>Smart milestone notifications</li><li>Multi-user access</li><li>Priority support</li></ul>
+        <a href="#" onclick="openM('access');return false;" class="pbtn pbtn-white">Get Started</a>
       </div>
       <div class="pc">
         <div class="pt">Enterprise</div>
-        <div class="pp" style="font-size:1.9rem;">Custom</div>
+        <div class="pp" style="font-size:1.85rem;">Custom</div>
         <div class="pc-cad">negotiable</div>
-        <ul class="pfl">
-          <li>Everything in Pro</li>
-          <li>IoT connectivity bundle</li>
-          <li>Custom integrations</li>
-          <li>Dedicated account manager</li>
-          <li>On-site onboarding</li>
-          <li>SLA guarantee</li>
-        </ul>
+        <ul class="pfl"><li>Everything in Pro</li><li>IoT connectivity bundle</li><li>Custom integrations</li><li>Dedicated account manager</li><li>On-site onboarding</li><li>SLA guarantee</li></ul>
         <a href="#" onclick="openM('access');return false;" class="pbtn pbtn-out">Contact Sales</a>
       </div>
     </div>
@@ -701,8 +571,8 @@ footer{border-top:1px solid var(--border2);padding:3rem 4rem;display:grid;grid-t
       <h2>Ready to monitor smarter?</h2>
       <p>We're personally onboarding our first pilot customers. If you manage construction or infrastructure sites and want to eliminate manual reporting, let's talk.</p>
       <div class="cta-acts">
-        <a href="#" onclick="openM('access');return false;" class="btn-accent2 btn-large">Apply for Early Access</a>
-        <a href="https://epmg.lambda-factor.pl/login" target="_blank" class="btn-ghost btn-large">Log In to Platform</a>
+        <a href="#" onclick="openM('access');return false;" class="btn-white">Apply for Early Access</a>
+        <a href="https://epmg.lambda-factor.pl/login" target="_blank" class="btn-outline-white">Log In to Platform</a>
       </div>
     </div>
   </div>
@@ -713,35 +583,19 @@ footer{border-top:1px solid var(--border2);padding:3rem 4rem;display:grid;grid-t
   <div class="fb">
     <a class="nav-logo" href="#"><span class="wg-tag">WG</span>WorkGuardAi</a>
     <p>AI monitoring for smarter site management.<br>Dream, Innovate, Thrive.</p>
-    <p style="margin-top:0.6rem;font-size:0.75rem;">ek@workguardai.com<br>www.workguardai.com</p>
+    <p style="margin-top:0.5rem;font-size:0.72rem;color:var(--muted2);">ek@workguardai.com<br>www.workguardai.com</p>
   </div>
   <div class="fc-col">
     <h5>Product</h5>
-    <ul>
-      <li><a href="#how">How It Works</a></li>
-      <li><a href="#demo">Demo Video</a></li>
-      <li><a href="#features">Features</a></li>
-      <li><a href="#iot">IoT Connectivity</a></li>
-      <li><a href="#pricing">Pricing</a></li>
-    </ul>
+    <ul><li><a href="#how">How It Works</a></li><li><a href="#demo">Demo Video</a></li><li><a href="#features">Features</a></li><li><a href="#iot">IoT Connectivity</a></li><li><a href="#pricing">Pricing</a></li></ul>
   </div>
   <div class="fc-col">
     <h5>Company</h5>
-    <ul>
-      <li><a href="#about">About Us</a></li>
-      <li><a href="#about">The Team</a></li>
-      <li><a href="#about">Partners</a></li>
-      <li><a href="#about">Milestones</a></li>
-    </ul>
+    <ul><li><a href="#about">About Us</a></li><li><a href="#about">The Team</a></li><li><a href="#about">Partners</a></li><li><a href="#about">Milestones</a></li></ul>
   </div>
   <div class="fc-col">
     <h5>Access</h5>
-    <ul>
-      <li><a href="https://epmg.lambda-factor.pl/login" target="_blank">Log In to Platform</a></li>
-      <li><a href="#" onclick="openM('access');return false;">Request Early Access</a></li>
-      <li><a href="mailto:ek@workguardai.com">Contact Endrit</a></li>
-      <li><a href="#demo">Watch Demo</a></li>
-    </ul>
+    <ul><li><a href="https://epmg.lambda-factor.pl/login" target="_blank">Log In to Platform</a></li><li><a href="#" onclick="openM('access');return false;">Request Early Access</a></li><li><a href="mailto:ek@workguardai.com">Contact Endrit</a></li><li><a href="#demo">Watch Demo</a></li></ul>
   </div>
 </footer>
 <div class="foot-bot">
@@ -752,24 +606,15 @@ footer{border-top:1px solid var(--border2);padding:3rem 4rem;display:grid;grid-t
 <!-- EARLY ACCESS MODAL -->
 <div class="mo" id="mo-access">
   <div class="modal">
-    <button class="mc" onclick="closeM('access')">✕</button>
-    <div style="display:inline-flex;align-items:center;gap:0.4rem;background:rgba(255,107,53,0.1);border:1px solid rgba(255,107,53,0.22);border-radius:100px;padding:0.25rem 0.7rem;font-size:0.7rem;font-weight:600;color:#ff9a70;margin-bottom:1rem;">🔒 Limited Early Access</div>
+    <button class="mclose" onclick="closeM('access')">✕</button>
+    <div style="display:inline-flex;align-items:center;gap:0.4rem;background:var(--accent3-light);border:1px solid rgba(255,107,53,0.2);border-radius:100px;padding:0.22rem 0.7rem;font-size:0.68rem;font-weight:700;color:var(--accent3);margin-bottom:1rem;">🔒 Limited Early Access</div>
     <h3>Apply for Early Access</h3>
     <p>We're personally onboarding a small number of pilot customers. Tell us about your project and Endrit will be in touch within 24 hours.</p>
     <div class="fg"><label>Full name</label><input type="text" placeholder="Your name"></div>
     <div class="fg"><label>Work email</label><input type="email" placeholder="you@company.com"></div>
     <div class="fg"><label>Company / Organisation</label><input type="text" placeholder="Company name"></div>
-    <div class="fg">
-      <label>Industry</label>
-      <select>
-        <option value="">Select your sector</option>
-        <option>Construction</option>
-        <option>Infrastructure / Civil Engineering</option>
-        <option>Medical / Healthcare Devices</option>
-        <option>Utilities / Energy</option>
-        <option>Logistics / Fleet</option>
-        <option>Other</option>
-      </select>
+    <div class="fg"><label>Industry</label>
+      <select><option value="">Select your sector</option><option>Construction</option><option>Infrastructure / Civil Engineering</option><option>Medical / Healthcare Devices</option><option>Utilities / Energy</option><option>Logistics / Fleet</option><option>Other</option></select>
     </div>
     <div class="fg"><label>Tell us about your project</label><textarea placeholder="How many sites do you manage? What's your biggest challenge with site monitoring?"></textarea></div>
     <button class="msub" onclick="handleSubmit('access')">Send Application → ek@workguardai.com</button>
@@ -779,14 +624,14 @@ footer{border-top:1px solid var(--border2);padding:3rem 4rem;display:grid;grid-t
 <!-- LOGIN MODAL -->
 <div class="mo" id="mo-login">
   <div class="modal">
-    <button class="mc" onclick="closeM('login')">✕</button>
+    <button class="mclose" onclick="closeM('login')">✕</button>
     <h3>Log in to WorkGuardAi</h3>
     <p>Access your construction monitoring dashboard.</p>
     <div class="fg"><label>Email</label><input type="email" placeholder="you@company.com"></div>
     <div class="fg"><label>Password</label><input type="password" placeholder="••••••••"></div>
     <button class="msub" onclick="window.open('https://epmg.lambda-factor.pl/login','_blank')">Go to Platform →</button>
     <div class="ldiv">or</div>
-    <a href="#" onclick="closeM('login');openM('access');" class="btn-ghost" style="width:100%;padding:0.75rem;text-align:center;display:block;font-size:0.85rem;">Don't have access yet? Apply here</a>
+    <a href="#" onclick="closeM('login');openM('access');" class="btn-ghost" style="width:100%;padding:0.72rem;text-align:center;display:block;font-size:0.82rem;">Don't have access yet? Apply here</a>
   </div>
 </div>
 
@@ -794,26 +639,21 @@ footer{border-top:1px solid var(--border2);padding:3rem 4rem;display:grid;grid-t
 function openM(id){document.getElementById('mo-'+id).classList.add('open');document.body.style.overflow='hidden';}
 function closeM(id){document.getElementById('mo-'+id).classList.remove('open');document.body.style.overflow='';}
 document.querySelectorAll('.mo').forEach(o=>o.addEventListener('click',e=>{if(e.target===o){o.classList.remove('open');document.body.style.overflow=''}}));
-
 function handleSubmit(id){
   const btn=document.querySelector('#mo-'+id+' .msub');
   btn.textContent='✓ Sent! Endrit will be in touch within 24h.';
   btn.style.background='var(--accent2)';
-  btn.style.color='var(--ink)';
-  setTimeout(()=>{closeM(id);btn.textContent='Send Application → ek@workguardai.com';btn.style.background='';btn.style.color='';},2800);
+  setTimeout(()=>{closeM(id);btn.textContent='Send Application → ek@workguardai.com';btn.style.background='';},2800);
 }
-
 function setStep(el){
   document.querySelectorAll('.step').forEach(s=>s.classList.remove('active'));
   el.classList.add('active');
 }
-
-// Scroll reveal
 const obs=new IntersectionObserver(entries=>{
   entries.forEach(e=>{if(e.isIntersecting){e.target.style.opacity='1';e.target.style.transform='translateY(0)';}});
 },{threshold:0.08});
 document.querySelectorAll('.fc,.pc,.team-card,.partner-card,.tl-item,.sv-stat').forEach(el=>{
-  el.style.opacity='0';el.style.transform='translateY(18px)';el.style.transition='opacity 0.5s ease, transform 0.5s ease';
+  el.style.opacity='0';el.style.transform='translateY(16px)';el.style.transition='opacity 0.5s ease, transform 0.5s ease';
   obs.observe(el);
 });
 </script>
