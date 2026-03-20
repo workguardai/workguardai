@@ -3846,7 +3846,7 @@ applyLang(currentLang);
     <button class="worky-tab" onclick="switchWorkyTab('quiz')">🧠 Site IQ Quiz</button>
   </div>
   <!-- CHAT TAB -->
-  <div id="worky-chat-tab">
+  <div id="worky-chat-tab" style="display:flex;flex-direction:column;">
     <div class="worky-chat-area" id="worky-messages"></div>
     <div class="worky-suggestions" id="worky-sug-row">
       <button class="worky-sug" onclick="workyAsk('How does DWG parsing work?')">📐 DWG Parsing</button>
@@ -3896,10 +3896,14 @@ function toggleWorky() {
 
 function switchWorkyTab(tab) {
   workyTabActive = tab;
-  document.getElementById('worky-chat-tab').style.display = tab === 'chat' ? 'flex' : 'none';
-  document.getElementById('worky-chat-tab').style.flexDirection = tab === 'chat' ? 'column' : '';
-  document.getElementById('worky-quiz-tab').style.display = tab === 'quiz' ? 'block' : 'none';
-  document.querySelectorAll('.worky-tab').forEach(function(t,i){ t.classList.toggle('active', (i===0 && tab==='chat') || (i===1 && tab==='quiz')); });
+  var ct = document.getElementById('worky-chat-tab');
+  var qt = document.getElementById('worky-quiz-tab');
+  ct.style.display = tab === 'chat' ? 'flex' : 'none';
+  ct.style.flexDirection = 'column';
+  qt.style.display = tab === 'quiz' ? 'block' : 'none';
+  document.querySelectorAll('.worky-tab').forEach(function(t,i){
+    t.classList.toggle('active', (i===0 && tab==='chat') || (i===1 && tab==='quiz'));
+  });
 }
 
 // ── CHAT ENGINE ──
@@ -4040,9 +4044,13 @@ function showScore() {
     '<div class="worky-score-num">'+pct+'%</div>' +
     '<div class="worky-score-label">'+grade+' — '+s+'/'+t+' correct</div>' +
     '<div class="worky-score-msg">'+msg+'</div>' +
-    '<button class="worky-score-cta" onclick="openM('access');toggleWorky();">🚀 Get Early Access</button>' +
+    '<button class="worky-score-cta" id="worky-cta-btn">🚀 Get Early Access</button>' +
     '<button class="worky-score-retry" onclick="startQuiz()">↺ Try Again</button>' +
     '</div>';
+  setTimeout(function(){
+    var ctaBtn = document.getElementById('worky-cta-btn');
+    if(ctaBtn) ctaBtn.addEventListener('click', function(){ openM('access'); toggleWorky(); });
+  }, 50);
 }
 </script>
 <!-- END WORKY AI -->
