@@ -6,6 +6,7 @@
 <title>WorkGuardAi — AI Monitoring for Smarter Site Management</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@400;500;600;700;800&family=Noto+Sans+Hebrew:wght@400;500;600;700;800&family=Noto+Sans+JP:wght@400;500;600;700;800&family=Noto+Sans+SC:wght@400;500;600;700;800&family=Noto+Sans+KR:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
 :root {
   --bg: #ffffff;
@@ -377,6 +378,76 @@ footer{border-top:1px solid var(--border);padding:3rem 4rem;display:grid;grid-te
   .sp-bar{padding:1rem 1.5rem;gap:1rem;}
 }
 
+/* ── RTL SUPPORT (Arabic & Hebrew) ── */
+[dir="rtl"] nav{flex-direction:row-reverse;}
+[dir="rtl"] .nav-links{flex-direction:row-reverse;}
+[dir="rtl"] .nav-actions{flex-direction:row-reverse;}
+[dir="rtl"] .hero{direction:rtl;}
+[dir="rtl"] .hero-left{text-align:right;}
+[dir="rtl"] .hero-ctas{flex-direction:row-reverse;}
+[dir="rtl"] .hero-stats{flex-direction:row-reverse;}
+[dir="rtl"] .hero-proof{flex-direction:row-reverse;}
+[dir="rtl"] .how-grid{direction:rtl;}
+[dir="rtl"] .steps{direction:rtl;}
+[dir="rtl"] .step{flex-direction:row-reverse;text-align:right;}
+[dir="rtl"] .feat-header{direction:rtl;}
+[dir="rtl"] .feat-grid{direction:rtl;}
+[dir="rtl"] .fc{text-align:right;}
+[dir="rtl"] .about-story{direction:rtl;}
+[dir="rtl"] .story-text{text-align:right;}
+[dir="rtl"] .team-card{text-align:right;}
+[dir="rtl"] .tl-item{direction:rtl;text-align:right;}
+[dir="rtl"] .roi-inner{direction:rtl;}
+[dir="rtl"] .roi-form{text-align:right;}
+[dir="rtl"] .iot-inner{direction:rtl;}
+[dir="rtl"] .price-grid{direction:rtl;}
+[dir="rtl"] .pc{text-align:right;}
+[dir="rtl"] .pfl{padding-right:1.2rem;padding-left:0;}
+[dir="rtl"] footer{direction:rtl;}
+[dir="rtl"] .cta-box{direction:rtl;}
+[dir="rtl"] .modal{direction:rtl;text-align:right;}
+[dir="rtl"] .exit-popup{direction:rtl;}
+[dir="rtl"] .ea-banner{direction:rtl;}
+[dir="rtl"] .recog-card{text-align:right;}
+[dir="rtl"] .lang-dropdown{right:auto;left:0;}
+[dir="rtl"] .sp-bar{direction:rtl;}
+[dir="rtl"] .urgency-bar{direction:rtl;}
+[dir="rtl"] .slabel{flex-direction:row-reverse;}
+/* CJK & Arabic font stack */
+[lang="ar"],[lang="he"]{font-family:'Segoe UI','Noto Sans Arabic','Noto Sans Hebrew',sans-serif;}
+[lang="ja"]{font-family:'Poppins','Noto Sans JP','Hiragino Sans',sans-serif;}
+[lang="zh"]{font-family:'Poppins','Noto Sans SC','PingFang SC',sans-serif;}
+[lang="ko"]{font-family:'Poppins','Noto Sans KR','Apple SD Gothic Neo',sans-serif;}
+
+/* ── RTL & CJK FONT SUPPORT ── */
+[dir="rtl"] body{font-family:'Noto Sans Arabic','Noto Sans Hebrew','Poppins',sans-serif;}
+[dir="rtl"] nav{flex-direction:row-reverse;}
+[dir="rtl"] .nav-links{flex-direction:row-reverse;}
+[dir="rtl"] .nav-actions{flex-direction:row-reverse;}
+[dir="rtl"] .hero-left{text-align:right;}
+[dir="rtl"] .hero-ctas{flex-direction:row-reverse;}
+[dir="rtl"] .hero-stats{flex-direction:row-reverse;}
+[dir="rtl"] .hero-proof{flex-direction:row-reverse;justify-content:flex-end;}
+[dir="rtl"] .step{flex-direction:row-reverse;text-align:right;}
+[dir="rtl"] .sp-bar{flex-direction:row-reverse;}
+[dir="rtl"] .ea-banner{flex-direction:row-reverse;}
+[dir="rtl"] .ea-left{text-align:right;}
+[dir="rtl"] .feat-header{flex-direction:row-reverse;}
+[dir="rtl"] .about-story{flex-direction:row-reverse;}
+[dir="rtl"] .story-text{text-align:right;}
+[dir="rtl"] .iot-inner{flex-direction:row-reverse;}
+[dir="rtl"] .demo-inner{flex-direction:row-reverse;}
+[dir="rtl"] .lang-dropdown{right:auto;left:0;}
+[dir="rtl"] .lang-option{flex-direction:row-reverse;text-align:right;}
+[dir="rtl"] .lcheck{margin-left:0;margin-right:auto;}
+[dir="rtl"] .timeline{padding-left:0;padding-right:2rem;}
+[dir="rtl"] .tl-item{padding-left:0;padding-right:2.5rem;}
+[dir="rtl"] .tl-dot{left:auto;right:-2.55rem;}
+[dir="rtl"] footer{direction:rtl;}
+html[lang="ja"] body,html[lang="zh"] body,html[lang="ko"] body{font-family:'Noto Sans JP','Noto Sans SC','Noto Sans KR','Poppins',sans-serif;}
+html[lang="ar"] body{font-family:'Noto Sans Arabic','Poppins',sans-serif;}
+html[lang="he"] body{font-family:'Noto Sans Hebrew','Poppins',sans-serif;}
+
 /* ── LANGUAGE SWITCHER ── */
 .lang-switcher{position:relative;display:inline-flex;align-items:center;}
 .lang-btn{display:flex;align-items:center;gap:0.35rem;background:var(--bg2);border:1.5px solid var(--border);border-radius:8px;padding:0.35rem 0.7rem;font-family:'Poppins',sans-serif;font-size:0.72rem;font-weight:600;color:var(--ink2);cursor:pointer;transition:all 0.2s;white-space:nowrap;}
@@ -401,6 +472,34 @@ footer{border-top:1px solid var(--border);padding:3rem 4rem;display:grid;grid-te
 .flang-btn{font-size:0.68rem;font-weight:600;color:var(--muted);background:transparent;border:1.5px solid var(--border);padding:0.2rem 0.5rem;border-radius:6px;cursor:pointer;transition:all 0.18s;display:inline-flex;align-items:center;gap:0.28rem;font-family:'Poppins',sans-serif;line-height:1.4;}
 .flang-btn:hover{color:var(--accent);border-color:rgba(91,79,255,0.3);background:var(--accent-light);}
 .flang-btn.active{color:var(--accent);border-color:rgba(91,79,255,0.35);background:var(--accent-light);font-weight:700;}
+/* RTL support for Arabic & Hebrew */
+html[dir="rtl"] body{direction:rtl;text-align:right;}
+html[dir="rtl"] nav{flex-direction:row-reverse;}
+html[dir="rtl"] .nav-links{flex-direction:row-reverse;}
+html[dir="rtl"] .nav-actions{flex-direction:row-reverse;}
+html[dir="rtl"] .hero{direction:rtl;}
+html[dir="rtl"] .hero-left{text-align:right;}
+html[dir="rtl"] .hero-ctas{flex-direction:row-reverse;}
+html[dir="rtl"] .hero-stats{flex-direction:row-reverse;}
+html[dir="rtl"] .how-grid{direction:rtl;}
+html[dir="rtl"] .steps{direction:rtl;}
+html[dir="rtl"] .step{flex-direction:row-reverse;text-align:right;}
+html[dir="rtl"] .tl-item{flex-direction:row-reverse;text-align:right;}
+html[dir="rtl"] .tl-dot{margin-left:1.2rem;margin-right:0;}
+html[dir="rtl"] .feat-grid,.roi-inner,.about-story,.iot-inner{direction:rtl;}
+html[dir="rtl"] footer{direction:rtl;}
+html[dir="rtl"] .lang-dropdown{right:auto;left:0;}
+html[dir="rtl"] .sp-bar{flex-direction:row-reverse;}
+html[dir="rtl"] .hero-proof{flex-direction:row-reverse;}
+html[dir="rtl"] .recog-card{text-align:right;}
+html[dir="rtl"] .team-card{text-align:right;}
+html[dir="rtl"] .demo-inner{direction:rtl;}
+html[dir="rtl"] .iot-list{text-align:right;}
+html[dir="rtl"] .pfl{text-align:right;padding-right:1.2rem;padding-left:0;}
+html[dir="rtl"] .ili::before{margin-left:0.5rem;margin-right:0;}
+html[dir="rtl"] .story-text{text-align:right;}
+html[dir="rtl"] .cta-box{text-align:center;}
+html[dir="rtl"] .foot-bot{flex-direction:row-reverse;}
 
 </style>
 </head>
@@ -441,6 +540,19 @@ footer{border-top:1px solid var(--border);padding:3rem 4rem;display:grid;grid-te
         <a class="lang-option" data-lang="es" onclick="setLang('es','nav-lang-switcher')"><span class="lf">🇪🇸</span><span class="lname">Español</span><span class="lcheck">✓</span></a>
         <a class="lang-option" data-lang="de" onclick="setLang('de','nav-lang-switcher')"><span class="lf">🇩🇪</span><span class="lname">Deutsch</span><span class="lcheck">✓</span></a>
         <a class="lang-option" data-lang="it" onclick="setLang('it','nav-lang-switcher')"><span class="lf">🇮🇹</span><span class="lname">Italiano</span><span class="lcheck">✓</span></a>
+        <a class="lang-option" data-lang="ar" onclick="setLang('ar','nav-lang-switcher')"><span class="lf">🇸🇦</span><span class="lname">العربية</span><span class="lcheck">✓</span></a>
+        <a class="lang-option" data-lang="he" onclick="setLang('he','nav-lang-switcher')"><span class="lf">🇮🇱</span><span class="lname">עברית</span><span class="lcheck">✓</span></a>
+        <a class="lang-option" data-lang="ja" onclick="setLang('ja','nav-lang-switcher')"><span class="lf">🇯🇵</span><span class="lname">日本語</span><span class="lcheck">✓</span></a>
+        <a class="lang-option" data-lang="zh" onclick="setLang('zh','nav-lang-switcher')"><span class="lf">🇨🇳</span><span class="lname">中文</span><span class="lcheck">✓</span></a>
+        <a class="lang-option" data-lang="ko" onclick="setLang('ko','nav-lang-switcher')"><span class="lf">🇰🇷</span><span class="lname">한국어</span><span class="lcheck">✓</span></a>
+        <a class="lang-option" data-lang="pl" onclick="setLang('pl','nav-lang-switcher')"><span class="lf">🇵🇱</span><span class="lname">Polski</span><span class="lcheck">✓</span></a>
+        <a class="lang-option" data-lang="et" onclick="setLang('et','nav-lang-switcher')"><span class="lf">🇪🇪</span><span class="lname">Eesti</span><span class="lcheck">✓</span></a>
+        <a class="lang-option" data-lang="lv" onclick="setLang('lv','nav-lang-switcher')"><span class="lf">🇱🇻</span><span class="lname">Latviešu</span><span class="lcheck">✓</span></a>
+        <a class="lang-option" data-lang="lt" onclick="setLang('lt','nav-lang-switcher')"><span class="lf">🇱🇹</span><span class="lname">Lietuvių</span><span class="lcheck">✓</span></a>
+        <a class="lang-option" data-lang="nl" onclick="setLang('nl','nav-lang-switcher')"><span class="lf">🇳🇱</span><span class="lname">Nederlands</span><span class="lcheck">✓</span></a>
+        <a class="lang-option" data-lang="fr" onclick="setLang('fr','nav-lang-switcher')"><span class="lf">🇫🇷</span><span class="lname">Français</span><span class="lcheck">✓</span></a>
+        <a class="lang-option" data-lang="no" onclick="setLang('no','nav-lang-switcher')"><span class="lf">🇳🇴</span><span class="lname">Norsk</span><span class="lcheck">✓</span></a>
+        <a class="lang-option" data-lang="sv" onclick="setLang('sv','nav-lang-switcher')"><span class="lf">🇸🇪</span><span class="lname">Svenska</span><span class="lcheck">✓</span></a>
       </div>
     </div>
     <a href="https://epmg.lambda-factor.pl/login" target="_blank" class="btn-ghost" data-i18n="nav_login">Log In</a>
@@ -817,6 +929,19 @@ footer{border-top:1px solid var(--border);padding:3rem 4rem;display:grid;grid-te
         <button class="flang-btn" onclick="setLang('es',null)">🇪🇸 ES</button>
         <button class="flang-btn" onclick="setLang('de',null)">🇩🇪 DE</button>
         <button class="flang-btn" onclick="setLang('it',null)">🇮🇹 IT</button>
+        <button class="flang-btn" onclick="setLang('ar',null)">🇸🇦 AR</button>
+        <button class="flang-btn" onclick="setLang('he',null)">🇮🇱 HE</button>
+        <button class="flang-btn" onclick="setLang('ja',null)">🇯🇵 JA</button>
+        <button class="flang-btn" onclick="setLang('zh',null)">🇨🇳 ZH</button>
+        <button class="flang-btn" onclick="setLang('ko',null)">🇰🇷 KO</button>
+        <button class="flang-btn" onclick="setLang('pl',null)">🇵🇱 PL</button>
+        <button class="flang-btn" onclick="setLang('et',null)">🇪🇪 ET</button>
+        <button class="flang-btn" onclick="setLang('lv',null)">🇱🇻 LV</button>
+        <button class="flang-btn" onclick="setLang('lt',null)">🇱🇹 LT</button>
+        <button class="flang-btn" onclick="setLang('nl',null)">🇳🇱 NL</button>
+        <button class="flang-btn" onclick="setLang('fr',null)">🇫🇷 FR</button>
+        <button class="flang-btn" onclick="setLang('no',null)">🇳🇴 NO</button>
+        <button class="flang-btn" onclick="setLang('sv',null)">🇸🇪 SV</button>
       </div>
     </div>
   </div>
@@ -1862,6 +1987,614 @@ it: {
   exit_spots:"posti pilota rimasti · Chi prima arriva, prima è servito",
   exit_email_label:"La tua email di lavoro", exit_btn:"Riserva il mio posto gratuito →", exit_skip:"No grazie",
   confirm_sent:"✓ Inviato! Endrit ti contatterà entro 24h.", confirm_reserved:"✓ Posto riservato!"
+},
+
+ar: {
+  urgency_spots:"فقط", urgency_spots2:"أماكن تجريبية متبقية هذا الربع",
+  urgency_pill:"برنامج المتبنين الأوائل", urgency_cta:"احجز مكانك ←",
+  nav_how:"كيف يعمل", nav_demo:"عرض توضيحي", nav_features:"المميزات",
+  nav_recognition:"التقدير", nav_about:"عنّا", nav_pricing:"الأسعار",
+  nav_login:"تسجيل الدخول", nav_request:"طلب وصول",
+  hero_badge:"ذكاء اصطناعي متقدم لإدارة مواقع البناء",
+  hero_h1:"من الأساسات<br>إلى <span class='grad'>لوحة التحكم</span>",
+  hero_sub:"WorkGuardAi تراقب مواقع البناء والبنية التحتية في الوقت الفعلي — تقارن التقدم الفعلي بخططك دون أي جهد يدوي من المديرين.",
+  proof1:"🏆 الفائز بجائزة Sisu Factory", proof2:"🏙️ مختار من مدن هلسنكي وإسبو وفانتاا", proof3:"📰 مميّز على PitchBob.io",
+  hero_cta1:"طلب وصول مبكر", hero_cta2:"شاهد العرض التوضيحي →",
+  stat1:"من المواقع غير فعّالة", stat2:"تواجه تأخيرات مكلفة", stat3:"تُفقد يومياً على مستوى العالم",
+  dash_site1:"الموقع ألفا · حفر", dash_site2:"الموقع بيتا · أساسات", dash_site3:"الموقع غاما · هيكل",
+  dash_67:"67% مكتمل", dash_ontrack:"في الموعد", dash_milestone:"✓ تحقق الهدف",
+  dash_40:"40% مكتمل", dash_delay:"تأخير 3 أيام", dash_offtrack:"⚠ متأخر",
+  dash_85:"85% مكتمل", dash_ahead:"متقدم يومين", dash_aheadplan:"↑ متقدم عن الخطة",
+  dash_iot:"اتصال إنترنت الأشياء", dash_devices:"4 أجهزة متصلة · LTE-M",
+  sp_recognised:"معترف به من", sp_sisu:"🏆 Sisu Factory — الفائز",
+  sp_pitchbob:"📰 مميّز على PitchBob.io", sp_cities:"🏙️ مختار من مدن هلسنكي وإسبو وفانتاا",
+  sp_linkedin:"💼 تابع على LinkedIn",
+  ea_tag:"🔒 وصول مبكر محدود", ea_h3:"نستقبل أولى العملاء التجريبيين شخصياً",
+  ea_p:"WorkGuardAi في مرحلة العرض التوضيحي ونعمل بشكل انتقائي مع عدد محدود من شركات البناء والبنية التحتية. ستحصل على دعم شخصي مباشر من إندريت.",
+  ea_cta1:"تقدّم للوصول المبكر", ea_cta2:"شاهد المنصة أولاً →",
+  recog_label:"التقدير والانتشار",
+  recog_title:"موثّق من الأشخاص<br>الذين <span class='grad'>يبنون المستقبل</span>",
+  recog1_h4:"الفائز — فعالية Sauna Pitching", recog1_p:"تم اختيار WorkGuardAi كواحد من أفضل عرضين تقديميين في فعالية Sauna Pitching من Sisu Factory.",
+  recog2_h4:"مختار من مدن هلسنكي وإسبو وفانتاا", recog2_p:"تم اختيار WorkGuardAi من بين المتنافسين من ثلاث مدن فنلندية للأفكار المبتكرة.",
+  recog3_h4:"مميّز: \"يقود التحول بالذكاء الاصطناعي\"", recog3_p:"سلّطت PitchBob.io الضوء على WorkGuardAi في قسم Secret Seeds.",
+  recog_link_li:"عرض الإعلان على LinkedIn →", recog_link_pb:"اقرأ المقال الكامل →",
+  how_label:"كيف يعمل", how_title:"من ملف DWG<br>إلى رؤى فورية",
+  how_sub:"ارفع خطة البناء مرة واحدة — WorkGuardAi تقرأها رياضياً وتتابع التقدم الفعلي تلقائياً.",
+  step1_h:"ارفع مخطط DWG", step1_p:"أسقط ملف الهندسة المعمارية أو المدنية. WorkGuardAi تحلله وتعرض الموقع رقمياً.",
+  step2_h:"الذكاء الاصطناعي يقارن الخطة بالواقع", step2_p:"نموذجنا يقارن باستمرار تقدم الموقع الفعلي مع الخطة المرفوعة.",
+  step3_h:"إشعارات الذكاء الاصطناعي الذكية", step3_p:"عند تحقيق الأهداف أو الانحراف عنها، يتم تنبيه المهندسين والمديرين فوراً.",
+  step4_h:"راقب مواقع متعددة دفعة واحدة", step4_p:"لوحة تحكم واحدة، جميع مواقعك، تقدم فوري. بلا جداول بيانات ولا مكالمات.",
+  grid_label:"الموقع ألفا · عرض الشبكة الحي", leg_done:"مكتمل", leg_active:"نشط", leg_pending:"قيد الانتظار", leg_alert:"تنبيه",
+  grid_overall:"التقدم الإجمالي", grid_completed:"من الخطة مكتمل",
+  demo_badge:"▶ عرض مباشر", demo_title:"شاهد WorkGuardAi<br>في العمل",
+  demo_sub:"شاهد منصتنا تحلل ملف DWG حقيقياً وتتابع التقدم في الوقت الفعلي.",
+  demo_cta1:"تقدّم للوصول المبكر", demo_cta2:"لديك وصول؟ سجّل الدخول →",
+  feat_label:"مميزات المنصة", feat_title:"كل ما يحتاجه فريقك<br>للبقاء في المقدمة",
+  feat_sub:"مصمم لشركات البنية التحتية والبناء التي تدير عمليات متعددة المواقع.",
+  f1_h:"تحليل مخططات DWG", f1_p:"WorkGuardAi تقرأ وتعرض مخطط الحفر والبناء رقمياً.",
+  f2_h:"تتبع التقدم في الوقت الفعلي", f2_p:"مقارنة مباشرة للتقدم الفعلي مع الخطة المرفوعة. بلا إدخال يدوي.",
+  f3_h:"إشعارات الذكاء الاصطناعي الذكية", f3_p:"تنبيهات فورية عند تحقيق الأهداف أو التأخر. إشعار تلقائي للمهندسين والمديرين.",
+  f4_h:"لوحة تحكم متعددة المواقع", f4_p:"أدر مواقع متعددة من لوحة تحكم واحدة. بلا مكالمات ولا تحديثات يدوية.",
+  f5_h:"طبقة اتصال إنترنت الأشياء", f5_p:"اربط المستشعرات والكاميرات عبر LTE-M أو NB-IoT.",
+  f6_h:"تكاملات الطرف الثالث", f6_p:"اتصل بمنصات إدارة المشاريع الحالية. WorkGuardAi تتكيف مع سير عملك.",
+  tag_live:"مباشر في MVP", tag_soon:"قريباً", tag_roadmap:"خارطة الطريق",
+  roi_label:"حاسبة العائد على الاستثمار", roi_title:"كم تكلّفك التأخيرات<br><span class='grad'>سنوياً؟</span>",
+  roi_sub:"أدخل تفاصيل مشروعك واكتشف خسائرك السنوية المقدرة من تأخيرات البناء.",
+  roi_form_h:"ملف مشروعك", roi_form_p:"اضبط المنزلقات وفق عملياتك. النتائج تتحدث فوراً.",
+  roi_l1:"عدد مواقع البناء النشطة", roi_l2:"متوسط قيمة المشروع لكل موقع (€)",
+  roi_l3:"متوسط مدة المشروع (أشهر)", roi_l4:"معدل التأخير المقدر في شركتك (%)",
+  roi_disclaimer:"* المعدل الصناعي: 77% من مشاريع البناء تواجه تأخيرات. تمثل تكاليف التأخير عادةً 5-15% من إجمالي قيمة المشروع.",
+  res1_label:"الخسارة السنوية المقدرة من التأخيرات", res1_sub:"بناءً على معدل التأخير وقيم المشاريع",
+  res2_label:"ساعات المراقبة اليدوية الضائعة", res2_sub:"الساعات السنوية المقدرة للتقارير اليدوية",
+  res3_label:"الوفورات السنوية المحتملة مع WorkGuardAi", res3_sub:"تخفيض متحفظ 60% في تكاليف التأخير",
+  res4_label:"التكلفة السنوية لـ WorkGuardAi (الخطة الاحترافية)", res4_sub:"€550/شهر · وصول كامل · مواقع غير محدودة",
+  roi_cta:"ابدأ الآن — استرد خسائرك →", roi_note:"ابدأ بتجربة مجانية. بدون التزام.",
+  about_label:"قصتنا", about_title:"بُني من<br>الصفر",
+  about_p1:"تأسست WorkGuardAi في أكتوبر 2023 من قبل إندريت كولا: كانت صناعة البناء لا تزال تدير مشاريع بملايين اليورو باستخدام جداول البيانات والمكالمات الهاتفية.",
+  about_p2:"قرر إندريت بناء منصة مراقبة بالذكاء الاصطناعي لإزالة العبء اليدوي عن مديري المواقع.",
+  about_p3:"بدعم من جامعة LUT ومحاضن هلسنكي وتمويل Interreg EU.",
+  sv1:"تأسست في أكتوبر 2023 في فنلندا.", sv2:"تأمين أول تمويل في يونيو 2025.",
+  sv3:"إجمالي السوق القابل للتوجيه في مراقبة الذكاء الاصطناعي للبناء الأوروبي.", sv4:"هدف جمع التمويل الحالي.",
+  team_heading:"الفريق", role_ceo:"المؤسس والرئيس التنفيذي", role_cto:"مديرة التقنية",
+  role_dev:"مطوّر Full Stack", role_advisor:"مستشار الميدان والبنية التحتية",
+  bio_ek:"مبيعات تجارية، شركات ناشئة دولية، منتجات رقمية. خلفية عميقة في اتصالات EMEA.",
+  bio_lc:"ذكاء اصطناعي، تصميم تقني وهندسة المنتجات.",
+  bio_ps:"تطوير منتجات Full Stack.",
+  bio_ak:"مساح وخبير ميداني.",
+  li_connect:"💼 تواصل على LinkedIn",
+  journey_heading:"رحلتنا",
+  tl1_date:"أكتوبر 2023", tl1_title:"تأسيس WorkGuardAi", tl1_desc:"بدأت الشركة بفكرة القضاء على المراقبة اليدوية لمواقع البناء.",
+  tl2_date:"ديسمبر 2023", tl2_title:"أولى الدروس وتطوير المنتج", tl2_desc:"أبحاث العملاء المبكرة شكّلت اتجاه المنتج.",
+  tl3_date:"يناير 2024", tl3_title:"نمو الفريق", tl3_desc:"انضمت لاريسا وبراتهام إلى الفريق.",
+  tl4_date:"أبريل 2024", tl4_title:"الانضمام لبرنامج NEXUS", tl4_desc:"القبول في حاضنة NEXUS.",
+  tl5_date:"أغسطس 2024", tl5_title:"إعادة التسمية إلى WorkGuardAi", tl5_desc:"تغيير الاسم ليعكس الذكاء الاصطناعي.",
+  tl6_date:"يونيو 2025 · الآن", tl6_title:"أول تمويل وإطلاق MVP", tl6_desc:"تأمين €8,000. MVP مباشر مع ANK Construction.",
+  tl_here:"📍 نحن هنا",
+  tl7_date:"2025–2026", tl7_title:"التوسع في فنلندا وجمع €500K", tl7_desc:"إطلاق تجاري وتمويل أولي.",
+  tl8_date:"2027–2028", tl8_title:"التوسع في الاتحاد الأوروبي", tl8_desc:"التوسع في الأسواق الأوروبية.",
+  tl9_date:"2030", tl9_title:"قائد السوق", tl9_desc:"حضور عالمي.",
+  partners_heading:"شركاؤنا وداعمونا",
+  iot_layer:"طبقة اتصال IoT (LTE-M / NB-IoT)", iot_cam:"📷 كاميرا الموقع", iot_sensor:"📏 مستشعر التقدم",
+  iot_env:"🌡️ بيئي", iot_med:"🏥 جهاز طبي", iot_any:"أي صناعة · أي جهاز · أي موقع",
+  iot_label:"اتصال IoT — قريباً", iot_title:"مواقعك، متصلة<br><span class='grad'>دائماً</span>",
+  iot_sub:"طبقة IoT القادمة تتيح لأي عمل مراقبة الأجهزة الميدانية عن بُعد.",
+  iot_li1:"اتصال SIM مُهيّأ مسبقاً لتأهيل فوري للأجهزة",
+  iot_li2:"يعمل في البناء والمرافق والخدمات اللوجستية",
+  iot_li3:"جميع بيانات الأجهزة تتدفق مباشرة إلى لوحة تحكمك",
+  iot_li4:"اتصال مدعوم من الشركاء بأسعار تنافسية",
+  iot_li5:"وسّع المراقبة إلى ما هو أبعد من الموقع",
+  iot_cta:"أبدِ اهتمامك بـ IoT →",
+  price_label:"الأسعار", price_title:"أسعار بسيطة وشفافة",
+  p1_tier:"تجريبي", p1_price:"مجاني", p1_cad:"استكشف المنصة",
+  p1_f1:"موقع واحد، رفع مخططات محدود", p1_f2:"وصول للوحة التحكم", p1_f3:"إشعارات ذكاء اصطناعي أساسية", p1_f4:"تأهيل شخصي من إندريت", p1_f5:"حلقة تغذية راجعة مباشرة", p1_btn:"تقدّم للوصول التجريبي",
+  p2_tier:"أساسي–احترافي", p2_cad:"شهرياً", p2_f1:"مواقع غير محدودة", p2_f2:"تحليل كامل لمخططات DWG", p2_f3:"مراقبة AI في الوقت الفعلي", p2_f4:"إشعارات ذكية للأهداف", p2_f5:"وصول متعدد المستخدمين", p2_f6:"دعم ذو أولوية", p2_btn:"ابدأ الآن",
+  p3_tier:"مؤسسي", p3_price:"مخصص", p3_cad:"قابل للتفاوض", p3_f1:"كل ما في الخطة الاحترافية", p3_f2:"حزمة اتصال IoT", p3_f3:"تكاملات مخصصة", p3_f4:"مدير حساب مخصص", p3_f5:"تأهيل في الموقع", p3_f6:"ضمان SLA", p3_btn:"تواصل مع المبيعات",
+  cta_h2:"مستعد للمراقبة بذكاء؟", cta_p:"نستقبل عملاءنا التجريبيين الأوائل شخصياً. تحدّث معنا.",
+  cta_btn1:"تقدّم للوصول المبكر", cta_btn2:"تسجيل الدخول للمنصة",
+  foot_tagline:"مراقبة بالذكاء الاصطناعي لإدارة أذكى للمواقع.<br>احلم، ابتكر، ازدهر.",
+  foot_lang_label:"اللغة", foot_product:"المنتج", foot_company:"الشركة", foot_access:"الوصول",
+  foot_about_us:"عنّا", foot_login:"تسجيل الدخول للمنصة", foot_contact:"تواصل مع إندريت",
+  foot_copy:"© 2026 WorkGuardAi. أسسها إندريت كولا. هلسنكي، فنلندا.",
+  foot_supported:"بدعم من جامعة LUT · محاضن هلسنكي · Interreg EU",
+  modal_h3:"تقدّم للوصول المبكر", modal_p:"سيتواصل معك إندريت خلال 24 ساعة.",
+  form_name:"الاسم الكامل", form_email:"البريد الإلكتروني للعمل", form_company:"الشركة / المنظمة",
+  form_industry:"القطاع", form_select:"اختر قطاعك", form_project:"أخبرنا عن مشروعك",
+  form_submit:"إرسال الطلب → ek@workguardai.com",
+  ph_name:"اسمك", ph_company:"اسم الشركة", ph_project:"كم موقعاً تدير؟",
+  ind_const:"بناء", ind_infra:"بنية تحتية / هندسة مدنية", ind_med:"أجهزة طبية",
+  ind_util:"مرافق / طاقة", ind_log:"لوجستيات / أسطول", ind_other:"أخرى",
+  login_h3:"تسجيل الدخول إلى WorkGuardAi", login_p:"الوصول إلى لوحة مراقبة البناء.",
+  login_pw:"كلمة المرور", login_btn:"الانتقال للمنصة →", login_or:"أو", login_noaccess:"ليس لديك وصول؟ تقدّم هنا",
+  exit_h3:"انتظر — قبل المغادرة", exit_p:"نقدم <strong>وصولاً تجريبياً مجانياً</strong> لـ 5 شركات هذا الربع.",
+  exit_spots:"أماكن تجريبية متبقية · الأول يُخدَم أولاً",
+  exit_email_label:"بريدك الإلكتروني للعمل", exit_btn:"احجز مكاني المجاني →", exit_skip:"لا شكراً",
+  confirm_sent:"✓ تم الإرسال! سيتواصل معك إندريت خلال 24 ساعة.", confirm_reserved:"✓ تم حجز المكان!"
+},
+
+he: {
+  urgency_spots:"רק", urgency_spots2:"מקומות פיילוט נותרו ברבעון זה",
+  urgency_pill:"תוכנית מאמצים מוקדמים", urgency_cta:"הבטח את מקומך ←",
+  nav_how:"איך זה עובד", nav_demo:"הדגמה", nav_features:"תכונות",
+  nav_recognition:"הכרה", nav_about:"אודות", nav_pricing:"תמחור",
+  nav_login:"כניסה", nav_request:"בקש גישה",
+  hero_badge:"בינה מלאכותית לניהול אתרי בנייה",
+  hero_h1:"מהיסודות<br>ל<span class='grad'>לוח הבקרה</span>",
+  hero_sub:"WorkGuardAi מנטרת את אתרי הבנייה והתשתיות שלך בזמן אמת — משווה את ההתקדמות הממשית לתוכניות שלך ללא מאמץ ידני.",
+  proof1:"🏆 זוכה פיץ' של Sisu Factory", proof2:"🏙️ נבחר על ידי ערי הלסינקי, אספו ווונטאה", proof3:"📰 הוצג בPitchBob.io",
+  hero_cta1:"בקש גישה מוקדמת", hero_cta2:"צפה בהדגמה →",
+  stat1:"מהאתרים לא יעילים", stat2:"סובלים מעיכובים יקרים", stat3:"נאבדים מדי יום ברחבי העולם",
+  dash_site1:"אתר אלפא · חפירה", dash_site2:"אתר בטא · יסודות", dash_site3:"אתר גמא · שלד",
+  dash_67:"67% הושלם", dash_ontrack:"בזמן", dash_milestone:"✓ אבן דרך הושגה",
+  dash_40:"40% הושלם", dash_delay:"עיכוב 3 ימים", dash_offtrack:"⚠ מאחר",
+  dash_85:"85% הושלם", dash_ahead:"מקדים ב-2 ימים", dash_aheadplan:"↑ לפני התוכנית",
+  dash_iot:"קישוריות IoT", dash_devices:"4 מכשירים פעילים · LTE-M",
+  sp_recognised:"מוכר על ידי", sp_sisu:"🏆 Sisu Factory — זוכה פיץ'",
+  sp_pitchbob:"📰 הוצג ב-PitchBob.io", sp_cities:"🏙️ נבחר על ידי ערי הלסינקי, אספו ווונטאה",
+  sp_linkedin:"💼 עקוב ב-LinkedIn",
+  ea_tag:"🔒 גישה מוקדמת מוגבלת", ea_h3:"אנו מקבלים את לקוחות הפיילוט הראשונים באופן אישי",
+  ea_p:"WorkGuardAi בשלב הדגמה. תקבל תמיכה אישית ישירה מאנדריט.",
+  ea_cta1:"הגש מועמדות לגישה מוקדמת", ea_cta2:"ראה את הפלטפורמה קודם →",
+  recog_label:"הכרה ותנופה",
+  recog_title:"מאומת על ידי האנשים<br>ש<span class='grad'>בונים את העתיד</span>",
+  recog1_h4:"זוכה — אירוע Sauna Pitching", recog1_p:"WorkGuardAi נבחרה כאחת משתי ההצגות הטובות ביותר באירוע של Sisu Factory.",
+  recog2_h4:"נבחר על ידי ערי הלסינקי, אספו ווונטאה", recog2_p:"WorkGuardAi נבחרה מבין המתחרים בשלוש ערים פינלנדיות.",
+  recog3_h4:"הוצג: \"מוביל את המהפכה בבינה מלאכותית\"", recog3_p:"PitchBob.io הדגישה את WorkGuardAi בפינת Secret Seeds.",
+  recog_link_li:"צפה בהכרזה ב-LinkedIn →", recog_link_pb:"קרא את המאמר המלא →",
+  how_label:"איך זה עובד", how_title:"מקובץ DWG<br>לתובנות בזמן אמת",
+  how_sub:"העלה את תוכנית הבנייה פעם אחת — WorkGuardAi עוקבת אחר ההתקדמות האמיתית אוטומטית.",
+  step1_h:"העלה את תוכנית ה-DWG שלך", step1_p:"WorkGuardAi מנתחת ומציגה דיגיטלית את החפירה ופריסת האתר.",
+  step2_h:"הבינה המלאכותית ממפה תוכנית מול מציאות", step2_p:"המודל שלנו משווה ברציפות את ההתקדמות הממשית לתוכנית שהועלתה.",
+  step3_h:"התראות חכמות של בינה מלאכותית", step3_p:"כאשר אבני דרך מושגות או משהו חורג, מהנדסים ומנהלים מקבלים התראה מיידית.",
+  step4_h:"נטר מספר אתרים בו-זמנית", step4_p:"לוח בקרה אחד, כל האתרים שלך, התקדמות בזמן אמת.",
+  grid_label:"אתר אלפא · תצוגת רשת חיה", leg_done:"הושלם", leg_active:"פעיל", leg_pending:"ממתין", leg_alert:"התראה",
+  grid_overall:"התקדמות כוללת", grid_completed:"מהתוכנית הושלם",
+  demo_badge:"▶ הדגמה חיה", demo_title:"צפה ב-WorkGuardAi<br>בפעולה",
+  demo_sub:"צפה בפלטפורמה שלנו מנתחת קובץ DWG אמיתי ועוקבת אחר ההתקדמות בזמן אמת.",
+  demo_cta1:"הגש מועמדות לגישה מוקדמת", demo_cta2:"יש לך גישה? התחבר →",
+  feat_label:"תכונות הפלטפורמה", feat_title:"כל מה שהצוות שלך<br>צריך להישאר קדימה",
+  feat_sub:"בנוי לחברות תשתית ובנייה המנהלות פעולות מרובות אתרים.",
+  f1_h:"ניתוח תוכניות DWG", f1_p:"WorkGuardAi קוראת ומציגה דיגיטלית את תוכנית החפירה שלך.",
+  f2_h:"מעקב התקדמות בזמן אמת", f2_p:"השוואה חיה של ההתקדמות הממשית לתוכנית שהועלתה.",
+  f3_h:"התראות חכמות של בינה מלאכותית", f3_p:"התראות מיידיות כאשר אבני דרך מושגות או העבודה מתעכבת.",
+  f4_h:"לוח בקרה רב-אתרי", f4_p:"נהל מספר אתרים מלוח בקרה אחד.",
+  f5_h:"שכבת קישוריות IoT", f5_p:"חבר חיישנים ומצלמות דרך LTE-M או NB-IoT.",
+  f6_h:"אינטגרציות של צד שלישי", f6_p:"התחבר לפלטפורמות ניהול פרויקטים קיימות.",
+  tag_live:"חי ב-MVP", tag_soon:"בקרוב", tag_roadmap:"מפת דרכים",
+  roi_label:"מחשבון ROI", roi_title:"כמה עולים לך העיכובים<br><span class='grad'>בשנה?</span>",
+  roi_sub:"הכנס את פרטי הפרויקט וגלה את ההפסד השנתי המשוער מעיכובי בנייה.",
+  roi_form_h:"פרופיל הפרויקט שלך", roi_form_p:"כוון את המחוונים לפי פעילותך. התוצאות מתעדכנות מיידית.",
+  roi_l1:"מספר אתרי הבנייה הפעילים", roi_l2:"ערך פרויקט ממוצע לאתר (€)",
+  roi_l3:"משך פרויקט ממוצע (חודשים)", roi_l4:"שיעור עיכוב משוער בחברה שלך (%)",
+  roi_disclaimer:"* ממוצע תעשייתי: 77% מפרויקטי הבנייה חווים עיכובים.",
+  res1_label:"הפסד שנתי משוער מעיכובים", res1_sub:"בהתבסס על שיעור העיכוב וערכי הפרויקטים",
+  res2_label:"שעות ניטור ידני שאבדו", res2_sub:"שעות שנתיות משוערות לדיווח ידני",
+  res3_label:"חיסכון שנתי פוטנציאלי עם WorkGuardAi", res3_sub:"הפחתה שמרנית של 60% בעלויות הקשורות לעיכובים",
+  res4_label:"עלות שנתית של WorkGuardAi (תוכנית Pro)", res4_sub:"€550/חודש · גישה מלאה · אתרים ללא הגבלה",
+  roi_cta:"התחל — הרוויח בחזרה את ההפסדים →", roi_note:"התחל עם פיילוט חינמי. ללא התחייבות.",
+  about_label:"הסיפור שלנו", about_title:"נבנה<br>מהיסוד",
+  about_p1:"WorkGuardAi נוסדה באוקטובר 2023 על ידי אנדריט קולה: תעשיית הבנייה עדיין ניהלה פרויקטים במיליוני אירו עם גיליונות אלקטרוניים ושיחות טלפון.",
+  about_p2:"אנדריט החליט לבנות פלטפורמת ניטור בבינה מלאכותית.",
+  about_p3:"בתמיכת אוניברסיטת LUT, מתנסיות הלסינקי ומימון Interreg EU.",
+  sv1:"נוסדה באוקטובר 2023 בפינלנד.", sv2:"מימון ראשון הובטח ביוני 2025.",
+  sv3:"סך השוק הניתן לפנייה בניטור AI לבנייה אירופאית.", sv4:"יעד גיוס ההון הנוכחי.",
+  team_heading:"הצוות", role_ceo:"מייסד ומנכ\"ל", role_cto:"מנהלת טכנולוגיה",
+  role_dev:"מפתח Full Stack", role_advisor:"יועץ שטח ותשתיות",
+  bio_ek:"מכירות מסחריות, סטארטאפים בינלאומיים, מוצרים דיגיטליים.",
+  bio_lc:"בינה מלאכותית, עיצוב טכנולוגי ואדריכלות מוצר.",
+  bio_ps:"פיתוח מוצר Full Stack.",
+  bio_ak:"מודד ומומחה שטח.",
+  li_connect:"💼 התחבר ב-LinkedIn",
+  journey_heading:"המסע שלנו",
+  tl1_date:"אוקטובר 2023", tl1_title:"WorkGuardAi נוסדה", tl1_desc:"החברה התחילה עם הרעיון המרכזי של ביטול ניטור ידני.",
+  tl2_date:"דצמבר 2023", tl2_title:"לקחים ראשונים ואיטרציה", tl2_desc:"מחקר לקוחות מוקדם עיצב את כיוון המוצר.",
+  tl3_date:"ינואר 2024", tl3_title:"צמיחת הצוות", tl3_desc:"לריסה ופראתהם הצטרפו לצוות.",
+  tl4_date:"אפריל 2024", tl4_title:"הצטרפות לתוכנית NEXUS", tl4_desc:"התקבלנו למאיצ NEXUS.",
+  tl5_date:"אוגוסט 2024", tl5_title:"מיתוג מחדש ל-WorkGuardAi", tl5_desc:"שם שונה לשקף את מיצוב ה-AI.",
+  tl6_date:"יוני 2025 · עכשיו", tl6_title:"מימון ראשון והשקת MVP", tl6_desc:"€8,000 הובטח. MVP פעיל עם ANK Construction.",
+  tl_here:"📍 אנחנו כאן",
+  tl7_date:"2025–2026", tl7_title:"התרחבות בפינלנד וגיוס €500K", tl7_desc:"השקה מסחרית ומימון זרעים.",
+  tl8_date:"2027–2028", tl8_title:"התרחבות באיחוד האירופי", tl8_desc:"התרחבות לשווקים אירופיים נוספים.",
+  tl9_date:"2030", tl9_title:"מוביל שוק", tl9_desc:"נוכחות גלובלית.",
+  partners_heading:"השותפים והתומכים שלנו",
+  iot_layer:"שכבת קישוריות IoT (LTE-M / NB-IoT)", iot_cam:"📷 מצלמת אתר", iot_sensor:"📏 חיישן התקדמות",
+  iot_env:"🌡️ סביבתי", iot_med:"🏥 מכשיר רפואי", iot_any:"כל תעשייה · כל מכשיר · כל מיקום",
+  iot_label:"קישוריות IoT — בקרוב", iot_title:"האתרים שלך, תמיד<br><span class='grad'>מחוברים</span>",
+  iot_sub:"שכבת ה-IoT הקרובה שלנו מאפשרת לכל עסק לנטר מכשירי שטח מרחוק.",
+  iot_li1:"קישוריות SIM מוגדרת מראש לקליטה מיידית", iot_li2:"עובד בבנייה, שירותים ולוגיסטיקה",
+  iot_li3:"כל נתוני המכשירים זורמים ישירות ללוח הבקרה", iot_li4:"קישוריות מגובה שותפים במחירים תחרותיים",
+  iot_li5:"הרחב את הניטור מעבר לאתר",
+  iot_cta:"הבע עניין ב-IoT →",
+  price_label:"תמחור", price_title:"תמחור פשוט ושקוף",
+  p1_tier:"פיילוט", p1_price:"חינם", p1_cad:"חקור את הפלטפורמה",
+  p1_f1:"אתר אחד, העלאת תוכניות מוגבלת", p1_f2:"גישה ללוח בקרה", p1_f3:"התראות AI בסיסיות", p1_f4:"קליטה אישית על ידי אנדריט", p1_f5:"לולאת משוב ישירה", p1_btn:"הגש מועמדות לגישת פיילוט",
+  p2_tier:"בסיס–פרו", p2_cad:"לחודש", p2_f1:"אתרים ללא הגבלה", p2_f2:"ניתוח DWG מלא", p2_f3:"ניטור AI בזמן אמת", p2_f4:"התראות חכמות לאבני דרך", p2_f5:"גישה רב-משתמשים", p2_f6:"תמיכה עדיפותית", p2_btn:"התחל",
+  p3_tier:"ארגוני", p3_price:"מותאם", p3_cad:"ניתן למשא ומתן", p3_f1:"הכל בתוכנית Pro", p3_f2:"חבילת קישוריות IoT", p3_f3:"אינטגרציות מותאמות", p3_f4:"מנהל חשבון ייעודי", p3_f5:"קליטה באתר", p3_f6:"ערבות SLA", p3_btn:"צור קשר עם מכירות",
+  cta_h2:"מוכן לניטור חכם יותר?", cta_p:"אנו מקבלים לקוחות פיילוט ראשונים באופן אישי. בוא נדבר.",
+  cta_btn1:"הגש מועמדות לגישה מוקדמת", cta_btn2:"כניסה לפלטפורמה",
+  foot_tagline:"ניטור AI לניהול אתרים חכם יותר.<br>חלום, חדש, שגשג.",
+  foot_lang_label:"שפה", foot_product:"מוצר", foot_company:"חברה", foot_access:"גישה",
+  foot_about_us:"אודות", foot_login:"כניסה לפלטפורמה", foot_contact:"צור קשר עם אנדריט",
+  foot_copy:"© 2026 WorkGuardAi. נוסדה על ידי אנדריט קולה. הלסינקי, פינלנד.",
+  foot_supported:"בתמיכת אוניברסיטת LUT · מתנסיות הלסינקי · Interreg EU",
+  modal_h3:"הגש מועמדות לגישה מוקדמת", modal_p:"אנדריט יצור קשר תוך 24 שעות.",
+  form_name:"שם מלא", form_email:"דוא\"ל עבודה", form_company:"חברה / ארגון",
+  form_industry:"תעשייה", form_select:"בחר את המגזר שלך", form_project:"ספר לנו על הפרויקט",
+  form_submit:"שלח מועמדות → ek@workguardai.com",
+  ph_name:"שמך", ph_company:"שם החברה", ph_project:"כמה אתרים אתה מנהל?",
+  ind_const:"בנייה", ind_infra:"תשתיות / הנדסה אזרחית", ind_med:"מכשירים רפואיים",
+  ind_util:"שירותים / אנרגיה", ind_log:"לוגיסטיקה / צי", ind_other:"אחר",
+  login_h3:"כניסה ל-WorkGuardAi", login_p:"גישה ללוח ניטור הבנייה שלך.",
+  login_pw:"סיסמה", login_btn:"עבור לפלטפורמה →", login_or:"או", login_noaccess:"אין לך גישה? הגש מועמדות כאן",
+  exit_h3:"רגע — לפני שאתה עוזב", exit_p:"אנו מציעים <strong>גישת פיילוט חינמית</strong> ל-5 חברות ברבעון זה.",
+  exit_spots:"מקומות פיילוט נותרו · ראשון בא ראשון נענה",
+  exit_email_label:"דוא\"ל העבודה שלך", exit_btn:"הבטח את המקום החינמי שלי →", exit_skip:"לא תודה",
+  confirm_sent:"✓ נשלח! אנדריט יצור קשר תוך 24 שעות.", confirm_reserved:"✓ מקום הובטח!"
+},
+
+ja: {
+  urgency_spots:"残り", urgency_spots2:"件のパイロット枠（今四半期）",
+  urgency_pill:"アーリーアダプタープログラム", urgency_cta:"今すぐ枠を確保 →",
+  nav_how:"使い方", nav_demo:"デモ", nav_features:"機能",
+  nav_recognition:"受賞歴", nav_about:"会社概要", nav_pricing:"料金",
+  nav_login:"ログイン", nav_request:"アクセスを申請",
+  hero_badge:"AI搭載の建設現場インテリジェンス",
+  hero_h1:"現場の基礎から<br><span class='grad'>ダッシュボード</span>へ",
+  hero_sub:"WorkGuardAiは建設・インフラ現場をリアルタイムで監視し、計画と実際の進捗を自動比較。現場管理者の手作業ゼロを実現します。",
+  proof1:"🏆 Sisu Factoryピッチ優勝", proof2:"🏙️ ヘルシンキ・エスポー・ヴァンター市選定", proof3:"📰 PitchBob.io掲載",
+  hero_cta1:"早期アクセスを申請", hero_cta2:"デモを見る →",
+  stat1:"の現場が非効率", stat2:"がコストのかかる遅延に直面", stat3:"が毎日世界中で損失",
+  dash_site1:"現場アルファ · 掘削", dash_site2:"現場ベータ · 基礎", dash_site3:"現場ガンマ · 躯体",
+  dash_67:"67% 完了", dash_ontrack:"予定通り", dash_milestone:"✓ マイルストーン達成",
+  dash_40:"40% 完了", dash_delay:"3日遅延", dash_offtrack:"⚠ 遅延中",
+  dash_85:"85% 完了", dash_ahead:"2日前倒し", dash_aheadplan:"↑ 計画より前倒し",
+  dash_iot:"IoT接続", dash_devices:"4台接続中 · LTE-M",
+  sp_recognised:"認定機関", sp_sisu:"🏆 Sisu Factory — ピッチ優勝",
+  sp_pitchbob:"📰 PitchBob.io掲載", sp_cities:"🏙️ ヘルシンキ・エスポー・ヴァンター市選定",
+  sp_linkedin:"💼 LinkedInでフォロー",
+  ea_tag:"🔒 限定早期アクセス", ea_h3:"初期パイロット顧客を個別にオンボーディング中",
+  ea_p:"WorkGuardAiはデモ段階にあり、少数の建設・インフラ企業と選択的に協業中。Endritが直接サポートします。",
+  ea_cta1:"早期アクセスに申し込む", ea_cta2:"まずプラットフォームを見る →",
+  recog_label:"受賞歴・トラクション",
+  recog_title:"未来を<span class='grad'>築く人々</span>に<br>認められた実績",
+  recog1_h4:"優勝 — Sauna Pitchingイベント", recog1_p:"Sisu Factory主催のSauna PitchingイベントでWorkGuardAiが2位以内に選出されました。",
+  recog2_h4:"ヘルシンキ・エスポー・ヴァンター市選定", recog2_p:"3都市の革新的アイデア公募でWorkGuardAiが選定されました。",
+  recog3_h4:"掲載：「AIトランスフォーメーションをリードする」", recog3_p:"PitchBob.ioのSecret Seedsスポットライトにて特集されました。",
+  recog_link_li:"LinkedInで発表を見る →", recog_link_pb:"記事全文を読む →",
+  how_label:"使い方", how_title:"DWGファイルから<br>リアルタイム洞察へ",
+  how_sub:"建設計画を一度アップロードするだけで、WorkGuardAiが数学的に読み取り、実際の進捗を自動追跡します。",
+  step1_h:"DWGプランをアップロード", step1_p:"建築・土木ファイルをドロップするだけ。WorkGuardAiが掘削計画と現場レイアウトをデジタルレンダリングします。",
+  step2_h:"AIが計画と現実を比較", step2_p:"モデルがアップロードされた計画と実際の進捗を継続的に比較。手作業ゼロ。",
+  step3_h:"スマートAI通知が発火", step3_p:"マイルストーン達成時や遅延発生時に、設計者・管理者へ即座に通知。",
+  step4_h:"複数現場を同時監視", step4_p:"ダッシュボード1つで全現場をリアルタイム管理。スプレッドシート不要。",
+  grid_label:"現場アルファ · ライブグリッドビュー", leg_done:"完了", leg_active:"進行中", leg_pending:"未着手", leg_alert:"警告",
+  grid_overall:"全体進捗", grid_completed:"計画完了率",
+  demo_badge:"▶ ライブデモ", demo_title:"WorkGuardAiを<br>実際に見る",
+  demo_sub:"実際のDWGファイルを解析し、現場計画を可視化してリアルタイムで進捗を追跡する様子をご覧ください。",
+  demo_cta1:"早期アクセスに申し込む", demo_cta2:"すでにアクセスをお持ちの方はログイン →",
+  feat_label:"プラットフォーム機能", feat_title:"チームが前に進むための<br>すべてが揃っています",
+  feat_sub:"厳しい納期でマルチサイト運営を管理する建設・インフラ企業向けに構築。",
+  f1_h:"DWGプラン解析", f1_p:"WorkGuardAiがDWGファイルを数学的に読み取り、掘削計画をデジタルレンダリングします。",
+  f2_h:"リアルタイム進捗追跡", f2_p:"実際の現場進捗とアップロード済み計画をライブ比較。手作業入力なし。",
+  f3_h:"AIスマート通知", f3_p:"マイルストーン達成・遅延発生時に設計者・管理者へ自動通知。",
+  f4_h:"マルチサイトダッシュボード", f4_p:"1つのダッシュボードで複数現場を管理。電話・手作業更新不要。",
+  f5_h:"IoT接続レイヤー", f5_p:"LTE-MまたはNB-IoT経由でセンサーやカメラを接続。",
+  f6_h:"サードパーティ連携", f6_p:"既存のプロジェクト管理・ERPプラットフォームと連携可能。",
+  tag_live:"MVPで稼働中", tag_soon:"近日公開", tag_roadmap:"ロードマップ",
+  roi_label:"ROI計算機", roi_title:"遅延は年間どれだけ<br><span class='grad'>損失をもたらすか？</span>",
+  roi_sub:"プロジェクト詳細を入力して、建設遅延による年間損失予測とWorkGuardAiの節約効果を確認。",
+  roi_form_h:"プロジェクトプロフィール", roi_form_p:"スライダーを調整してください。結果は即時更新されます。",
+  roi_l1:"稼働中の建設現場数", roi_l2:"現場あたりの平均プロジェクト金額（€）",
+  roi_l3:"平均プロジェクト期間（ヶ月）", roi_l4:"自社の推定遅延率（%）",
+  roi_disclaimer:"* 業界平均：77%の建設プロジェクトで遅延が発生。遅延コストはプロジェクト総額の5〜15%が一般的。",
+  res1_label:"遅延による年間損失推定", res1_sub:"遅延率とプロジェクト金額に基づく試算",
+  res2_label:"手作業監視の無駄時間", res2_sub:"手作業報告に費やす年間推定時間",
+  res3_label:"WorkGuardAiによる年間節約予測", res3_sub:"リアルタイムAI監視による遅延コスト60%削減（保守的試算）",
+  res4_label:"WorkGuardAi年間コスト（Proプラン）", res4_sub:"€550/月 · フルアクセス · 現場数無制限",
+  roi_cta:"今すぐ始める — 損失を取り戻す →", roi_note:"無料パイロットからスタート。コミットメント不要。",
+  about_label:"私たちの物語", about_title:"基礎から<br>積み上げた",
+  about_p1:"WorkGuardAiは2023年10月にEndrit Kolaが設立。建設業界がスプレッドシートと電話でプロジェクトを管理していた現状を変えるために。",
+  about_p2:"Endritは現場管理者の手作業負担をゼロにするAI監視プラットフォームの構築に着手しました。",
+  about_p3:"LUT大学、ヘルシンキインキュベーター、Interreg EUの支援を受け、ANK Constructionとのパイロット案件が進行中。",
+  sv1:"2023年10月、フィンランドで設立。", sv2:"2025年6月、LUT大学とEUファンドより初期資金調達。",
+  sv3:"欧州建設AIモニタリングの総市場規模。", sv4:"現在の資金調達目標。",
+  team_heading:"チーム", role_ceo:"創業者 & CEO", role_cto:"CTO",
+  role_dev:"フルスタック開発者", role_advisor:"フィールド & インフラアドバイザー",
+  bio_ek:"営業・国際スタートアップ・デジタルプロダクト・EMEAテレコムの深い経験。",
+  bio_lc:"AI・技術デザイン・プロダクトアーキテクチャ。",
+  bio_ps:"フルスタックプロダクト開発。",
+  bio_ak:"測量士・フィールドエキスパート。",
+  li_connect:"💼 LinkedInでつながる",
+  journey_heading:"歩み",
+  tl1_date:"2023年10月", tl1_title:"WorkGuardAi設立", tl1_desc:"手作業による現場監視をなくすというコアアイデアからスタート。",
+  tl2_date:"2023年12月", tl2_title:"初期知見とプロダクト改善", tl2_desc:"顧客調査でプロダクト方向性が確立。DWG解析が技術的差別化要因に。",
+  tl3_date:"2024年1月", tl3_title:"チーム拡大", tl3_desc:"LarissaとPrathamがチームに参加。",
+  tl4_date:"2024年4月", tl4_title:"NEXUSプログラム参加", tl4_desc:"NEXUSインキュベーターに採択。",
+  tl5_date:"2024年8月", tl5_title:"WorkGuardAiにリブランド", tl5_desc:"AIポジショニングを反映した社名に変更。",
+  tl6_date:"2025年6月 · 現在", tl6_title:"初期資金調達とMVPローンチ", tl6_desc:"€8,000調達完了。ANK ConstructionとのMVP稼働中。",
+  tl_here:"📍 現在地",
+  tl7_date:"2025〜2026", tl7_title:"フィンランド展開と€500K調達", tl7_desc:"商用ローンチとシード資金調達。",
+  tl8_date:"2027〜2028", tl8_title:"EU展開", tl8_desc:"欧州市場へのスケール。",
+  tl9_date:"2030", tl9_title:"市場リーダー", tl9_desc:"グローバルプレゼンス。",
+  partners_heading:"パートナー・支援者",
+  iot_layer:"IoT接続レイヤー（LTE-M / NB-IoT）", iot_cam:"📷 現場カメラ", iot_sensor:"📏 進捗センサー",
+  iot_env:"🌡️ 環境モニタリング", iot_med:"🏥 医療機器", iot_any:"あらゆる業界 · 機器 · 場所",
+  iot_label:"IoT接続 — 近日公開", iot_title:"現場は、いつでも<br><span class='grad'>つながっている</span>",
+  iot_sub:"次世代IoTレイヤーで、あらゆる業界のフィールド機器をリモート監視可能に。",
+  iot_li1:"事前設定済みSIMで即座にデバイスオンボーディング",
+  iot_li2:"建設・公共インフラ・医療・物流に対応",
+  iot_li3:"すべてのデバイスデータがダッシュボードに直接連携",
+  iot_li4:"パートナー支援の競争力ある料金での接続",
+  iot_li5:"現場を超えた資産監視を実現",
+  iot_cta:"IoTへの関心を示す →",
+  price_label:"料金プラン", price_title:"シンプルで透明な料金",
+  p1_tier:"パイロット", p1_price:"無料", p1_cad:"プラットフォームを体験",
+  p1_f1:"1現場・プランアップロード制限あり", p1_f2:"ダッシュボードアクセス", p1_f3:"基本AI通知", p1_f4:"Endritによる個別オンボーディング", p1_f5:"チームとの直接フィードバック", p1_btn:"パイロットアクセスに申し込む",
+  p2_tier:"ベーシック〜プロ", p2_cad:"/ 月", p2_f1:"現場数無制限", p2_f2:"DWGプラン完全解析", p2_f3:"リアルタイムAI監視", p2_f4:"スマートマイルストーン通知", p2_f5:"マルチユーザーアクセス", p2_f6:"優先サポート", p2_btn:"始める",
+  p3_tier:"エンタープライズ", p3_price:"カスタム", p3_cad:"要相談", p3_f1:"プロの全機能", p3_f2:"IoT接続バンドル", p3_f3:"カスタム連携", p3_f4:"専任アカウントマネージャー", p3_f5:"オンサイトオンボーディング", p3_f6:"SLA保証", p3_btn:"営業に問い合わせる",
+  cta_h2:"スマートな監視を始める準備はできていますか？", cta_p:"初期パイロット顧客を個別にオンボーディングしています。ご連絡ください。",
+  cta_btn1:"早期アクセスに申し込む", cta_btn2:"プラットフォームにログイン",
+  foot_tagline:"AIで実現する、スマートな現場管理。<br>夢を持ち、革新し、繁栄する。",
+  foot_lang_label:"言語", foot_product:"製品", foot_company:"会社", foot_access:"アクセス",
+  foot_about_us:"会社概要", foot_login:"プラットフォームにログイン", foot_contact:"Endritに連絡",
+  foot_copy:"© 2026 WorkGuardAi. 創業者：Endrit Kola. ヘルシンキ、フィンランド。",
+  foot_supported:"LUT大学 · ヘルシンキインキュベーター · Interreg EUの支援",
+  modal_h3:"早期アクセスに申し込む", modal_p:"Endritが24時間以内にご連絡します。",
+  form_name:"氏名", form_email:"ビジネスメール", form_company:"会社名 / 組織名",
+  form_industry:"業種", form_select:"業種を選択", form_project:"プロジェクトについて教えてください",
+  form_submit:"申し込みを送信 → ek@workguardai.com",
+  ph_name:"お名前", ph_company:"会社名", ph_project:"管理している現場数は？",
+  ind_const:"建設", ind_infra:"インフラ / 土木工学", ind_med:"医療機器 / ヘルスケア",
+  ind_util:"公共インフラ / エネルギー", ind_log:"物流 / 車両管理", ind_other:"その他",
+  login_h3:"WorkGuardAiにログイン", login_p:"建設監視ダッシュボードにアクセス。",
+  login_pw:"パスワード", login_btn:"プラットフォームへ →", login_or:"または", login_noaccess:"アクセス権がない方はこちらから申し込む",
+  exit_h3:"少しお待ちください", exit_p:"今四半期、5社に<strong>無料パイロットアクセス</strong>を提供中。費用ゼロ、Endritによる個別サポート。",
+  exit_spots:"パイロット枠残り · 先着順",
+  exit_email_label:"ビジネスメール", exit_btn:"無料枠を確保する →", exit_skip:"結構です",
+  confirm_sent:"✓ 送信完了！Endritが24時間以内にご連絡します。", confirm_reserved:"✓ 枠を確保しました！"
+},
+
+zh: {
+  urgency_spots:"仅剩", urgency_spots2:"个试点名额（本季度）",
+  urgency_pill:"早期采用者计划", urgency_cta:"立即锁定名额 →",
+  nav_how:"产品介绍", nav_demo:"演示", nav_features:"功能",
+  nav_recognition:"荣誉资质", nav_about:"关于我们", nav_pricing:"定价",
+  nav_login:"登录", nav_request:"申请访问",
+  hero_badge:"AI驱动的建筑工地智能管理",
+  hero_h1:"从地基到<br><span class='grad'>管理面板</span>",
+  hero_sub:"WorkGuardAi实时监控您的建筑和基础设施工地——自动对比实际进度与计划，无需现场管理人员手动操作。",
+  proof1:"🏆 Sisu Factory路演冠军", proof2:"🏙️ 赫尔辛基、埃斯波和万塔市入选", proof3:"📰 PitchBob.io专题报道",
+  hero_cta1:"申请早期访问", hero_cta2:"观看演示 →",
+  stat1:"的工地效率低下", stat2:"面临高昂的工期延误", stat3:"每天全球损失",
+  dash_site1:"工地Alpha · 土方开挖", dash_site2:"工地Beta · 基础施工", dash_site3:"工地Gamma · 主体结构",
+  dash_67:"67% 已完成", dash_ontrack:"按期推进", dash_milestone:"✓ 里程碑达成",
+  dash_40:"40% 已完成", dash_delay:"延误3天", dash_offtrack:"⚠ 进度滞后",
+  dash_85:"85% 已完成", dash_ahead:"提前2天", dash_aheadplan:"↑ 超前于计划",
+  dash_iot:"物联网连接", dash_devices:"4台设备在线 · LTE-M",
+  sp_recognised:"获得认可", sp_sisu:"🏆 Sisu Factory — 路演冠军",
+  sp_pitchbob:"📰 PitchBob.io专题报道", sp_cities:"🏙️ 赫尔辛基、埃斯波和万塔市入选",
+  sp_linkedin:"💼 在LinkedIn上关注我们",
+  ea_tag:"🔒 限量早期访问", ea_h3:"我们正在亲自为首批试点客户提供服务",
+  ea_p:"WorkGuardAi目前处于演示阶段，正在与少数建筑和基础设施企业开展合作。您将获得Endrit的直接个人支持。",
+  ea_cta1:"申请早期访问", ea_cta2:"先了解平台 →",
+  recog_label:"荣誉与影响力",
+  recog_title:"经过<span class='grad'>建设未来的人</span><br>共同验证",
+  recog1_h4:"冠军 — Sauna Pitching大赛", recog1_p:"WorkGuardAi在Sisu Factory举办的Sauna Pitching大赛中入选最佳两个项目之一。",
+  recog2_h4:"赫尔辛基、埃斯波和万塔市入选", recog2_p:"WorkGuardAi从众多竞争者中脱颖而出，获得三座芬兰城市认可。",
+  recog3_h4:"专题报道：\"引领AI驱动的变革\"", recog3_p:"PitchBob.io在Secret Seeds创业专栏中重点介绍了WorkGuardAi。",
+  recog_link_li:"查看LinkedIn公告 →", recog_link_pb:"阅读完整文章 →",
+  how_label:"工作原理", how_title:"从DWG文件<br>到实时洞察",
+  how_sub:"只需上传一次施工图纸——WorkGuardAi自动解读、建立工地模型、追踪真实进度。",
+  step1_h:"上传DWG图纸", step1_p:"拖入建筑或土木工程文件，WorkGuardAi即可解析并数字化渲染工地布局。",
+  step2_h:"AI对比计划与实际", step2_p:"模型持续将真实工地进度与上传图纸对比——全程零手动录入。",
+  step3_h:"智能AI通知自动触发", step3_p:"里程碑达成或进度偏差时，系统即时通知所有工地的设计师和管理人员。",
+  step4_h:"同时监控多个工地", step4_p:"一个面板掌控所有工地实时进度。告别表格与电话汇报。",
+  grid_label:"工地Alpha · 实时网格视图", leg_done:"已完成", leg_active:"进行中", leg_pending:"待开始", leg_alert:"警告",
+  grid_overall:"整体进度", grid_completed:"计划完成率",
+  demo_badge:"▶ 实时演示", demo_title:"观看WorkGuardAi<br>实际运行",
+  demo_sub:"观看平台解析真实DWG文件、可视化工地计划并实时追踪施工进度的全过程。",
+  demo_cta1:"申请早期访问", demo_cta2:"已有访问权限？立即登录 →",
+  feat_label:"平台功能", feat_title:"您的团队所需的<br>一切，助您领先一步",
+  feat_sub:"专为管理多工地、工期紧张的建筑和基础设施企业打造。",
+  f1_h:"DWG图纸解析", f1_p:"WorkGuardAi数学化读取并数字化渲染您的开挖和施工图纸。",
+  f2_h:"实时进度追踪", f2_p:"实时对比真实施工进度与上传图纸。零手动录入。",
+  f3_h:"AI智能通知", f3_p:"里程碑达成或工期滞后时自动通知设计师和管理人员。",
+  f4_h:"多工地管理面板", f4_p:"单一面板管理多个工地，无需电话沟通或手动更新。",
+  f5_h:"物联网连接层", f5_p:"通过LTE-M或NB-IoT连接传感器和摄像头。",
+  f6_h:"第三方集成", f6_p:"与现有项目管理和ERP平台无缝对接。",
+  tag_live:"MVP已上线", tag_soon:"即将推出", tag_roadmap:"产品路线图",
+  roi_label:"ROI计算器", roi_title:"工期延误每年让您<br><span class='grad'>损失多少？</span>",
+  roi_sub:"输入项目详情，查看建筑延误导致的年度估算损失及WorkGuardAi能为您节省多少。",
+  roi_form_h:"您的项目概况", roi_form_p:"拖动滑块匹配您的实际情况，结果即时更新。",
+  roi_l1:"在建工地数量", roi_l2:"每个工地平均项目金额（€）",
+  roi_l3:"平均项目周期（月）", roi_l4:"贵公司预计延误率（%）",
+  roi_disclaimer:"* 行业平均：77%的建筑项目存在工期延误。延误成本通常占项目总额的5–15%。",
+  res1_label:"延误导致的年度估算损失", res1_sub:"基于您的延误率和项目金额",
+  res2_label:"手动监督浪费的小时数", res2_sub:"每年用于手动汇报的估算时间",
+  res3_label:"使用WorkGuardAi的潜在年度节省", res3_sub:"通过实时AI监控保守估计减少60%延误相关成本",
+  res4_label:"WorkGuardAi年费（专业版）", res4_sub:"€550/月 · 完整平台访问 · 工地数量不限",
+  roi_cta:"立即开始——夺回损失 →", roi_note:"从免费试点开始，无需承诺。",
+  about_label:"我们的故事", about_title:"从零开始<br>一步步建立",
+  about_p1:"WorkGuardAi由Endrit Kola于2023年10月创立，起因是一个简单的观察：建筑行业还在用电子表格和电话管理数百万欧元的项目。",
+  about_p2:"Endrit着手打造一个AI监控平台，彻底解放现场管理人员的手动工作。",
+  about_p3:"在LUT大学、赫尔辛基孵化器和Interreg EU资金的支持下成长至今，首个试点项目与ANK Construction正在推进。",
+  sv1:"2023年10月在芬兰创立。", sv2:"2025年6月获得LUT大学和EU基金首笔融资。",
+  sv3:"欧洲建筑AI监控总体可寻址市场规模。", sv4:"当前融资目标。",
+  team_heading:"团队", role_ceo:"创始人 & CEO", role_cto:"首席技术官",
+  role_dev:"全栈开发工程师", role_advisor:"现场与基础设施顾问",
+  bio_ek:"商业销售、国际创业、数字产品及EMEA电信领域深厚背景。",
+  bio_lc:"AI、技术设计与产品架构。",
+  bio_ps:"全栈产品开发。",
+  bio_ak:"测量师与现场专家。",
+  li_connect:"💼 在LinkedIn上联系",
+  journey_heading:"我们的历程",
+  tl1_date:"2023年10月", tl1_title:"WorkGuardAi创立", tl1_desc:"以消除建筑工地手动监控为核心理念起步。",
+  tl2_date:"2023年12月", tl2_title:"早期学习与产品迭代", tl2_desc:"客户研究确立产品方向，DWG解析成为核心技术差异化点。",
+  tl3_date:"2024年1月", tl3_title:"团队扩张", tl3_desc:"Larissa和Pratham加入团队。",
+  tl4_date:"2024年4月", tl4_title:"加入NEXUS计划", tl4_desc:"入选NEXUS孵化器。",
+  tl5_date:"2024年8月", tl5_title:"品牌升级为WorkGuardAi", tl5_desc:"更名以更好体现AI定位。",
+  tl6_date:"2025年6月 · 当前", tl6_title:"首轮融资与MVP发布", tl6_desc:"获得€8,000融资。MVP与ANK Construction试点运行中。",
+  tl_here:"📍 我们在这里",
+  tl7_date:"2025–2026", tl7_title:"芬兰市场拓展与€500K融资", tl7_desc:"商业化发布与种子轮融资。",
+  tl8_date:"2027–2028", tl8_title:"欧盟市场拓展", tl8_desc:"向其他欧洲市场扩张。",
+  tl9_date:"2030", tl9_title:"市场领导者", tl9_desc:"全球布局。",
+  partners_heading:"合作伙伴与支持方",
+  iot_layer:"物联网连接层（LTE-M / NB-IoT）", iot_cam:"📷 工地摄像头", iot_sensor:"📏 进度传感器",
+  iot_env:"🌡️ 环境监测", iot_med:"🏥 医疗设备", iot_any:"任何行业 · 任何设备 · 任何地点",
+  iot_label:"物联网连接——即将推出", iot_title:"您的工地，随时<br><span class='grad'>保持连接</span>",
+  iot_sub:"即将推出的物联网层将让任何企业都能远程监控现场设备。",
+  iot_li1:"预配置SIM卡，设备即插即用",
+  iot_li2:"适用于建筑、公用事业、医疗远程监控和物流",
+  iot_li3:"所有设备数据直接推送至管理面板",
+  iot_li4:"合作伙伴支持，提供具有竞争力的连接费率",
+  iot_li5:"将监控范围延伸至工地以外",
+  iot_cta:"表达对物联网的兴趣 →",
+  price_label:"定价", price_title:"简单透明的定价",
+  p1_tier:"试点版", p1_price:"免费", p1_cad:"探索平台",
+  p1_f1:"1个工地，图纸上传有限制", p1_f2:"面板访问权限", p1_f3:"基础AI通知", p1_f4:"Endrit亲自提供入驻支持", p1_f5:"与团队直接反馈沟通", p1_btn:"申请试点访问",
+  p2_tier:"基础–专业版", p2_cad:"每月", p2_f1:"工地数量不限", p2_f2:"完整DWG图纸解析", p2_f3:"实时AI监控", p2_f4:"智能里程碑通知", p2_f5:"多用户访问", p2_f6:"优先支持", p2_btn:"立即开始",
+  p3_tier:"企业版", p3_price:"定制", p3_cad:"可协商", p3_f1:"专业版全部功能", p3_f2:"物联网连接套餐", p3_f3:"定制集成", p3_f4:"专属客户经理", p3_f5:"现场入驻服务", p3_f6:"SLA保障", p3_btn:"联系销售团队",
+  cta_h2:"准备好开启智能监控了吗？", cta_p:"我们正在亲自接待首批试点客户。如果您管理建筑或基础设施工地并希望告别手动汇报，欢迎联系我们。",
+  cta_btn1:"申请早期访问", cta_btn2:"登录平台",
+  foot_tagline:"AI监控，让工地管理更智能。<br>敢于梦想，勇于创新，走向繁荣。",
+  foot_lang_label:"语言", foot_product:"产品", foot_company:"公司", foot_access:"访问",
+  foot_about_us:"关于我们", foot_login:"登录平台", foot_contact:"联系Endrit",
+  foot_copy:"© 2026 WorkGuardAi。由Endrit Kola创立。赫尔辛基，芬兰。",
+  foot_supported:"获得LUT大学 · 赫尔辛基孵化器 · Interreg EU支持",
+  modal_h3:"申请早期访问", modal_p:"Endrit将在24小时内与您联系。",
+  form_name:"姓名", form_email:"工作邮箱", form_company:"公司 / 机构",
+  form_industry:"行业", form_select:"选择您的行业", form_project:"介绍您的项目",
+  form_submit:"提交申请 → ek@workguardai.com",
+  ph_name:"您的姓名", ph_company:"公司名称", ph_project:"您管理几个工地？",
+  ind_const:"建筑施工", ind_infra:"基础设施 / 土木工程", ind_med:"医疗器械 / 医疗健康",
+  ind_util:"公用事业 / 能源", ind_log:"物流 / 车队管理", ind_other:"其他",
+  login_h3:"登录WorkGuardAi", login_p:"访问您的建筑监控面板。",
+  login_pw:"密码", login_btn:"前往平台 →", login_or:"或", login_noaccess:"还没有访问权限？在这里申请",
+  exit_h3:"等一下——在您离开之前", exit_p:"本季度我们为5家建筑和基础设施企业提供<strong>免费试点访问</strong>。零成本，Endrit亲自服务。",
+  exit_spots:"本季度剩余试点名额 · 先到先得",
+  exit_email_label:"您的工作邮箱", exit_btn:"立即锁定免费名额 →", exit_skip:"不了，谢谢",
+  confirm_sent:"✓ 已提交！Endrit将在24小时内联系您。", confirm_reserved:"✓ 名额已锁定！"
+},
+
+ko: {
+  urgency_spots:"이번 분기", urgency_spots2:"파일럿 자리 남음",
+  urgency_pill:"얼리 어답터 프로그램", urgency_cta:"지금 자리 확보하기 →",
+  nav_how:"사용 방법", nav_demo:"데모", nav_features:"기능",
+  nav_recognition:"수상 이력", nav_about:"회사 소개", nav_pricing:"요금제",
+  nav_login:"로그인", nav_request:"액세스 신청",
+  hero_badge:"AI 기반 건설 현장 인텔리전스",
+  hero_h1:"기초 공사부터<br><span class='grad'>대시보드</span>까지",
+  hero_sub:"WorkGuardAi가 건설 및 인프라 현장을 실시간으로 모니터링합니다. 현장 관리자의 수작업 없이 실제 진행 상황을 계획과 자동 비교합니다.",
+  proof1:"🏆 Sisu Factory 피치 우승", proof2:"🏙️ 헬싱키·에스포·반타 시 선정", proof3:"📰 PitchBob.io 소개",
+  hero_cta1:"얼리 액세스 신청", hero_cta2:"데모 보기 →",
+  stat1:"의 현장이 비효율적", stat2:"가 비용이 큰 지연을 겪음", stat3:"이 매일 전 세계에서 손실",
+  dash_site1:"현장 알파 · 굴착", dash_site2:"현장 베타 · 기초", dash_site3:"현장 감마 · 골조",
+  dash_67:"67% 완료", dash_ontrack:"일정 준수", dash_milestone:"✓ 마일스톤 달성",
+  dash_40:"40% 완료", dash_delay:"3일 지연", dash_offtrack:"⚠ 지연 중",
+  dash_85:"85% 완료", dash_ahead:"2일 앞당김", dash_aheadplan:"↑ 계획 대비 앞선 진행",
+  dash_iot:"IoT 연결", dash_devices:"4대 활성 · LTE-M",
+  sp_recognised:"인정 기관", sp_sisu:"🏆 Sisu Factory — 피치 우승",
+  sp_pitchbob:"📰 PitchBob.io 소개", sp_cities:"🏙️ 헬싱키·에스포·반타 시 선정",
+  sp_linkedin:"💼 LinkedIn 팔로우",
+  ea_tag:"🔒 한정 얼리 액세스", ea_h3:"첫 파일럿 고객을 직접 온보딩 중입니다",
+  ea_p:"WorkGuardAi는 데모 단계이며 소수의 건설·인프라 기업과 선별적으로 협력 중입니다. Endrit이 직접 지원합니다.",
+  ea_cta1:"얼리 액세스 신청", ea_cta2:"먼저 플랫폼 살펴보기 →",
+  recog_label:"수상 이력 및 성과",
+  recog_title:"<span class='grad'>미래를 만드는 사람들</span>로부터<br>검증받은 솔루션",
+  recog1_h4:"우승 — Sauna Pitching 이벤트", recog1_p:"Sisu Factory가 주최한 Sauna Pitching 이벤트에서 WorkGuardAi가 최우수 2팀 중 하나로 선정되었습니다.",
+  recog2_h4:"헬싱키·에스포·반타 시 선정", recog2_p:"세 핀란드 도시의 혁신 아이디어 공모에서 WorkGuardAi가 선정되었습니다.",
+  recog3_h4:"소개: \"AI 혁신을 이끌다\"", recog3_p:"PitchBob.io Secret Seeds 스타트업 스포트라이트에 소개되었습니다.",
+  recog_link_li:"LinkedIn 발표 보기 →", recog_link_pb:"전문 읽기 →",
+  how_label:"사용 방법", how_title:"DWG 파일에서<br>실시간 인사이트까지",
+  how_sub:"시공 계획을 한 번 업로드하면 WorkGuardAi가 수학적으로 분석하고 실제 진행 상황을 자동으로 추적합니다.",
+  step1_h:"DWG 도면 업로드", step1_p:"건축·토목 파일을 드롭하면 WorkGuardAi가 굴착 및 현장 레이아웃을 디지털로 렌더링합니다.",
+  step2_h:"AI가 계획 대 현실 비교", step2_p:"모델이 업로드된 계획과 실제 진행 상황을 지속적으로 비교합니다. 수동 입력 완전 제로.",
+  step3_h:"스마트 AI 알림 발송", step3_p:"마일스톤 달성 또는 지연 발생 시 모든 현장의 설계자와 관리자에게 즉시 알림 전송.",
+  step4_h:"여러 현장 동시 모니터링", step4_p:"하나의 대시보드로 모든 현장을 실시간 관리. 스프레드시트와 전화 보고 불필요.",
+  grid_label:"현장 알파 · 라이브 그리드 뷰", leg_done:"완료", leg_active:"진행 중", leg_pending:"대기 중", leg_alert:"경고",
+  grid_overall:"전체 진행률", grid_completed:"계획 완료율",
+  demo_badge:"▶ 라이브 데모", demo_title:"WorkGuardAi<br>실제 작동 모습",
+  demo_sub:"플랫폼이 실제 DWG 파일을 분석하고 굴착 진행 상황을 실시간으로 추적하는 과정을 확인하세요.",
+  demo_cta1:"얼리 액세스 신청", demo_cta2:"이미 액세스가 있으신가요? 로그인 →",
+  feat_label:"플랫폼 기능", feat_title:"팀이 앞서 나가기 위한<br>모든 것",
+  feat_sub:"촉박한 납기와 복잡한 다현장 운영을 관리하는 건설·인프라 기업을 위해 구축되었습니다.",
+  f1_h:"DWG 도면 분석", f1_p:"WorkGuardAi가 DWG 파일을 수학적으로 읽고 디지털로 렌더링합니다.",
+  f2_h:"실시간 진행 상황 추적", f2_p:"업로드된 도면과 실제 현장 진행 상황을 실시간 비교. 수동 입력 없음.",
+  f3_h:"AI 스마트 알림", f3_p:"마일스톤 달성 또는 지연 시 설계자와 관리자에게 자동 알림 전송.",
+  f4_h:"다현장 대시보드", f4_p:"하나의 대시보드로 여러 현장 관리. 전화·수동 업데이트 불필요.",
+  f5_h:"IoT 연결 레이어", f5_p:"LTE-M 또는 NB-IoT를 통해 센서와 카메라 연결.",
+  f6_h:"서드파티 연동", f6_p:"기존 프로젝트 관리 및 ERP 플랫폼과 연결.",
+  tag_live:"MVP 운영 중", tag_soon:"출시 예정", tag_roadmap:"로드맵",
+  roi_label:"ROI 계산기", roi_title:"지연이 매년 얼마의<br><span class='grad'>손실을 가져오나요?</span>",
+  roi_sub:"프로젝트 세부 사항을 입력하고 공사 지연으로 인한 연간 예상 손실과 WorkGuardAi의 절감 효과를 확인하세요.",
+  roi_form_h:"프로젝트 프로필", roi_form_p:"슬라이더를 조정하세요. 결과가 즉시 업데이트됩니다.",
+  roi_l1:"활성 건설 현장 수", roi_l2:"현장당 평균 프로젝트 금액 (€)",
+  roi_l3:"평균 프로젝트 기간 (개월)", roi_l4:"회사 예상 지연율 (%)",
+  roi_disclaimer:"* 업계 평균: 건설 프로젝트의 77%에서 지연이 발생. 지연 비용은 일반적으로 총 프로젝트 금액의 5–15%.",
+  res1_label:"지연으로 인한 연간 예상 손실", res1_sub:"지연율 및 프로젝트 금액 기반 추정",
+  res2_label:"수동 모니터링 낭비 시간", res2_sub:"수동 현장 보고에 소비되는 연간 예상 시간",
+  res3_label:"WorkGuardAi 도입 시 연간 절감 예상액", res3_sub:"실시간 AI 모니터링으로 지연 관련 비용 60% 절감(보수적 추정)",
+  res4_label:"WorkGuardAi 연간 비용 (Pro 플랜)", res4_sub:"€550/월 · 전체 플랫폼 액세스 · 무제한 현장",
+  roi_cta:"지금 시작 — 손실을 만회하세요 →", roi_note:"무료 파일럿으로 시작. 약정 없음.",
+  about_label:"우리의 이야기", about_title:"기초부터<br>쌓아 올린",
+  about_p1:"WorkGuardAi는 2023년 10월 Endrit Kola가 설립했습니다. 건설 산업이 여전히 스프레드시트와 전화로 수백만 유로 프로젝트를 관리하는 현실을 바꾸기 위해서입니다.",
+  about_p2:"Endrit은 현장 관리자의 수작업 부담을 완전히 없애는 AI 모니터링 플랫폼 구축에 착수했습니다.",
+  about_p3:"LUT 대학교, 헬싱키 인큐베이터, Interreg EU 펀딩의 지원을 받아 ANK Construction과의 첫 파일럿 프로젝트가 진행 중입니다.",
+  sv1:"2023년 10월 핀란드에서 설립.", sv2:"2025년 6월 LUT 대학교 및 EU 펀드에서 첫 자금 조달.",
+  sv3:"유럽 건설 AI 모니터링 총 시장 규모.", sv4:"현재 자금 조달 목표.",
+  team_heading:"팀", role_ceo:"창업자 & CEO", role_cto:"CTO",
+  role_dev:"풀스택 개발자", role_advisor:"현장 & 인프라 어드바이저",
+  bio_ek:"영업·국제 스타트업·디지털 제품·EMEA 통신 분야의 깊은 경력.",
+  bio_lc:"AI·기술 설계·제품 아키텍처.",
+  bio_ps:"풀스택 제품 개발.",
+  bio_ak:"측량사 및 현장 전문가.",
+  li_connect:"💼 LinkedIn에서 연결",
+  journey_heading:"우리의 여정",
+  tl1_date:"2023년 10월", tl1_title:"WorkGuardAi 설립", tl1_desc:"수동 현장 모니터링 제거라는 핵심 아이디어로 시작.",
+  tl2_date:"2023년 12월", tl2_title:"초기 인사이트 & 제품 반복", tl2_desc:"고객 조사로 제품 방향 확립. DWG 분석이 핵심 기술 차별화 요소로 선정.",
+  tl3_date:"2024년 1월", tl3_title:"팀 확장", tl3_desc:"Larissa와 Pratham이 팀에 합류.",
+  tl4_date:"2024년 4월", tl4_title:"NEXUS 프로그램 참여", tl4_desc:"NEXUS 인큐베이터에 채택.",
+  tl5_date:"2024년 8월", tl5_title:"WorkGuardAi로 리브랜딩", tl5_desc:"AI 포지셔닝을 반영한 사명 변경.",
+  tl6_date:"2025년 6월 · 현재", tl6_title:"첫 투자 유치 & MVP 출시", tl6_desc:"€8,000 조달 완료. ANK Construction과 MVP 운영 중.",
+  tl_here:"📍 현재 위치",
+  tl7_date:"2025–2026", tl7_title:"핀란드 확장 & €500K 유치", tl7_desc:"상업적 출시와 시드 투자 유치.",
+  tl8_date:"2027–2028", tl8_title:"EU 시장 확장", tl8_desc:"유럽 시장으로 스케일업.",
+  tl9_date:"2030", tl9_title:"시장 리더", tl9_desc:"글로벌 입지 구축.",
+  partners_heading:"파트너 및 지원 기관",
+  iot_layer:"IoT 연결 레이어 (LTE-M / NB-IoT)", iot_cam:"📷 현장 카메라", iot_sensor:"📏 진행 센서",
+  iot_env:"🌡️ 환경 모니터링", iot_med:"🏥 의료 기기", iot_any:"모든 산업 · 모든 기기 · 모든 위치",
+  iot_label:"IoT 연결 — 출시 예정", iot_title:"현장은, 언제나<br><span class='grad'>연결되어 있습니다</span>",
+  iot_sub:"곧 출시될 IoT 레이어를 통해 모든 기업이 현장 기기를 원격으로 모니터링할 수 있습니다.",
+  iot_li1:"사전 구성된 SIM으로 즉시 기기 온보딩",
+  iot_li2:"건설·공공시설·의료 원격 모니터링·물류에 적용 가능",
+  iot_li3:"모든 기기 데이터가 대시보드로 직접 연동",
+  iot_li4:"파트너 지원 연결, 경쟁력 있는 요금",
+  iot_li5:"현장을 넘어 자산이 있는 곳까지 모니터링 확장",
+  iot_cta:"IoT에 관심 표명하기 →",
+  price_label:"요금제", price_title:"간단하고 투명한 요금제",
+  p1_tier:"파일럿", p1_price:"무료", p1_cad:"플랫폼 체험",
+  p1_f1:"현장 1개, 도면 업로드 제한", p1_f2:"대시보드 액세스", p1_f3:"기본 AI 알림", p1_f4:"Endrit의 개인 온보딩", p1_f5:"팀과 직접 피드백", p1_btn:"파일럿 액세스 신청",
+  p2_tier:"베이직–프로", p2_cad:"/ 월", p2_f1:"현장 수 무제한", p2_f2:"완전한 DWG 도면 분석", p2_f3:"실시간 AI 모니터링", p2_f4:"스마트 마일스톤 알림", p2_f5:"다중 사용자 액세스", p2_f6:"우선 지원", p2_btn:"시작하기",
+  p3_tier:"엔터프라이즈", p3_price:"맞춤형", p3_cad:"협의 가능", p3_f1:"프로 플랜 전체 기능", p3_f2:"IoT 연결 번들", p3_f3:"맞춤형 통합", p3_f4:"전담 계정 매니저", p3_f5:"현장 온보딩", p3_f6:"SLA 보장", p3_btn:"영업팀에 문의",
+  cta_h2:"스마트한 모니터링을 시작할 준비가 되셨나요?", cta_p:"첫 파일럿 고객을 개인적으로 온보딩하고 있습니다. 건설·인프라 현장을 관리하고 수동 보고를 없애고 싶다면 연락 주세요.",
+  cta_btn1:"얼리 액세스 신청", cta_btn2:"플랫폼 로그인",
+  foot_tagline:"더 스마트한 현장 관리를 위한 AI 모니터링.<br>꿈꾸고, 혁신하고, 번영하라.",
+  foot_lang_label:"언어", foot_product:"제품", foot_company:"회사", foot_access:"액세스",
+  foot_about_us:"회사 소개", foot_login:"플랫폼 로그인", foot_contact:"Endrit에게 연락",
+  foot_copy:"© 2026 WorkGuardAi. Endrit Kola 설립. 헬싱키, 핀란드.",
+  foot_supported:"LUT 대학교 · 헬싱키 인큐베이터 · Interreg EU 지원",
+  modal_h3:"얼리 액세스 신청", modal_p:"Endrit이 24시간 이내에 연락드립니다.",
+  form_name:"성명", form_email:"업무용 이메일", form_company:"회사 / 기관명",
+  form_industry:"업종", form_select:"업종 선택", form_project:"프로젝트에 대해 알려주세요",
+  form_submit:"신청서 제출 → ek@workguardai.com",
+  ph_name:"이름", ph_company:"회사명", ph_project:"몇 개의 현장을 관리하고 계신가요?",
+  ind_const:"건설", ind_infra:"인프라 / 토목 공학", ind_med:"의료 기기 / 헬스케어",
+  ind_util:"공공시설 / 에너지", ind_log:"물류 / 차량 관리", ind_other:"기타",
+  login_h3:"WorkGuardAi 로그인", login_p:"건설 모니터링 대시보드에 접속합니다.",
+  login_pw:"비밀번호", login_btn:"플랫폼으로 이동 →", login_or:"또는", login_noaccess:"액세스 권한이 없으신가요? 여기서 신청",
+  exit_h3:"잠깐 — 떠나기 전에", exit_p:"이번 분기 건설·인프라 기업 5곳에 <strong>무료 파일럿 액세스</strong>를 제공합니다. 비용 없음, Endrit의 개인 온보딩.",
+  exit_spots:"이번 분기 남은 파일럿 자리 · 선착순",
+  exit_email_label:"업무용 이메일", exit_btn:"무료 자리 확보하기 →", exit_skip:"괜찮습니다",
+  confirm_sent:"✓ 제출 완료! Endrit이 24시간 이내에 연락드립니다.", confirm_reserved:"✓ 자리가 확보되었습니다!"
 }
 };
 
@@ -1869,14 +2602,27 @@ it: {
 // LANGUAGE ENGINE
 // ═══════════════════════════════════════════════
 const LANG_META = {
-  en:{flag:'🇬🇧',label:'EN'},
-  da:{flag:'🇩🇰',label:'DA'},
-  sq:{flag:'🇦🇱',label:'SQ'},
-  fi:{flag:'🇫🇮',label:'FI'},
-  pt:{flag:'🇵🇹',label:'PT'},
-  es:{flag:'🇪🇸',label:'ES'},
-  de:{flag:'🇩🇪',label:'DE'},
-  it:{flag:'🇮🇹',label:'IT'}
+  en:{flag:'🇬🇧',label:'EN',rtl:false},
+  da:{flag:'🇩🇰',label:'DA',rtl:false},
+  sq:{flag:'🇦🇱',label:'SQ',rtl:false},
+  fi:{flag:'🇫🇮',label:'FI',rtl:false},
+  pt:{flag:'🇵🇹',label:'PT',rtl:false},
+  es:{flag:'🇪🇸',label:'ES',rtl:false},
+  de:{flag:'🇩🇪',label:'DE',rtl:false},
+  it:{flag:'🇮🇹',label:'IT',rtl:false},
+  ar:{flag:'🇸🇦',label:'AR',rtl:true},
+  he:{flag:'🇮🇱',label:'HE',rtl:true},
+  ja:{flag:'🇯🇵',label:'JA',rtl:false},
+  zh:{flag:'🇨🇳',label:'ZH',rtl:false},
+  ko:{flag:'🇰🇷',label:'KO',rtl:false},
+  pl:{flag:'🇵🇱',label:'PL',rtl:false},
+  et:{flag:'🇪🇪',label:'ET',rtl:false},
+  lv:{flag:'🇱🇻',label:'LV',rtl:false},
+  lt:{flag:'🇱🇹',label:'LT',rtl:false},
+  nl:{flag:'🇳🇱',label:'NL',rtl:false},
+  fr:{flag:'🇫🇷',label:'FR',rtl:false},
+  no:{flag:'🇳🇴',label:'NO',rtl:false},
+  sv:{flag:'🇸🇪',label:'SV',rtl:false}
 };
 
 let currentLang = 'en';
@@ -1901,6 +2647,8 @@ function applyLang(lang) {
   var labelEl = document.getElementById('nav-lang-label');
   if(flagEl) flagEl.textContent = meta.flag;
   if(labelEl) labelEl.textContent = meta.label;
+  // RTL support
+  document.documentElement.setAttribute('dir', meta.rtl ? 'rtl' : 'ltr');
   document.querySelectorAll('#nav-lang-dropdown .lang-option').forEach(function(opt) {
     opt.classList.toggle('active', opt.getAttribute('data-lang') === lang);
   });
