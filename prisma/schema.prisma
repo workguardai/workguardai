@@ -1,0 +1,468 @@
+// WorkGuard AI — Prisma schema.
+//
+// Design notes:
+//  - `User.id` mirrors the Supabase Auth user UUID (source of identity).
+//  - Operational unit is `Site`: drawings, milestones, progress, deviations,
+//    alerts and dashboards all hang off a Site.
+//  - AI output is stored as validated JSON (`Json` columns) alongside the
+//    structured rows the app queries directly.
+//  - Soft deletes (`deletedAt`) on user-facing aggregates; `version` columns
+//    give optimistic concurrency where concurrent edits are plausible.
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// ---------------------------------------------------------------------------
+// Enums
+// ---------------------------------------------------------------------------
+
+enum Role {
+  ADMIN
+  MANAGER
+  VIEWER
+  PILOT
+}
+
+enum SubscriptionTier {
+  FREE
+  PILOT
+  PRO
+  ENTERPRISE
+}
+
+enum SubscriptionStatus {
+  ACTIVE
+  PAST_DUE
+  CANCELED
+}
+
+enum ProcessingStatus {
+  PENDING
+  PROCESSING
+  COMPLETED
+  FAILED
+}
+
+enum MilestoneStatus {
+  PENDING
+  IN_PROGRESS
+  COMPLETED
+  BLOCKED
+  DELAYED
+}
+
+enum DeviationType {
+  MISSING_WORK
+  UNEXPECTED_WORK
+  BLOCKED_WORK
+}
+
+enum AlertSeverity {
+  INFO
+  LOW
+  MEDIUM
+  HIGH
+  CRITICAL
+}
+
+enum AlertCategory {
+  MILESTONE_REACHED
+  DELAY_PREDICTED
+  DEVIATION
+  DEPENDENCY_BLOCKED
+  RISK_AREA
+  SCHEDULE_SLIPPAGE
+  COST_IMPACT
+}
+
+enum NotificationStatus {
+  UNREAD
+  READ
+}
+
+enum AIEvaluationStatus {
+  PENDING
+  RUNNING
+  SUCCEEDED
+  FAILED
+}
+
+// ---------------------------------------------------------------------------
+// Identity & tenancy
+// ---------------------------------------------------------------------------
+
+/// Mirror of a Supabase Auth user. `id` equals the Supabase auth UUID.
+model User {
+  id        String   @id
+  email     String   @unique
+  fullName  String?
+  avatarUrl String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  ownedOrganizations Organization[]  @relation("OrgOwner")
+  memberships        ProjectMember[]
+  notifications      Notification[]
+  auditLogs          AuditLog[]
+  activityLogs       ActivityLog[]
+
+  @@index([email])
+}
+
+model Organization {
+  id        String    @id @default(cuid())
+  name      String
+  ownerId   String
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  deletedAt DateTime?
+
+  owner        User          @relation("OrgOwner", fields: [ownerId], references: [id])
+  projects     Project[]
+  subscription Subscription?
+  usage        Usage?
+  apiKeys      ApiKey[]
+  auditLogs    AuditLog[]
+  activityLogs ActivityLog[]
+
+  @@index([ownerId])
+}
+
+model Project {
+  id             String    @id @default(cuid())
+  organizationId String
+  name           String
+  description    String?
+  version        Int       @default(0)
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
+  deletedAt      DateTime?
+
+  organization Organization    @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  sites        Site[]
+  members      ProjectMember[]
+
+  @@index([organizationId])
+}
+
+/// Membership + role scoped to a project.
+model ProjectMember {
+  id        String   @id @default(cuid())
+  projectId String
+  userId    String
+  role      Role     @default(VIEWER)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  project Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  user    User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([projectId, userId])
+  @@index([userId])
+}
+
+model Site {
+  id          String    @id @default(cuid())
+  projectId   String
+  name        String
+  location    String?
+  version     Int       @default(0)
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  deletedAt   DateTime?
+
+  project           Project            @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  drawings          Drawing[]
+  milestones        Milestone[]
+  progressSnapshots ProgressSnapshot[]
+  deviations        Deviation[]
+  alerts            Alert[]
+  dashboards        DashboardSnapshot[]
+  aiEvaluations     AIEvaluation[]
+
+  @@index([projectId])
+}
+
+// ---------------------------------------------------------------------------
+// Drawings & parsing
+// ---------------------------------------------------------------------------
+
+model Drawing {
+  id            String           @id @default(cuid())
+  siteId        String
+  originalName  String
+  storageKey    String
+  mimeType      String?
+  fileSize      Int?
+  status        ProcessingStatus @default(PENDING)
+  latestVersion Int              @default(0)
+  createdAt     DateTime         @default(now())
+  updatedAt     DateTime         @updatedAt
+  deletedAt     DateTime?
+
+  site     Site             @relation(fields: [siteId], references: [id], onDelete: Cascade)
+  versions DrawingVersion[]
+
+  @@index([siteId])
+  @@index([status])
+}
+
+model DrawingVersion {
+  id         String           @id @default(cuid())
+  drawingId  String
+  version    Int
+  storageKey String
+  status     ProcessingStatus @default(PENDING)
+  createdAt  DateTime         @default(now())
+  updatedAt  DateTime         @updatedAt
+
+  drawing       Drawing        @relation(fields: [drawingId], references: [id], onDelete: Cascade)
+  parsedDrawing ParsedDrawing?
+  aiEvaluations AIEvaluation[]
+
+  @@unique([drawingId, version])
+  @@index([drawingId])
+}
+
+/// Normalized digital representation of a drawing (site graph as JSON).
+model ParsedDrawing {
+  id               String   @id @default(cuid())
+  drawingVersionId String   @unique
+  parserStrategy   String
+  graph            Json
+  confidence       Float?
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+
+  drawingVersion DrawingVersion @relation(fields: [drawingVersionId], references: [id], onDelete: Cascade)
+}
+
+// ---------------------------------------------------------------------------
+// Progress, milestones, deviations
+// ---------------------------------------------------------------------------
+
+model Milestone {
+  id          String          @id @default(cuid())
+  siteId      String
+  key         String
+  title       String
+  description String?
+  status      MilestoneStatus @default(PENDING)
+  expectedPct Float           @default(0)
+  actualPct   Float           @default(0)
+  confidence  Float?
+  dueDate     DateTime?
+  createdAt   DateTime        @default(now())
+  updatedAt   DateTime        @updatedAt
+
+  site       Site        @relation(fields: [siteId], references: [id], onDelete: Cascade)
+  deviations Deviation[]
+
+  @@unique([siteId, key])
+  @@index([siteId])
+  @@index([status])
+}
+
+model ProgressSnapshot {
+  id           String   @id @default(cuid())
+  siteId       String
+  expectedPct  Float
+  actualPct    Float
+  riskScore    Float?
+  confidence   Float?
+  predictedEnd DateTime?
+  capturedAt   DateTime @default(now())
+
+  site Site @relation(fields: [siteId], references: [id], onDelete: Cascade)
+
+  @@index([siteId, capturedAt])
+}
+
+model Deviation {
+  id          String        @id @default(cuid())
+  siteId      String
+  milestoneId String?
+  type        DeviationType
+  description String
+  severity    AlertSeverity @default(MEDIUM)
+  confidence  Float?
+  details     Json?
+  createdAt   DateTime      @default(now())
+
+  site      Site       @relation(fields: [siteId], references: [id], onDelete: Cascade)
+  milestone Milestone? @relation(fields: [milestoneId], references: [id], onDelete: SetNull)
+
+  @@index([siteId])
+  @@index([milestoneId])
+}
+
+// ---------------------------------------------------------------------------
+// Alerts, dashboards, notifications
+// ---------------------------------------------------------------------------
+
+model Alert {
+  id             String        @id @default(cuid())
+  siteId         String
+  category       AlertCategory
+  severity       AlertSeverity
+  title          String
+  reason         String
+  recommendation String?
+  confidence     Float?
+  metadata       Json?
+  resolvedAt     DateTime?
+  createdAt      DateTime      @default(now())
+
+  site          Site           @relation(fields: [siteId], references: [id], onDelete: Cascade)
+  notifications Notification[]
+
+  @@index([siteId])
+  @@index([severity])
+  @@index([category])
+}
+
+/// Precomputed dashboard payload for fast reads.
+model DashboardSnapshot {
+  id         String   @id @default(cuid())
+  siteId     String
+  data       Json
+  isPreview  Boolean  @default(false)
+  createdAt  DateTime @default(now())
+
+  site Site @relation(fields: [siteId], references: [id], onDelete: Cascade)
+
+  @@index([siteId, createdAt])
+}
+
+model Notification {
+  id        String             @id @default(cuid())
+  userId    String
+  alertId   String?
+  title     String
+  body      String
+  status    NotificationStatus @default(UNREAD)
+  createdAt DateTime           @default(now())
+
+  user  User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  alert Alert? @relation(fields: [alertId], references: [id], onDelete: SetNull)
+
+  @@index([userId, status])
+}
+
+// ---------------------------------------------------------------------------
+// AI evaluations
+// ---------------------------------------------------------------------------
+
+/// One AI run over a drawing version. `output` holds the validated JSON payload.
+model AIEvaluation {
+  id               String             @id @default(cuid())
+  siteId           String
+  drawingVersionId String?
+  status           AIEvaluationStatus @default(PENDING)
+  model            String
+  promptTokens     Int?
+  completionTokens Int?
+  costUsd          Float?
+  output           Json?
+  error            String?
+  createdAt        DateTime           @default(now())
+  updatedAt        DateTime           @updatedAt
+
+  site           Site            @relation(fields: [siteId], references: [id], onDelete: Cascade)
+  drawingVersion DrawingVersion? @relation(fields: [drawingVersionId], references: [id], onDelete: SetNull)
+
+  @@index([siteId])
+  @@index([status])
+  @@index([drawingVersionId])
+}
+
+// ---------------------------------------------------------------------------
+// Billing & usage
+// ---------------------------------------------------------------------------
+
+model Subscription {
+  id             String             @id @default(cuid())
+  organizationId String             @unique
+  tier           SubscriptionTier   @default(PILOT)
+  status         SubscriptionStatus @default(ACTIVE)
+  currentPeriodEnd DateTime?
+  createdAt      DateTime           @default(now())
+  updatedAt      DateTime           @updatedAt
+
+  organization Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+}
+
+/// Per-organization usage counters used to enforce tier limits.
+model Usage {
+  id               String   @id @default(cuid())
+  organizationId   String   @unique
+  projectCount     Int      @default(0)
+  siteCount        Int      @default(0)
+  drawingCount     Int      @default(0)
+  aiEvaluationCount Int     @default(0)
+  alertCount       Int      @default(0)
+  periodStart      DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+
+  organization Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+}
+
+// ---------------------------------------------------------------------------
+// Audit & activity
+// ---------------------------------------------------------------------------
+
+model AuditLog {
+  id             String   @id @default(cuid())
+  organizationId String?
+  userId         String?
+  action         String
+  resourceType   String
+  resourceId     String?
+  metadata       Json?
+  ip             String?
+  createdAt      DateTime @default(now())
+
+  organization Organization? @relation(fields: [organizationId], references: [id], onDelete: SetNull)
+  user         User?         @relation(fields: [userId], references: [id], onDelete: SetNull)
+
+  @@index([organizationId, createdAt])
+  @@index([userId])
+}
+
+model ActivityLog {
+  id             String   @id @default(cuid())
+  organizationId String?
+  userId         String?
+  message        String
+  metadata       Json?
+  createdAt      DateTime @default(now())
+
+  organization Organization? @relation(fields: [organizationId], references: [id], onDelete: SetNull)
+  user         User?         @relation(fields: [userId], references: [id], onDelete: SetNull)
+
+  @@index([organizationId, createdAt])
+}
+
+// ---------------------------------------------------------------------------
+// API keys (future — minimal placeholder per blueprint model list)
+// ---------------------------------------------------------------------------
+
+model ApiKey {
+  id             String    @id @default(cuid())
+  organizationId String
+  name           String
+  hashedKey      String    @unique
+  lastUsedAt     DateTime?
+  revokedAt      DateTime?
+  createdAt      DateTime  @default(now())
+
+  organization Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+
+  @@index([organizationId])
+}
