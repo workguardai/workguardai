@@ -1,0 +1,11 @@
+# GitHub language statistics (linguist).
+# Goal: report this repository as TypeScript only.
+#
+# Exclude every path from language stats by default, then re-include the
+# TypeScript source we actually author. This affects GitHub's language bar only;
+# all files remain tracked and unchanged.
+
+* linguist-vendored
+
+*.ts  linguist-vendored=false
+*.tsx linguist-vendored=false
