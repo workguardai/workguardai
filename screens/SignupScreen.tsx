@@ -8,6 +8,8 @@ import { useToast } from '@/providers/ToastProvider';
 import { Button } from '@/components/ui/Button';
 import { Field, inputClass } from '@/components/ui/Field';
 import { AuthShell } from '@/components/app/AuthShell';
+import { GoogleAuthButton } from '@/components/app/GoogleAuthButton';
+import { AuthDivider } from '@/components/app/AuthDivider';
 
 export function SignupScreen() {
   const router = useRouter();
@@ -66,6 +68,8 @@ export function SignupScreen() {
         </>
       }
     >
+      <GoogleAuthButton label="Sign up with Google" />
+      <AuthDivider />
       <form onSubmit={onSubmit} className="flex flex-col gap-5" noValidate>
         <Field label="Full name" htmlFor="fullName">
           <input
