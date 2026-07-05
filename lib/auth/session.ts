@@ -12,10 +12,16 @@
  */
 import { UnauthorizedError } from '@/lib/errors';
 import { createServerSupabase } from '@/lib/auth/supabaseServer';
+import { isDevAuthActive, readDevSession } from '@/lib/auth/devAuth';
 import type { AuthUser } from '@/types';
 
 /** Resolve the current authenticated user, or `null` if anonymous. */
 export async function getAuthUser(): Promise<AuthUser | null> {
+  // Testing bypass: resolve from the dev cookie instead of Supabase.
+  if (isDevAuthActive()) {
+    return readDevSession();
+  }
+
   const supabase = await createServerSupabase();
   const { data, error } = await supabase.auth.getUser();
 

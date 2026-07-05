@@ -11,7 +11,7 @@
 import { z } from 'zod';
 import { Prisma } from '@prisma/client';
 
-import { AppError, ErrorCode, isAppError } from '@/lib/errors';
+import { AppError, ErrorCode, isAppError, isNetworkError } from '@/lib/errors';
 import { ContentType, HttpHeader } from '@/lib/constants';
 import { successEnvelope } from '@/schemas/common';
 import type { Logger } from '@/lib/logger';
@@ -84,6 +84,14 @@ function mapError(error: unknown): MappedError {
     if (error.code === 'P2025') {
       return { status: 404, code: ErrorCode.NOT_FOUND, message: 'Resource not found' };
     }
+  }
+
+  if (isNetworkError(error)) {
+    return {
+      status: 503,
+      code: ErrorCode.SERVICE_UNAVAILABLE,
+      message: 'Service temporarily unavailable. Please try again shortly.',
+    };
   }
 
   return {

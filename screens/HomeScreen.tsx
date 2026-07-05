@@ -9,6 +9,7 @@ import { FeaturesSection } from '@/components/marketing/FeaturesSection';
 import { IoTSection } from '@/components/marketing/IoTSection';
 import { RecognitionSection } from '@/components/marketing/RecognitionSection';
 import { PricingSection } from '@/components/marketing/PricingSection';
+import { RoiCalculator } from '@/components/marketing/RoiCalculator';
 import { FaqSection } from '@/components/marketing/FaqSection';
 import { FinalCtaSection } from '@/components/marketing/FinalCtaSection';
 import { SiteFooter } from '@/components/marketing/SiteFooter';
@@ -29,6 +30,7 @@ export function HomeScreen() {
         <IoTSection />
         <RecognitionSection />
         <PricingSection />
+        <RoiCalculator />
         <FaqSection />
         <FinalCtaSection />
       </main>

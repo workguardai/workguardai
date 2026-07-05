@@ -18,6 +18,20 @@ export const CookieName = {
   CORRELATION_ID: 'wg_correlation_id',
 } as const;
 
+/** Auth cookie identifiers used for coarse session detection. */
+export const AuthCookie = {
+  /** Prefix Supabase uses for its auth token cookies. */
+  SUPABASE_PREFIX: 'sb-',
+  /** Cookie set by the dev-auth testing bypass (see lib/auth/devAuth.ts). */
+  DEV_SESSION: 'wg_dev_session',
+} as const;
+
+/** Fixed identity used by the dev-auth bypass. */
+export const DevAuthDefaults = {
+  USER_ID: '00000000-0000-4000-8000-000000000001',
+  FULL_NAME: 'Dev Tester',
+} as const;
+
 /** Standard content types. */
 export const ContentType = {
   JSON: 'application/json',

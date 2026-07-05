@@ -21,6 +21,7 @@ export const ErrorCode = {
   RATE_LIMITED: 'RATE_LIMITED',
   AI_ERROR: 'AI_ERROR',
   UPLOAD_ERROR: 'UPLOAD_ERROR',
+  SERVICE_UNAVAILABLE: 'SERVICE_UNAVAILABLE',
   INTERNAL_ERROR: 'INTERNAL_ERROR',
 } as const;
 
@@ -91,6 +92,32 @@ export class AIError extends AppError {
   }
 }
 
+/** Raised when a required upstream service (auth, DB) is unreachable/misconfigured. */
+export class ServiceUnavailableError extends AppError {
+  constructor(message = 'Service temporarily unavailable. Please try again shortly.') {
+    super(ErrorCode.SERVICE_UNAVAILABLE, 503, message);
+  }
+}
+
 export function isAppError(error: unknown): error is AppError {
   return error instanceof AppError;
+}
+
+/**
+ * True when an error is a low-level network/DNS failure (e.g. Supabase host
+ * unreachable or still a placeholder) rather than a real auth rejection.
+ */
+export function isNetworkError(error: unknown): boolean {
+  const codes = ['ENOTFOUND', 'ECONNREFUSED', 'ETIMEDOUT', 'EAI_AGAIN', 'UND_ERR'];
+  function scan(e: unknown, depth = 0): boolean {
+    if (!e || depth > 4) return false;
+    if (typeof e === 'object') {
+      const obj = e as { code?: unknown; message?: unknown; cause?: unknown };
+      if (typeof obj.code === 'string' && codes.includes(obj.code)) return true;
+      if (typeof obj.message === 'string' && (obj.message.includes('fetch failed') || codes.some((c) => (obj.message as string).includes(c)))) return true;
+      if (obj.cause) return scan(obj.cause, depth + 1);
+    }
+    return false;
+  }
+  return scan(error);
 }

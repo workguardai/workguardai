@@ -7,6 +7,8 @@ import { usePathname, useRouter } from 'next/navigation';
 import { LayoutDashboard, Building2, Bell, Settings, Menu, X, LogOut } from 'lucide-react';
 
 import { cn } from '@/lib/cn';
+import { useConfirm } from '@/providers/ConfirmProvider';
+import { NotificationsBell } from './NotificationsBell';
 
 const NAV = [
   { label: 'Dashboard', href: '/dashboard', icon: LayoutDashboard },
@@ -18,9 +20,18 @@ const NAV = [
 export function AppShell({ title, children }: { title: string; children: ReactNode }) {
   const pathname = usePathname();
   const router = useRouter();
+  const confirm = useConfirm();
   const [open, setOpen] = useState(false);
 
   async function logout() {
+    const ok = await confirm({
+      title: 'Log out of WorkGuard AI?',
+      description: 'You will need to sign in again to get back to your dashboard.',
+      confirmLabel: 'Log out',
+      cancelLabel: 'Stay signed in',
+    });
+    if (!ok) return;
+    setOpen(false);
     await fetch('/api/auth/logout', { method: 'POST' }).catch(() => {});
     router.push('/login');
   }
@@ -80,6 +91,7 @@ export function AppShell({ title, children }: { title: string; children: ReactNo
             </button>
             <h1 className="text-body-lg font-semibold text-ink">{title}</h1>
           </div>
+          <NotificationsBell />
         </header>
 
         <div className="flex-1 px-6 py-8">{children}</div>
