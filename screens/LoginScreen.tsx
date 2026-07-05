@@ -1,13 +1,15 @@
 'use client';
 
-import { useState, type FormEvent } from 'react';
+import { useEffect, useState, type FormEvent } from 'react';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 
 import { useToast } from '@/providers/ToastProvider';
 import { Button } from '@/components/ui/Button';
 import { Field, inputClass } from '@/components/ui/Field';
 import { AuthShell } from '@/components/app/AuthShell';
+import { GoogleAuthButton } from '@/components/app/GoogleAuthButton';
+import { AuthDivider } from '@/components/app/AuthDivider';
 
 export function LoginScreen() {
   const router = useRouter();
@@ -15,6 +17,18 @@ export function LoginScreen() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
+  const searchParams = useSearchParams();
+
+  // Google OAuth failures redirect back here with an ?error flag.
+  useEffect(() => {
+    if (searchParams.get('error')) {
+      toast({
+        type: 'error',
+        title: 'Google sign-in failed',
+        description: 'We could not complete Google sign-in. Please try again or use your email.',
+      });
+    }
+  }, [searchParams, toast]);
 
   async function onSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -34,7 +48,9 @@ export function LoginScreen() {
         });
         return;
       }
-      router.push('/dashboard');
+      const redirect = searchParams.get('redirect');
+      const safe = redirect && redirect.startsWith('/') && !redirect.startsWith('//') ? redirect : '/dashboard';
+      router.push(safe);
     } catch {
       toast({ type: 'error', title: 'Something went wrong', description: 'Please try again in a moment.' });
     } finally {
@@ -55,6 +71,8 @@ export function LoginScreen() {
         </>
       }
     >
+      <GoogleAuthButton />
+      <AuthDivider />
       <form onSubmit={onSubmit} className="flex flex-col gap-5" noValidate>
         <Field label="Email" htmlFor="email">
           <input

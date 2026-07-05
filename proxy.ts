@@ -21,7 +21,16 @@ import type { NextRequest } from 'next/server';
 import { HttpHeader } from '@/lib/constants';
 
 /** App page prefixes that require a session for browser navigation. */
-const PROTECTED_PAGE_PREFIXES = ['/dashboard', '/onboarding'] as const;
+const PROTECTED_PAGE_PREFIXES = [
+  '/dashboard', 
+  '/onboarding',
+  '/sites',
+  '/alerts',
+  '/settings'
+] as const;
+
+/** Auth pages a signed-in user should not see (sent to the dashboard instead). */
+const AUTH_PAGES = ['/login', '/signup'] as const;
 
 /** Supabase stores its auth token in cookies prefixed like this. */
 const SUPABASE_AUTH_COOKIE_HINT = 'sb-';
@@ -44,12 +53,20 @@ export function proxy(request: NextRequest): NextResponse {
     request.headers.get(HttpHeader.CORRELATION_ID) ?? crypto.randomUUID();
 
   const { pathname } = request.nextUrl;
+  const hasSession = hasSupabaseSessionCookie(request);
   const isProtectedPage = PROTECTED_PAGE_PREFIXES.some((prefix) => pathname.startsWith(prefix));
+  const isAuthPage = AUTH_PAGES.some((page) => pathname === page || pathname.startsWith(`${page}/`));
 
-  if (isProtectedPage && !hasSupabaseSessionCookie(request)) {
+  // Unauthenticated users cannot reach protected app pages.
+  if (isProtectedPage && !hasSession) {
     const loginUrl = new URL('/login', request.url);
     loginUrl.searchParams.set('redirect', pathname);
     return withSecurityHeaders(NextResponse.redirect(loginUrl), correlationId);
+  }
+
+  // Authenticated users should not see the login/signup pages.
+  if (isAuthPage && hasSession) {
+    return withSecurityHeaders(NextResponse.redirect(new URL('/dashboard', request.url)), correlationId);
   }
 
   // Propagate the correlation ID to downstream handlers via request headers.
