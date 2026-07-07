@@ -6,13 +6,16 @@
 
 import type { ReactNode } from 'react';
 
+import { ReduxProvider } from './ReduxProvider';
 import { ToastProvider } from './ToastProvider';
 import { ConfirmProvider } from './ConfirmProvider';
 
 export function Providers({ children }: { children: ReactNode }) {
   return (
-    <ToastProvider>
-      <ConfirmProvider>{children}</ConfirmProvider>
-    </ToastProvider>
+    <ReduxProvider>
+      <ToastProvider>
+        <ConfirmProvider>{children}</ConfirmProvider>
+      </ToastProvider>
+    </ReduxProvider>
   );
 }

@@ -32,6 +32,16 @@ const serverSchema = z.object({
    *  - 'dxf_geometry'  (recommended): DWG -> DXF -> deterministic geometry -> Gemini reasoning.
    */
   DRAWING_PARSER_STRATEGY: z.enum(['gemini_direct', 'dxf_geometry']).default('gemini_direct'),
+  /**
+   * Authentication mode.
+   *  - 'supabase' (default): real Supabase Auth.
+   *  - 'dev': testing bypass with fixed credentials. ONLY takes effect when
+   *    Supabase is not really configured and NODE_ENV is not production; a real
+   *    Supabase URL disables it automatically (see lib/auth/devAuth.ts).
+   */
+  AUTH_MODE: z.enum(['supabase', 'dev']).default('supabase'),
+  DEV_AUTH_EMAIL: z.string().default('dev@workguard.local'),
+  DEV_AUTH_PASSWORD: z.string().default('devpassword'),
 });
 
 /** Public variables. Inlined into the client bundle — must not hold secrets. */

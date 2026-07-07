@@ -12,11 +12,23 @@
 import { z } from 'zod';
 
 import { env } from '@/lib/env';
-import { UnauthorizedError, ValidationError } from '@/lib/errors';
+import {
+  UnauthorizedError,
+  ValidationError,
+  ServiceUnavailableError,
+  isNetworkError,
+} from '@/lib/errors';
 import { createServerSupabase } from '@/lib/auth/supabaseServer';
 import { userRepository } from '@/lib/repositories/userRepository';
 import { projectRepository } from '@/lib/repositories/projectRepository';
 import { getAuthUser } from '@/lib/auth/session';
+import {
+  isDevAuthActive,
+  devUser,
+  devCredentialsMatch,
+  setDevSession,
+  clearDevSession,
+} from '@/lib/auth/devAuth';
 import type { AuthUser } from '@/types';
 import type { RegisterRequest, LoginRequest } from '@/schemas/auth';
 
@@ -31,6 +43,16 @@ function toAuthUser(id: string, email: string | undefined, metadata: unknown): A
 
 export const authService = {
   async register(input: RegisterRequest) {
+    if (isDevAuthActive()) {
+      await setDevSession();
+      try {
+        await userRepository.upsert(devUser);
+      } catch {
+        // No database in pure-UI testing; session still works for the shell.
+      }
+      return { user: devUser, emailConfirmationRequired: false };
+    }
+
     const supabase = await createServerSupabase();
     const { data, error } = await supabase.auth.signUp({
       email: input.email,
@@ -56,11 +78,31 @@ export const authService = {
   },
 
   async login(input: LoginRequest): Promise<AuthUser> {
+    if (isDevAuthActive()) {
+      if (!devCredentialsMatch(input.email, input.password)) {
+        throw new UnauthorizedError('Invalid email or password');
+      }
+      await setDevSession();
+      try {
+        await userRepository.upsert(devUser);
+      } catch {
+        // No database in pure-UI testing; session still works for the shell.
+      }
+      return devUser;
+    }
+
     const supabase = await createServerSupabase();
-    const { data, error } = await supabase.auth.signInWithPassword({
-      email: input.email,
-      password: input.password,
-    });
+    let result;
+    try {
+      result = await supabase.auth.signInWithPassword({
+        email: input.email,
+        password: input.password,
+      });
+    } catch (err) {
+      if (isNetworkError(err)) throw new ServiceUnavailableError();
+      throw err;
+    }
+    const { data, error } = result;
 
     if (error || !data.user) {
       throw new UnauthorizedError('Invalid email or password');
@@ -72,6 +114,10 @@ export const authService = {
   },
 
   async logout(): Promise<void> {
+    if (isDevAuthActive()) {
+      await clearDevSession();
+      return;
+    }
     const supabase = await createServerSupabase();
     await supabase.auth.signOut();
   },
